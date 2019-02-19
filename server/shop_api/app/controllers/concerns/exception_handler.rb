@@ -6,7 +6,7 @@ module ExceptionHandler
   class MissingToken < StandardError; end
   class InvalidToken < StandardError; end
 
-   included do
+  included do
     # define custom handlers
     rescue_from ActiveRecord::RecordInvalid, with: :four_twenty_two
     rescue_from AuthenticationError, with: :unauthorized_request
@@ -18,13 +18,13 @@ module ExceptionHandler
     end
   end
 
-   private
+  private
 
-   def four_twenty_two(e)
+  def four_twenty_two(e)
     json_response({ message: e.message}, :unprocessable_entity)
   end
 
-   def unauthorized_request
+  def unauthorized_request(e)
     json_response({ message: e.message}, :unauthorized)
   end
 end
