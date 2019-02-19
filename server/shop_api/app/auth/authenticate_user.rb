@@ -8,7 +8,6 @@ class AuthenticateUser
   def call  
     payload = {
         user_id: user.id,    
-        role_id: user.role_id
     }
     JsonWebToken.encode(payload) if user 
   end
