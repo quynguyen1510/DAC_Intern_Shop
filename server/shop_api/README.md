@@ -1,24 +1,27 @@
-# README
+1. Require:
+  - Ruby version:  2.5.3p105
+  - Rails version: 5.2.2
+2. Create a new project using postgresql as database
+ - Run 'rails new PROJECT_NAME --api --database postgresql' in terminal
+ - Run 'cd PROJECT_NAME'
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+3. Project's config
 
-Things you may want to cover:
+- In gemfile,
+  [...]
+  + gem 'pg', '>= 0.18', '< 2.0' ( for postgresql)
+  + gem 'bcrypt ( ActiveModel has_secure_password )
+  [...]
 
-* Ruby version
+- In /config/database.yml:
+  + default: &default
+  + adapter: postgresql
+  + encoding: unicode
+  + pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  + username: log_user
+  + password: 123456
+  + host: localhost
 
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+- Run 'Bundle install' to install all of gems in gemfile
+- Run 'rails/rake db:create' to create a new database in postgresql
+- Run 'rails server/s' to run a local server
