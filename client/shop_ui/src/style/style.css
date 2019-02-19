@@ -1,0 +1,115 @@
+#footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: black;
+    padding: 30px;
+    color: white;
+    text-align: center;
+}
+.login-bar{
+    height: 25px;
+    background-color: #083646;
+    color: white;
+}
+.login-bar a{
+    text-align: right;
+    float: right;
+    margin-right: 15em;
+    color: white;
+    text-decoration: none;
+    background: none;
+}
+.login-bar a:hover{
+    text-decoration: none;
+    color: grey;
+}
+.logo-bar{
+    /* height: 115px; */
+    padding-top: 2em;
+    padding-bottom: 2em;
+    background-image: linear-gradient(-90deg, #0f8aac, #013e51);
+}
+/* .logo-bar-content{
+    padding-top: 15px;
+    margin-left: 35em;
+} */
+.nav-logo a img{
+    width: 127px;
+    height: 40px;
+}
+.nav-search{
+    display: inline-block;
+}
+.nav-cart{
+    display: inline-block;
+    margin-left: 30px;
+}
+.nav-cart a img{
+    width: 50px;
+    height: 50px;
+}
+#searchFrom input{
+    width: 90%;
+    /* /* width: 550px; */
+    height: 50px;
+}
+#searchFrom input{
+    padding-left: 20px;
+}
+#btnSearch{
+    background-color: #f57224;
+    width: 50px;
+}
+.cart-icon{
+    color: white;
+    width: 29px;
+    height: 26px;
+}
+.btnLoginBar{
+    margin-top: 2em;
+}
+.btnLoginBar button{
+    background-color:grey;
+    border: none;
+    color: white;
+    width: 230px;
+    height: 50px;
+    margin-left: -3px;
+    letter-spacing: 3px;
+}
+.btnLoginBar .active{
+    background-color: #083B4C;
+}
+.titlePopup{
+    margin-top: 1em;
+    color: white;
+}
+.inputForm{
+    margin-left: 1em;
+    margin-right: 1em;
+}
+#btnSubmit{
+    margin-top: 2em;
+    margin-bottom: 2em;
+    width: 29em;
+    color: white;
+    background: #083B4C;
+    height: 50px;
+    letter-spacing: 5px;
+}
+#firstName{
+    margin-right: 1em;
+}
+.inputForm .input-custom{
+    background: none;
+    border: 1px solid gray;
+    margin-top: 2em;
+}
+.inputForm .input-custom:focus{
+    background: none;
+}
+#modalContent{
+    background-color: #212C37;
+}
