@@ -39,7 +39,7 @@ class LoginForm extends Component {
 
     validatePassword = () => {
         const { password } = this.state;
-        this.setState({ passwordError: password.length < 6 ? "Password must be greater than six" : null }) 
+        this.setState({ passwordError: password.length < 6 ? "Password must be greater than 5" : null }) 
     }
 
     render() {
