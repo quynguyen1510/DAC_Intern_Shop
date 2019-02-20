@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import Header from './Header.js';
-import Footer from './Footer.js';
+
 import "../style/style.css";
+import Header from './commons/header/Header';
+import Footer from './commons/footer/Footer';
 
 
 class HomePage extends Component {
@@ -9,7 +10,7 @@ class HomePage extends Component {
     return (
         <div>
            <Header/>
-           <Footer/>
+           <Footer />
         </div>
     );
   }

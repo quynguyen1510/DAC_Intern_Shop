@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
-import LoginBar from './LoginBar.js';
-import LogoBar from './LogoBar.js';
+import LoginBar from './LoginBar';
+import LogoBar from './LogoBar';
+
 
 class Header extends Component {
     render() {
         return (
             <div className="header">
-                <LoginBar/>
+                <LoginBar />
     
-                <LogoBar/>
+                <LogoBar />
             </div>
         );
     }
