@@ -33,7 +33,42 @@
     text-decoration: none;
     color: grey;
 }
-/* ==End== */
+/* ==End LoginBar== */
+
+/* ===Menu bar=== */
+.menu-bar{
+    height: 25px;
+    background-color: #083646;
+}
+#avatar{
+    vertical-align: middle;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+}
+.nav-avatar{
+    padding-right: 15em;
+}
+.nav-avatar a{
+    text-decoration: none;
+    color: white;
+    margin: 1em;
+}
+#dropMenu{
+    display: inline-block;
+}
+.dropdown-menu{
+    background:  #083646;
+}
+.dropdown-menu .dropdown-custome{
+    padding-left:0;
+    padding: 0;
+}
+.dropdown-menu .dropdown-custome:hover{
+    background: none;
+    color: grey;
+}
+/* ===End MenuBar=== */
 
 /* ==Logo Bar== */
 .logo-bar{
@@ -68,7 +103,7 @@
   display: flex;
   justify-content: center;
 }
-/* ===End=== */
+/* ===End Nav Search=== */
 
 /* ===Cart=== */
 .nav-cart{
@@ -87,7 +122,7 @@
     width: 29px;
     height: 26px;
 }
-/* ===End=== */
+/* ===End Cart=== */
 
 
 /* ===End LogoBar=== */
@@ -139,6 +174,7 @@
     background: none;
     border: 1px solid gray;
     margin-top: 2em;
+    color: white;
 }
 
 .inputForm .input-custom:focus{

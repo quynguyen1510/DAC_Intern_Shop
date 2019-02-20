@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import SignupForm from './SignupForm.js';
 import LoginForm from './LoginForm.js';
+import Menu from './MenuBar.js';
 
 class LoginBar extends Component {
     constructor(props) {
