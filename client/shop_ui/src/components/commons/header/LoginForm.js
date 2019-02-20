@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
 class LoginForm extends Component {
@@ -25,9 +24,9 @@ class LoginForm extends Component {
         event.preventDefault();
         const { email, password } = this.state;
         this.props.login({
-            email: email,
-            password: password
-        })
+            "email": `${email}`,
+            "password": `${password}`
+        });
     }
 
     validateEmail = () => {

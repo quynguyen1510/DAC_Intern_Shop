@@ -4,17 +4,14 @@ import './index.css';
 import configStore from './store/ConfigStore';
 import { Provider } from 'react-redux';
 import HomePageContainer from './components/Homepage';
-import {Router, Route} from 'react-router-dom';
-import history from './history/history';
+import {BrowserRouter , Route} from 'react-router-dom';
 
 const store = configStore();
 
 ReactDOM.render(<Provider store={store}>
-                    <Router history={history}>
-                        <Route path="/" render={() => (
-                            <HomePageContainer />
-                        )} />
-                    </Router>
+                    <BrowserRouter >
+                        <Route path="/" exact component={HomePageContainer} />
+                    </BrowserRouter>
                 </Provider>, 
-    document.getElementById('root'));
+document.getElementById('root'));
 
