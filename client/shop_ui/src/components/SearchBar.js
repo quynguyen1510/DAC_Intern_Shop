@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 class SearchBar extends Component {
     render() {
         return (
-            <div className="col-5 nav-search">
+            <div className="col-md-8 nav-search">
                 <form>
                     <div className="input-group" id="searchFrom">
                         <input type="text" placeholder="Tìm kiếm..." />

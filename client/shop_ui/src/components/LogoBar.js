@@ -8,8 +8,10 @@ class LogoBar extends Component {
             <div className="logo-bar container-fluid">
                 <div className="container-fluid logo-bar-content">
                     <div className="row justify-content-md-center">
-                        <SearchBar />
-                        <Cart />
+                        <div className="col-md-8 col-offset-2 search-bar">
+                            <SearchBar />
+                            <Cart />
+                        </div>
                     </div>
                 </div>
             </div>
