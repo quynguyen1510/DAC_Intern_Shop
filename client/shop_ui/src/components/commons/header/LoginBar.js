@@ -22,9 +22,9 @@ class LoginBar extends Component {
     render() {
         let elmForm = null;
         if(this.state.isShowLogin) {
-            elmForm = <LoginForm/>
+            elmForm = <LoginForm {...this.props}/>
         }else{
-            elmForm = <SignupForm/>
+            elmForm = <SignupForm {...this.props}/>
         }
         return (
             <div>

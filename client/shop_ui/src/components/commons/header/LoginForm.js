@@ -24,6 +24,10 @@ class LoginForm extends Component {
     handleSubmit = event => {
         event.preventDefault();
         const { email, password } = this.state;
+        this.props.login({
+            email: email,
+            password: password
+        })
     }
 
     validateEmail = () => {
@@ -46,7 +50,7 @@ class LoginForm extends Component {
         return (
             <div className="inputForm">
                 <h2 className="titlePopup text-center">Login</h2>
-                <form onSubmit={this.handleSubmit}>
+                <form>
                     <div className="form-group">
                         <input  type="email" 
                                 className="input-custom form-control" 
@@ -63,7 +67,7 @@ class LoginForm extends Component {
                             onBlur={this.validatePassword} />
                         <div className="invalid-feedback">{this.state.passwordError}</div>
                     </div>
-                    <button type="submit" id="btnSubmit" className="btn btn-default">GET STARTED</button>
+                    <button type="submit" id="btnSubmit" className="btn btn-default" onClick={this.handleSubmit}>GET STARTED</button>
                 </form>
             </div>
         );
