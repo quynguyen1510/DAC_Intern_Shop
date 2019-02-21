@@ -4,14 +4,21 @@ class UsersController < ApplicationController
   # POST '/signup'
   def create 
     # use create! method will raise RecordInvalid exception if credentials is invalid
-    User.create!(user_params)
-    response = { message: Message.account_created }
+    # add normal user role for signup user
+    data = user_params
+    data[:role_id] = 2
+    puts data
+
+    @user = User.create!(data)
+    response = { 
+      user: @user, 
+      message: Message.account_created 
+    }
     json_response(response, :created)
   end
 
    private 
   def user_params
-    params.permit(:first_name, :last_name, :email, :password, :password_confirmation,
-                  :active, :role_id)
+    params.permit(:first_name, :last_name, :email, :password, :password_confirmation)
   end
 end

@@ -6,7 +6,7 @@ import Footer from './commons/footer/Footer';
 import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux';
 import { withRouter } from 'react-router';
-import {login}  from '../actions/SessionAction';
+import {login ,signup}  from '../actions/SessionAction';
 
 
 class HomePage extends Component {
@@ -27,7 +27,10 @@ function mapStateToProps(state){
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({login}, dispatch)
+  return bindActionCreators({
+    login,
+    signup
+  }, dispatch)
 }
 const HomePageContainer = withRouter(connect(mapStateToProps, mapDispatchToProps)(HomePage));
 export default HomePageContainer;
