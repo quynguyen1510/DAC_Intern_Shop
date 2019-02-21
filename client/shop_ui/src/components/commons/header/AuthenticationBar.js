@@ -31,8 +31,6 @@ class LoginBar extends Component {
         }
 
         const authenticated = this.props.session.session;
-        console.log(authenticated)
-
         return (
             <div>
                 {
