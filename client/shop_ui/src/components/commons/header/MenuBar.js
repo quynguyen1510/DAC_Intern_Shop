@@ -8,7 +8,7 @@ class Menu extends Component {
                     <div className="nav-avatar float-right">
                         <img src="./images/img_avatar.png" alt="Avatar" id="avatar" />
                         <div className="dropdown" id="dropMenu">
-                            <a href="#none" data-toggle="dropdown">Admin</a>
+                            <a href="#none" data-toggle="dropdown">Authenticate</a>
                             <div className="dropdown-menu">
                                 <a className="dropdown-item dropdown-custome" href="#">Thông tin cá nhân</a>
                                 <a className="dropdown-item dropdown-custome" href="#">Quản lý chiến dịch</a>
