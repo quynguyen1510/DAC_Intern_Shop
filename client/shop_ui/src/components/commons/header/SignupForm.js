@@ -40,6 +40,16 @@ class LoginForm extends Component {
     handleSubmit = event => {
         event.preventDefault();
         const { email, password, first_name, last_name, passwordConfirm } = this.state;
+        const credentials = {
+            "first_name" : `${first_name}`,
+            "last_name" : `${last_name}`,
+            "email" : `${email}`,
+            "password" : `${password}`,
+            "password_confirmation" : `${passwordConfirm}`
+        }
+        this.props.signup({
+            user: credentials
+        });
     }
 
     validateName = () => {
