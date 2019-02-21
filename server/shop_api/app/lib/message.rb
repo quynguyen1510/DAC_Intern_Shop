@@ -35,7 +35,12 @@ class Message
     "Sorry, you don't have permission"
   end
 
-   def self.account_remove
-    "Account remove successfully"
+  def self.account_removed
+    "Account has been disabled"
   end
+  
+  def self.update_succesffuly
+    "Account update successfully"
+  end
+
 end
