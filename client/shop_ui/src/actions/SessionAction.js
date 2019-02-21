@@ -15,7 +15,6 @@ export function loginFail(){
 }
 
 export function login(crendentials){
-    console.log("LOGIN")
     return function(dispatch){
         // if login successfully then get token and save it to local storage
         // dispatch an action login successfully
@@ -24,7 +23,6 @@ export function login(crendentials){
             method: 'POST',
             data: crendentials
         }).then(function(success){
-            console.log(success.data)
             sessionStorage.setItem("token", success.data.auth_token);
             dispatch(loginSuccess());
         }).catch(function(error){
@@ -33,3 +31,17 @@ export function login(crendentials){
     }
 }
 
+export function signup(crendentials){
+    return function(dispatch){
+        axios({
+            url: "http://localhost:3000/signup",
+            method: 'POST',
+            data: crendentials
+        }).then(function(success){
+            console.log(success.data)
+        })
+        .catch(function(error){
+            console.log(error)
+        })
+    }
+}
