@@ -32,5 +32,6 @@ function mapDispatchToProps(dispatch) {
     signup
   }, dispatch)
 }
+
 const HomePageContainer = withRouter(connect(mapStateToProps, mapDispatchToProps)(HomePage));
 export default HomePageContainer;
