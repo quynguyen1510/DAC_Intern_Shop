@@ -7,6 +7,7 @@ import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux';
 import { withRouter } from 'react-router';
 import {login ,signup}  from '../actions/SessionAction';
+import {getUserByID} from '../actions/UsersAction';
 
 
 class HomePage extends Component {
@@ -29,7 +30,8 @@ function mapStateToProps(state){
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({
     login,
-    signup
+    signup,
+    getUserByID
   }, dispatch)
 }
 
