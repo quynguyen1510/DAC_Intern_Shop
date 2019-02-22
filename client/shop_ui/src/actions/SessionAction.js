@@ -36,7 +36,7 @@ export function login(crendentials){
             method: 'POST',
             data: crendentials
         }).then(function(success){
-            sessionStorage.setItem("token", success.data.auth_token);
+            localStorage.setItem("token", success.data.auth_token);
             dispatch(loginSuccess());
         }).catch(function(error){
             dispatch(loginFail());
