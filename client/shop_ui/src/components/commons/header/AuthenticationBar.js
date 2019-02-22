@@ -34,7 +34,7 @@ class LoginBar extends Component {
         return (
             <div>
                 {
-                    authenticated ? <Menu /> : (
+                    authenticated ? <Menu {...this.props}/> : (
                         <div>
                             <div className="login-bar container-fluid">
                                 <a href="#top" data-toggle="modal" data-target="#myModal">ĐĂNG NHẬP / ĐĂNG KÝ</a>

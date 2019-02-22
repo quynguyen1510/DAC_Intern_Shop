@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 
 class Menu extends Component {
-    
+    componentDidMount() {
+        this.props.getUserByID;
+    }
     render() {
         return (
             <div>

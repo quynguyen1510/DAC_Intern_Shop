@@ -1,8 +1,9 @@
-import { ADD_USER_FAIL, ADD_USER_SUCCESS } from '../actions/actionTypes';
+import { ADD_USER_FAIL, ADD_USER_SUCCESS, GET_USER } from '../actions/actionTypes';
 
 const defaultState = {
     users: [],
-    message: ""
+    message: "",
+    currentUser: null
 }
 export default function userReducer(state=defaultState, action) {
     switch(action.type){
@@ -17,6 +18,11 @@ export default function userReducer(state=defaultState, action) {
             return {
                 ...state,
                 message: "Created failed"
+            }
+        case GET_USER:
+            return {
+                ...state,
+                currentUser: action.user
             }
         default:
             return state;
