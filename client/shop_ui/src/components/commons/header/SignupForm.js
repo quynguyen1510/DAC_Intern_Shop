@@ -14,7 +14,6 @@ class LoginForm extends Component {
             passwordError: '',
             nameError: '',
             passwordConfirmationError: '',
-            message: ""
         }
     }
 
@@ -87,12 +86,15 @@ class LoginForm extends Component {
         if(nextProps.session.user.message){
             return {
                 ...prevState,
-                    first_name: '',
+                first_name: '',
                 last_name: '',
                 email: '',
                 password: '',
                 passwordConfirm: '',
-                message: nextProps.session.user.message
+                emailError: '',
+                passwordError: '',
+                nameError: '',
+                passwordConfirmationError: '',
             }
         }
         return null;
@@ -102,7 +104,6 @@ class LoginForm extends Component {
         return (
             <div className="inputForm">
                 <h2 className="titlePopup text-center">Sign Up for free</h2>
-                <div className="invalid-feedback">{this.state.message}</div>
                 <form onSubmit={this.handleSubmit}>
                     <div className="input-group">
                         <input type="text" 
