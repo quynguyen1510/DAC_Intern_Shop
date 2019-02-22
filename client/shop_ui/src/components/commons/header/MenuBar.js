@@ -2,8 +2,12 @@ import React, { Component } from 'react';
 
 class Menu extends Component {
     componentDidMount() {
+<<<<<<< HEAD
         const token = localStorage.getItem("token");
         this.props.getAuthenticatedUser(token);
+=======
+        this.props.getUserByID;
+>>>>>>> af5fecba8cadca364c879dd5e0b7357e5f013e41
     }
     render() {
         const {currentUser} = (this.props.session.user)

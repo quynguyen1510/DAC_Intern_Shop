@@ -7,7 +7,11 @@ import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux';
 import { withRouter } from 'react-router';
 import {login ,signup}  from '../actions/SessionAction';
+<<<<<<< HEAD
 import {getAuthenticatedUser} from '../actions/UsersAction';
+=======
+import {getUserByID} from '../actions/UsersAction';
+>>>>>>> af5fecba8cadca364c879dd5e0b7357e5f013e41
 
 
 class HomePage extends Component {
@@ -31,7 +35,11 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators({
     login,
     signup,
+<<<<<<< HEAD
     getAuthenticatedUser
+=======
+    getUserByID
+>>>>>>> af5fecba8cadca364c879dd5e0b7357e5f013e41
   }, dispatch)
 }
 
