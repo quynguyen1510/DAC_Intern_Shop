@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
+import FooterFirst from './FooterFirst';
+import FooterSecond from './FooterSecond';
 
 class Footer extends Component {
     render() {
         return (
-            <footer id="footer" className="container-fluid text-center">
-                <p>This is footer</p>
-            </footer>
+           <div className="footer">
+                <FooterFirst/>
+                <FooterSecond/>
+           </div>
         );
     }
 }
