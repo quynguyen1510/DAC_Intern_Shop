@@ -13,7 +13,7 @@ import {getAuthenticatedUser} from '../actions/UsersAction';
 class HomePage extends Component {
   render() {
     return (
-        <div>
+        <div className="wrapper">
            <Header {...this.props}/>
            <Footer />
         </div>

@@ -1,15 +1,100 @@
 /*==Footer== */
-#footer {
-    position: fixed;
-    left: 0;
-    bottom: 0;
+
+/*===Footer First===  */
+#footer-first{
     width: 100%;
-    background-color: black;
-    padding: 30px;
-    color: white;
-    text-align: center;
+    margin: 0;
+    background: #183544;
+    padding-top: 25px;
+    color: #fff;
 }
-/*==End== */
+.footer-first-inner{
+    margin: 0 auto;
+}
+.footer-first-title{
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 35px;
+    margin: 0;
+    color: #fff;
+}
+.footer-first-list{
+    padding: 0; 
+}
+.footer-first-item{
+    list-style: none;
+}
+.footer-first-item a{
+    text-decoration: none;
+    color: #fff;
+
+}
+#email{
+    width: 60%;
+    background-color: #102633;
+    border-color: #102633;
+}
+#btnSubmitContact{
+    color: white;
+    background: #f57224;
+    border-color: #f57224;
+}
+#imgLogo{
+    padding-left: 0;
+    padding-right: 0;
+}
+#imgLogo img{
+    width: 42px;
+    height: 42px;
+    padding: 0;
+    margin: 0;
+}
+.footer-title-form{
+    font-size: 16px;
+    margin: 0;
+    color: #f57224;
+}
+#content{
+    padding-left: 0px;
+    padding-right: 0px;
+}
+.footer-content-form{
+    font-size: 16px;
+    margin: 0;
+    color: #fff;
+}
+.img-availble{
+    padding-left: 0;
+}
+.img-availble img{
+    width: 126px;
+    height: 42px;
+}
+/* ===End=== */
+
+/* ===Footer Second=== */
+#footer-first{
+    width: 100%;
+    margin: 0;
+    padding-top: 25px;
+   
+}
+.footer-second-inner{
+    margin: 0 auto;
+}
+.footer-second-title{
+    font-size: 16px;
+    color: #183544;
+    font-weight: 400;
+    line-height: 2.2em;
+    margin-bottom: 15px;
+}
+.logoBankMethod{
+    margin-right: 2rem;
+}
+/* ===End=== */
+
+/*==End Footer== */
 
 /* ====Header==== */
 
@@ -184,7 +269,6 @@
 #modalContent{
     background-color: #212C37;
 }
-
 /* validation*/
 .invalid-feedback {
     display: block;
