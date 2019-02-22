@@ -45,6 +45,9 @@ class UsersController < ApplicationController
     json_response({ message: Message.account_removed})
   end
 
+  def get_authenticate_user
+    json_response({current_user: @current_user})
+  end
   private 
   # get user parameter
   def user_params
@@ -55,6 +58,8 @@ class UsersController < ApplicationController
   def get_user
     @request_user = User.find(params[:id])
   end
+
+
   
   # only admin and current user has permission to do actions
   def both_current_user_and_admin
