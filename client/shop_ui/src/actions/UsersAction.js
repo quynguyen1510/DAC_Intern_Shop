@@ -8,13 +8,17 @@ function getUser(user){
     }
 }
 
-export function getUserByID(userID){
+export function getAuthenticatedUser(token){
     return function(dispatch){
         axios({
-            url: `http://localhost:3000/users/${userID}`,
+            url: `http://localhost:3000/authenticate/profile`,
             method: "GET",
+            data: {},
+            headers:{
+                'Authorization': token
+            }
             }).then(function(success){
-                console.log(success.data)
+                dispatch(getUser(success.data.current_user));
             }).catch(function(error){
                 console.log(error)
             })
