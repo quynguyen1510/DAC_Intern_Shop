@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 class Campaign extends Component {
     render() {
         return (
-            <div className="campaign-page">
+            <div className="page">
                 <div>
                     <a href="#none" class="btn btn-default" id="btnCreateCampaign">Create Campaign</a>
                 </div>
