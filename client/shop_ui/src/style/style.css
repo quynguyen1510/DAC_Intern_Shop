@@ -278,3 +278,20 @@
     color: #dc3545;
 }
 /* ===End LoginBar Form=== */
+/* ===========Body=========== */
+
+/* ===Campaign=== */
+.campaign-page{
+    margin-left: 2rem;
+    margin-right: 2rem;
+}
+#btnCreateCampaign{
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    padding: 1rem;
+    color: white;
+    background: #083B4C;
+}
+/* ===End campaign=== */
+
+/* ========================== */
