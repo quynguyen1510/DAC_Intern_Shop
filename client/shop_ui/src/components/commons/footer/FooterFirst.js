@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import FooterSecond from './FooterSecond';
 
 class FooterFirst extends Component {
     render() {
@@ -51,17 +50,15 @@ class FooterFirst extends Component {
                         <div className="container">
                             <div className="row">
                                 <div className="col-sm-1" id="imgLogo">
-                                    <img src="./images/logo-footer.png"></img>
+                                    <img src="./images/logo-footer.png" alt="logo"></img>
                                 </div>
                                 <div className="col-sm-4" id="content">
                                     <h4 className="footer-title-form">THẢNH THƠI MUA SẮM</h4>
                                     <h5 className="footer-content-form">Tải app</h5>
                                 </div>
-                                <div className="col-sm-2 img-availble">
-                                    <img src="./images/available_app_store.png"/>
-                                </div>
-                                <div className="col-sm-2 img-availble">
-                                    <img src="./images/available_android.png"/>
+                                <div className="col-sm-6 img-availble">
+                                    <img src="./images/available_app_store.png" alt="logo"/>
+                                    <img src="./images/available_android.png" alt="logo"/>
                                 </div>
                             </div>
                         </div>

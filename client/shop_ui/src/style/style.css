@@ -70,8 +70,10 @@
     padding-left: 0;
 }
 .img-availble img{
+    display: inline-block;
     width: 126px;
     height: 42px;
+    margin-right: 1rem;
 }
 /* ===End=== */
 
@@ -281,8 +283,33 @@
     color: #dc3545;
 }
 /* ===End LoginBar Form=== */
-/* ===========Body=========== */
 
+/* ===========Body=========== */
+.sidenav {
+    top: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 100;
+}
+.sidenav ul li {
+    list-style: none;
+}
+.sidenav ul li a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 20px;
+    background: #212C37;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+}
+  
+.sidenav a:hover {
+    color: #f1f1f1;
+}
+/* ===Public body=== */
+
+/* ===End Public body=== */
 /* ===Campaign=== */
 .page{
     margin-left: 2rem;

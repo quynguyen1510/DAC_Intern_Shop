@@ -5,7 +5,8 @@ import Header from './commons/header/Header';
 import Footer from './commons/footer/Footer';
 // import Campaign from './commons/body/Campaign';
 // import ManageUser from './commons/body/ManageUser';
-import ManageRole from './commons/body/ManageRole';
+// import ManageRole from './commons/body/ManageRole';
+import Body from './commons/body/Body';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { withRouter } from 'react-router';
@@ -18,7 +19,7 @@ class HomePage extends Component {
     return (
       <div className="wrapper">
         <Header {...this.props} />
-        <ManageRole />
+        <Body />
         <Footer />
       </div>
     );
