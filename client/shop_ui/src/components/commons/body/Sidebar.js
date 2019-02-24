@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 class Sidebar extends Component {
     render() {
         return (
-            <div id="mySidenav" className="col-md-2 sidenav">
+            <div id="mySidenav" className="col-md-2 justify-content-center sidenav">
                 <ul>
                     <li>
                         <a href="#none">Profile</a>
