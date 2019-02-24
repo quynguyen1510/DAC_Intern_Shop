@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Sidebar from './Sidebar';
-import Profile from './Profie';
+import Profile from '../../user(manage)/Profie';
 
 class Body extends Component {
     render() {
