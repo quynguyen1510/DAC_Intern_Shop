@@ -5,9 +5,9 @@ class ManageUser extends Component {
         return (
             <div className="page">
                 <div>
-                    <a href="#none" class="btn btn-default" id="btnCreateUser">Create User</a>
+                    <a href="#none" className="btn btn-default" id="btnCreateUser">Create User</a>
                 </div>
-                <table class="table table-hover">
+                <table className="table table-hover">
                     <thead>
                         <tr>
                             <th>ID</th>
@@ -26,8 +26,8 @@ class ManageUser extends Component {
                             <td>doe@gmail.com</td>
                             <td>User</td>
                             <td>
-                                <a href="#none" class="btn btn-primary btnEditUser">Edit</a>
-                                <a href="#none" class="btn btn-danger btnDeleteUser">Delete</a>
+                                <a href="#none" className="btn btn-primary btnEditUser">Edit</a>
+                                <a href="#none" className="btn btn-danger btnDeleteUser">Delete</a>
                             </td>
                         </tr>
                         <tr>
@@ -37,8 +37,8 @@ class ManageUser extends Component {
                             <td>david@gmail.com</td>
                             <td>Shop</td>
                             <td>
-                                <a href="#none" class="btn btn-primary btnEditUser">Edit</a>
-                                <a href="#none" class="btn btn-danger btnDeleteUser">Delete</a>
+                                <a href="#none" className="btn btn-primary btnEditUser">Edit</a>
+                                <a href="#none" className="btn btn-danger btnDeleteUser">Delete</a>
                             </td>
                         </tr>
                     </tbody>

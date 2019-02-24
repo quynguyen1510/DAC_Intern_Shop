@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
 class Menu extends Component {
     componentDidMount() {
@@ -6,11 +7,11 @@ class Menu extends Component {
         this.props.getAuthenticatedUser(token);
     }
     render() {
-        const {currentUser} = (this.props.session.user)
-        let name = ''
-        if (currentUser){
+        const { currentUser } = (this.props.session.user)
+        let name = '';
+        if (currentUser) {
             const { first_name, last_name } = currentUser
-             name = name =  first_name + last_name 
+            name = name = first_name + last_name;
         }
         return (
             <div>
@@ -19,11 +20,17 @@ class Menu extends Component {
                         <img src="./images/img_avatar.png" alt="Avatar" id="avatar" />
                         <div className="dropdown" id="dropMenu">
                             <a href="#none" data-toggle="dropdown">{name}</a>
-                            <div className="dropdown-menu">
-                                <a className="dropdown-item dropdown-custome" href="#">Thông tin cá nhân</a>
-                                <a className="dropdown-item dropdown-custome" href="#">Quản lý chiến dịch</a>
-                                <a className="dropdown-item dropdown-custome" href="#">Đăng xuất</a>
-                            </div>
+                            <ul className="dropdown-menu">
+                                <li className="dropdown-item dropdown-custome">
+                                    <Link to="/current-user" >Thông tin cá nhân</Link>
+                                </li>
+                                <li className="dropdown-item dropdown-custome">
+                                    <Link to="/users" >Quản lý tài khoản</Link>
+                                </li>
+                                <li className="dropdown-item dropdown-custome">
+                                    <a href="#">Đăng xuất</a>
+                                </li>
+                            </ul>
                         </div>
                     </div>
                 </div>

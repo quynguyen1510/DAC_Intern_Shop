@@ -139,11 +139,17 @@
 .nav-avatar {
     padding-right: 15em;
 }
+
 .nav-avatar a {
     text-decoration: none;
     color: white;
-    margin: 1em;
+    margin: 1em -2em 1em 1em;
 }
+
+.nav-avatar a:hover {
+  color: tomato;
+}
+
 #dropMenu {
     display: inline-block;
 }
