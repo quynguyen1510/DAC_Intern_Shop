@@ -6,7 +6,6 @@ class Body extends Component {
             <div className="container-fluid">
                 <div className="row">
                   <div id="banner">
-
                   </div>
                 </div>
             </div>

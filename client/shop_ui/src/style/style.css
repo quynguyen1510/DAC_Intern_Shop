@@ -286,6 +286,16 @@
 
 /* ===========Body=========== */
 
+/*=========Banner=========*/
+#banner {
+    min-height: 350px;
+    max-height: 500px;
+}
+/*=========End Banner=========*/
+
+
+
+
 /* ===Public body=== */
 
 /* ===End Public body=== */
