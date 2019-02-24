@@ -374,4 +374,11 @@
     background: #083B4C;
 }
 /* ===End Manage Role=== */
+
+/* ===Form Create User=== */
+.form-controle-file {
+    display: inline-block;
+    width: 50%;
+}
+/* ===End Form=== */
 /* ========================== */
