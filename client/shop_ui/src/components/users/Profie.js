@@ -1,28 +1,140 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router';
+import {
+    validateEmail,
+    validateFisrtName,
+    validateLastName,
+    validatePassword,
+    validatePasswordConfirm
+} from '../../util/validate';
 
 class Profile extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            first_name: '',
+            last_name: '',
+            email: '',
+            password: '',
+            passwordConfirm: '',
+            emailError: '',
+            passwordError: '',
+            firstNameError: '',
+            lastNameError: '',
+            passwordConfirmationError: '',
+        }
+    }
+
+    handleFirstNameChange = event => {
+        this.setState({ first_name: event.target.value });
+    }
+
+    handleLastNameChange = event => {
+        this.setState({ last_name: event.target.value });
+    }
+
+    handleEmailChange = event => {
+        this.setState({ email: event.target.value });
+    }
+
+    handlePasswordChange = event => {
+        this.setState({ password: event.target.value });
+    }
+
+    handlePasswordConfirmChange = event => {
+        this.setState({ passwordConfirm: event.target.value });
+    }
+
+
     render() {
+        const {currentUser} = this.props.user; 
+        console.log(currentUser)
         return (
-            <div className="page">
-                <div>
-                    <a href="#none" className="btn btn-default" id="btnUpdateProfile">Update Profile</a>
+            <div className="profile">
+                <h2> {currentUser.email}</h2>
+                <div className="avatar">
+                    <img className="img-thumbnail" src={`${currentUser.avatar_url }`} alt=""/>
                 </div>
-                <div className="profile">
-                    <div className="avatar" >
-                        <img src="https://secure.gravatar.com/avatar/de9b11d0f9c0569ba917393ed5e5b3ab?s=140&r=g&d=mm" className="img-circle" />
-                    </div>
-                    <div className="info">
-                        <h3>UserName</h3>
-                        <h6>First Name: David</h6>
-                        <h6>Last Name: David</h6>
-                        <h6>Email: MyEmail@servidor.com</h6>
-                        <h6>Role Name: User</h6>
-                    </div>
-                    <div className="clear"></div>
+                <div className="inputForm">
+                    <form>
+                        <div className="form-group row">
+                            <label className="col-sm-2 col-form-label">First Name</label>
+                            <div className="col-sm-8">
+                                <input type="text" disabled className="form-control" placeholder={currentUser.first_name} />
+                            </div>
+                            <button className="btn btn-link">Edit</button>
+                        </div>
+                        <div className="form-group row">
+                            <label className="col-sm-2 col-form-label">Last Name</label>
+                            <div className="col-sm-8">
+                                <input type="password" disabled className="form-control" placeholder={currentUser.last_name} />
+                            </div>
+                            <button className="btn btn-link">Edit</button>
+                        </div>
+
+                        <div className="form-group row">
+                            <label className="col-sm-2 col-form-label">Email</label>
+                            <div className="col-sm-8">
+                                <input type="password" disabled className="form-control" placeholder={currentUser.email} />
+                            </div>
+                            <button className="btn btn-link">Edit</button>
+                        </div>
+
+                        <div className="form-group row">
+                            <label className="col-sm-2 col-form-label">Password</label>
+                            <div className="col-sm-8">
+                                <input type="password" className="form-control" />
+                            </div>
+                            <button className="btn btn-link">Edit</button>
+                        </div>
+
+                        <div className="form-group row">
+                            <label className="col-sm-2 col-form-label">Confirm</label>
+                            <div className="col-sm-8">
+                                <input type="password"  className="form-control" />
+                            </div>
+                            <button className="btn btn-link">Edit</button>
+                        </div>
+
+                        <div className="form-group row">
+                            <label className="col-sm-2 col-form-label">Role</label>
+                            <div className="col-sm-8">
+                                <select className="form-control" disabled value={currentUser.role_id}>
+                                    <option value="1">Admin</option>
+                                    <option value="2">Shopper</option>
+                                    <option value="3">User</option>
+                                </select>
+                            </div>
+                            <button className="btn btn-link">Edit</button>
+                        </div>
+
+                        <div className="form-group row">
+                            <label className="col-sm-2 col-form-label">Avatar</label>
+                            <div className="col-sm-8">
+                                <div className="col-sm-4">
+                                    <img className="img-thumbnail" src={currentUser.avatar_url} alt=""/>
+                                </div>
+                                <div className="col-sm-8">
+                                    <label className="custom-file-label">Choose file</label>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </form>
+
                 </div>
             </div>
         );
     }
 }
 
-export default Profile;
+function mapStateToProps(state) {
+    return {
+        user: state.user
+    }
+}
+
+const ProfileContainer = withRouter(connect(mapStateToProps)(Profile));
+export default ProfileContainer;

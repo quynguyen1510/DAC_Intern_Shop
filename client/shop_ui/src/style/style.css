@@ -307,28 +307,15 @@
 /* ===End Public body=== */
 
 /* ===Profile=== */
-#btnUpdateProfile {
-    margin-top: 1rem;
-    margin-bottom: 1rem;
-    color: white;
-    background: #083B4C;
+.profile  h2{
+    text-align: center;
 }
-.img-circle {
-    vertical-align: middle;
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-}
+
 .avatar {
-    float: left;
+    display: flex;
+    justify-content: center;
 }
-.info {
-    float: left;
-    margin-left: 1rem; 
-}
-.clear {
-    clear: both;
-}
+
 /* ===End Profile=== */
 
 /* ===Campaign=== */
@@ -377,3 +364,4 @@
 }
 /* ===End Form=== */
 /* ========================== */
+
