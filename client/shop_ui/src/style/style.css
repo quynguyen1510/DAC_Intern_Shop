@@ -1,26 +1,116 @@
-/*==Footer== */
-#footer {
-    position: fixed;
-    left: 0;
-    bottom: 0;
+.wrapper {
     width: 100%;
-    background-color: black;
-    padding: 30px;
-    color: white;
-    text-align: center;
 }
-/*==End== */
+/*==Footer== */
+
+/*===Footer First===  */
+#footer-first {
+    width: 100%;
+    margin: 0;
+    background: #183544;
+    padding-top: 25px;
+    color: #fff;
+}
+.footer-first-inner {
+    margin: 0 auto;
+}
+.footer-first-title {
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 35px;
+    margin: 0;
+    color: #fff;
+}
+.footer-first-list {
+    padding: 0; 
+}
+.footer-first-item {
+    list-style: none;
+}
+.footer-first-item a {
+    text-decoration: none;
+    color: #fff;
+
+}
+#email {
+    width: 60%;
+    background-color: #102633;
+    border-color: #102633;
+}
+#btnSubmitContact {
+    color: white;
+    background: #f57224;
+    border-color: #f57224;
+}
+#imgLogo {
+    padding-left: 0;
+    padding-right: 0;
+}
+#imgLogo img {
+    width: 42px;
+    height: 42px;
+    padding: 0;
+    margin: 0;
+}
+.footer-title-form {
+    font-size: 16px;
+    margin: 0;
+    color: #f57224;
+}
+#content {
+    padding-left: 0px;
+    padding-right: 0px;
+}
+.footer-content-form {
+    font-size: 16px;
+    margin: 0;
+    color: #fff;
+}
+.img-availble {
+    padding-left: 0;
+}
+.img-availble img{
+    display: inline-block;
+    width: 126px;
+    height: 42px;
+    margin-right: 1rem;
+}
+/* ===End=== */
+
+/* ===Footer Second=== */
+#footer-first {
+    width: 100%;
+    margin: 0;
+    padding-top: 25px;
+   
+}
+.footer-second-inner {
+    margin: 0 auto;
+}
+.footer-second-title {
+    font-size: 16px;
+    color: #183544;
+    font-weight: 400;
+    line-height: 2.2em;
+    margin-bottom: 15px;
+}
+.logoBankMethod {
+    margin-right: 2rem;
+}
+/* ===End=== */
+
+/*==End Footer== */
 
 /* ====Header==== */
 
 /*==Login Bar== */
-.login-bar{
+.login-bar {
     height: 25px;
     background-color: #083646;
     color: white;
 }
 
-.login-bar a{
+.login-bar a {
     text-align: right;
     float: right;
     margin-right: 15em;
@@ -29,37 +119,72 @@
     background: none;
 }
 
-.login-bar a:hover{
+.login-bar a:hover {
     text-decoration: none;
     color: grey;
 }
-/* ==End== */
+/* ==End LoginBar== */
+
+/* ===Menu bar=== */
+.menu-bar {
+    height: 25px;
+    background-color: #083646;
+}
+#avatar {
+    vertical-align: middle;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+}
+.nav-avatar {
+    padding-right: 15em;
+}
+.nav-avatar a {
+    text-decoration: none;
+    color: white;
+    margin: 1em;
+}
+#dropMenu {
+    display: inline-block;
+}
+.dropdown-menu {
+    background:  #083646;
+}
+.dropdown-menu .dropdown-custome {
+    padding-left:0;
+    padding: 0;
+}
+.dropdown-menu .dropdown-custome:hover {
+    background: none;
+    color: grey;
+}
+/* ===End MenuBar=== */
 
 /* ==Logo Bar== */
-.logo-bar{
+.logo-bar {
     padding-top: 2em;
     padding-bottom: 2em;
     background-image: linear-gradient(-90deg, #0f8aac, #013e51);
 }
 
-.nav-logo a img{
+.nav-logo a img {
     width: 127px;
     height: 40px;
 }
 /* ===Nav Search=== */
-.nav-search{
+.nav-search {
     display: inline-block;
 }
-#searchFrom input{
+#searchFrom input {
     width: 90%;
     height: 50px;
 }
 
-#searchFrom input{
+#searchFrom input {
     padding-left: 20px;
 }
 
-#btnSearch{
+#btnSearch {
     background-color: #f57224;
     width: 50px;
 }
@@ -68,36 +193,36 @@
   display: flex;
   justify-content: center;
 }
-/* ===End=== */
+/* ===End Nav Search=== */
 
 /* ===Cart=== */
-.nav-cart{
+.nav-cart {
     display: inline-block;
     margin-left: 0px;
     display: flex;
     justify-content: center;
 }
 
-.nav-cart a img{
+.nav-cart a img {
     width: 50px;
     height: 50px;
 }
-.cart-icon{
+.cart-icon {
     color: white;
     width: 29px;
     height: 26px;
 }
-/* ===End=== */
+/* ===End Cart=== */
 
 
 /* ===End LogoBar=== */
 
 /* ===Login Bar Form=== */
-.btnLoginBar{
+.btnLoginBar {
     margin-top: 2em;
 }
 
-.btnLoginBar button{
+.btnLoginBar button {
     background-color:grey;
     border: none;
     color: white;
@@ -107,21 +232,21 @@
     letter-spacing: 3px;
 }
 
-.btnLoginBar .active{
+.btnLoginBar .active {
     background-color: #083B4C;
 }
 
-.titlePopup{
+.titlePopup {
     margin-top: 1em;
     color: white;
 }
 
-.inputForm{
+.inputForm {
     margin-left: 1em;
     margin-right: 1em;
 }
 
-#btnSubmit{
+#btnSubmit {
     margin-top: 2em;
     margin-bottom: 2em;
     width: 29em;
@@ -131,24 +256,24 @@
     letter-spacing: 5px;
 }
 
-#firstName{
+#firstName {
     margin-right: 1em;
 }
 
-.inputForm .input-custom{
+.inputForm .input-custom {
     background: none;
     border: 1px solid gray;
     margin-top: 2em;
+    color: white;
 }
 
-.inputForm .input-custom:focus{
+.inputForm .input-custom:focus {
     background: none;
 }
 
-#modalContent{
+#modalContent {
     background-color: #212C37;
 }
-
 /* validation*/
 .invalid-feedback {
     display: block;
@@ -158,3 +283,95 @@
     color: #dc3545;
 }
 /* ===End LoginBar Form=== */
+
+/* ===========Body=========== */
+.sidenav {
+    top: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 100;
+}
+.sidenav ul li {
+    list-style: none;
+}
+.sidenav ul li a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 20px;
+    background: #212C37;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+}
+  
+.sidenav a:hover {
+    color: #f1f1f1;
+}
+/* ===Public body=== */
+
+/* ===End Public body=== */
+
+/* ===Profile=== */
+#btnUpdateProfile {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    color: white;
+    background: #083B4C;
+}
+.img-circle {
+    vertical-align: middle;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+}
+.avatar {
+    float: left;
+}
+.info {
+    float: left;
+    margin-left: 1rem; 
+}
+.clear {
+    clear: both;
+}
+/* ===End Profile=== */
+
+/* ===Campaign=== */
+.page {
+    margin-left: 2rem;
+    margin-right: 2rem;
+}
+#btnCreateCampaign {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    color: white;
+    background: #083B4C;
+}
+/* ===End campaign=== */
+
+/* ===Manage User=== */
+.btnDeleteUser {
+    width: 100px;
+    margin-right: 1rem;
+}
+.btnEditUser {
+    width: 100px;
+    margin-right: 1rem;
+}
+#btnCreateCampaign {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    color: white;
+    background: #083B4C;
+}
+/* ===End Manage User=== */
+
+/* ===Manage Role=== */
+#btnCreateRole {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    color: white;
+    background: #083B4C;
+}
+/* ===End Manage Role=== */
+/* ========================== */

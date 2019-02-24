@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import LoginBar from './LoginBar';
+import AuthenticationBar from './AuthenticationBar';
 import LogoBar from './LogoBar';
 
 
@@ -7,8 +7,7 @@ class Header extends Component {
     render() {
         return (
             <div className="header">
-                <LoginBar />
-    
+                <AuthenticationBar {...this.props} />
                 <LogoBar />
             </div>
         );

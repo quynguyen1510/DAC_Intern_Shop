@@ -12,8 +12,9 @@ class LoginForm extends Component {
             passwordConfirm: '',
             emailError: '',
             passwordError: '',
-            nameError: '',
-            passwordConfirmationError: ''
+            firstNameError: '',
+            lastNameError: '',
+            passwordConfirmationError: '',
         }
     }
 
@@ -40,12 +41,25 @@ class LoginForm extends Component {
     handleSubmit = event => {
         event.preventDefault();
         const { email, password, first_name, last_name, passwordConfirm } = this.state;
+        const credentials = {
+            "first_name" : `${first_name}`,
+            "last_name" : `${last_name}`,
+            "email" : `${email}`,
+            "password" : `${password}`,
+            "password_confirmation" : `${passwordConfirm}`
+        }
+        this.props.signup(credentials);
     }
 
-    validateName = () => {
-        const { first_name, last_name } = this.state;
-        const valid_name = first_name.length !== 0 && last_name.length !== 0;
-        this.setState({ nameError: valid_name ? null : "name can't be blank"});
+    validateFisrtName = () => {
+        const { first_name} = this.state;
+        const valid_name = first_name.length !== 0
+        this.setState({ firtsNameError: valid_name ? null : "First name can't be blank"});
+    }
+    validateLastName = () => {
+        const {last_name } = this.state;
+        const valid_name = last_name.length !== 0;
+        this.setState({ lastNameError: valid_name ? null : "Last name can't be blank"});
     }
 
     validateEmail = () => {
@@ -73,6 +87,24 @@ class LoginForm extends Component {
             this.setState({ passwordConfirmationError: "Password confirm don't match password "});
         }
     }
+    
+    static getDerivedStateFromProps(nextProps, prevState){
+        if(nextProps.session.user.message){
+            return {
+                ...prevState,
+                first_name: '',
+                last_name: '',
+                email: '',
+                password: '',
+                passwordConfirm: '',
+                emailError: '',
+                passwordError: '',
+                nameError: '',
+                passwordConfirmationError: '',
+            }
+        }
+        return null;
+    }
 
     render() {
         return (
@@ -82,21 +114,25 @@ class LoginForm extends Component {
                     <div className="input-group">
                         <input type="text" 
                                 id="firstName" 
+                                value={this.state.first_name}
                                 className="form-control input-custom"
-                                onBlur={this.validateName}
+                                onBlur={this.validateFirstName}
                                 onChange={this.handleFirstNameChange}
                             placeholder="First name" />
                         <input type="text"
                                className="form-control input-custom" 
                                placeholder="Last name"
-                               onBlur={this.validateName}
+                               value={this.state.last_name}
+                               onBlur={this.validateLastName}
                                onChange={this.handleLastNameChange} />
-                        <div className="invalid-feedback">{this.state.nameError}</div>
+                        <div className="invalid-feedback">{this.state.firstNameError}</div>
+                        <div className="invalid-feedback">{this.state.lastNameError}</div>
                     </div>
                     <div className="input-group">
                         <input type="email" 
                                 className="input-custom form-control" 
                                 placeholder="Enter email"
+                                value={this.state.email}
                                 onBlur={this.validateEmail}
                                 onChange={this.handleEmailChange} />
                         <div className="invalid-feedback">{this.state.emailError}</div>
@@ -105,6 +141,7 @@ class LoginForm extends Component {
                         <input type="password" 
                             className="form-control input-custom" 
                             placeholder="Enter password"
+                            value={this.state.password}
                             onBlur={this.validatePassword}
                             onChange={this.handlePasswordChange} />
                         <div className="invalid-feedback">{this.state.passwordError}</div>
@@ -113,6 +150,7 @@ class LoginForm extends Component {
                         <input type="password" 
                             className="form-control input-custom" 
                             placeholder="Confirm password"
+                            value={this.state.passwordConfirm}
                             onBlur={this.validatePasswordConfirm}
                             onChange={this.handlePasswordConfirmChange} />
                         <div className="invalid-feedback">{this.state.passwordConfirmationError}</div>

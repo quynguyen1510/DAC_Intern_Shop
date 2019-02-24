@@ -30,4 +30,17 @@ class Message
   def self.expired_token
     "Sorry, your token has expired. Please login to continue"
   end
+
+  def self.dont_have_permission
+    "Sorry, you don't have permission"
+  end
+
+  def self.account_removed
+    "Account has been disabled"
+  end
+  
+  def self.update_succesffuly
+    "Account update successfully"
+  end
+
 end

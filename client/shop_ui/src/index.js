@@ -1,9 +1,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import HomePage from './components/Homepage.js';
-import * as serviceWorker from './serviceWorker';
+import configStore from './store/ConfigStore';
+import { Provider } from 'react-redux';
+import HomePageContainer from './components/Homepage';
+import {BrowserRouter , Route} from 'react-router-dom';
 
-ReactDOM.render(<HomePage />, document.getElementById('root'));
+const store = configStore();
 
-serviceWorker.unregister();
+ReactDOM.render(<Provider store={store}>
+                    <BrowserRouter >
+                        <Route path="/" exact component={HomePageContainer} />
+                    </BrowserRouter>
+                </Provider>, 
+document.getElementById('root'));
+
