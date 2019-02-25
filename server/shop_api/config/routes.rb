@@ -6,5 +6,5 @@ Rails.application.routes.draw do
   post 'auth/login', to: 'authentication#authenticate'
   post 'signup', to: 'users#create'
   get 'authenticate/profile', to: 'users#get_authenticate_user'
-  get 'collection/users/total_page', to: 'users#get_total_user'
+  get 'collection/users/size', to: 'users#get_total_user'
 end

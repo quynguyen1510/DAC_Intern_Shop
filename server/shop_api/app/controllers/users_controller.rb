@@ -7,7 +7,7 @@ class UsersController < ApplicationController
   # GET '/users'
   def index 
     # pagination
-    @users = User.all.paginate(page: params[:page], per_page: 4)
+    @users = User.all.paginate(page: params[:page], per_page: Constants.record_per_page)
     json_response(@users)
   end
 
@@ -50,8 +50,8 @@ class UsersController < ApplicationController
   end
 
   def get_total_user
-    page = User.all.size / Constants.record_per_page
-    json_response({page: page})
+    size = User.all.size 
+    json_response({size: size})
   end
 
   private 
