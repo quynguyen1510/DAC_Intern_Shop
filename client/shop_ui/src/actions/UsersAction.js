@@ -51,12 +51,14 @@ export function getUserById(token, user_id){
         }
 }
 
-export function getListUsers(token){
+export function getListUsers(token, page, per_page){
     return function(dispatch){
         axios({
             url: `http://localhost:3000/users`,
             method: "GET",
             data: {
+                page: page,
+                per_page: per_page
             },
             headers:{
                 'Authorization': token

@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
-import { getListUsers} from '../../actions/UsersAction';
+import { getListUsers } from '../../actions/UsersAction';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 
 class ManageUser extends Component {
-    
-    componentDidMount(){
+
+    componentDidMount() {
         const token = localStorage.getItem("token");
-        this.props.getListUsers(token);
+        //this.props.getListUsers(token);
     }
 
     render() {
@@ -53,6 +53,15 @@ class ManageUser extends Component {
                         </tr>
                     </tbody>
                 </table>
+                <nav aria-label="...">
+                    <ul className="pagination pagination-lg">
+                        <li className="page-item disabled">
+                            <a className="page-link" href="#" tabIndex="-1">1</a>
+                        </li>
+                        <li className="page-item"><a className="page-link" href="#">2</a></li>
+                        <li className="page-item"><a className="page-link" href="#">3</a></li>
+                    </ul>
+                </nav>
             </div>
         );
     }
@@ -64,7 +73,7 @@ function mapStateToProps(state) {
     }
 }
 
-function mapDispatchToProps(dispatch){
+function mapDispatchToProps(dispatch) {
     return bindActionCreators({
         getListUsers
     }, dispatch)
