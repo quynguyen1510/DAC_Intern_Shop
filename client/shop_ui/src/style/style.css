@@ -380,11 +380,17 @@ button.update-profile-button {
 }
 /* ===End Manage Role=== */
 
-/* ===Form Create User=== */
+/* ===Form  User=== */
 .form-control-file {
     display: inline-block;
     width: 50%;
 }
+
+.col-form-label .invalid-feedback {
+    margin-right: 100px;
+}
+
+
 /* ===End Form=== */
 /* ========================== */
 

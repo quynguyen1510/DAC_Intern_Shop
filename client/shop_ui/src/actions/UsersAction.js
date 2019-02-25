@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { GET_USER, GET_USERS } from './actionTypes';
+import { GET_USER, GET_USERS, GET_USERS_SIZE } from './actionTypes';
 
 function getUser(user){
     return {
@@ -12,6 +12,13 @@ function getUsers(users){
     return {
         type: GET_USERS,
         users
+    }
+}
+
+function getSize(size){
+    return {
+        type: GET_USERS_SIZE,
+        size
     }
 }
 
@@ -51,16 +58,29 @@ export function getUserById(token, user_id){
         }
 }
 
-
-export function getListUsers(token, page, per_page){
+export function getUsersSize(token){
     return function(dispatch){
         axios({
-            url: `http://localhost:3000/users`,
+            url: `http://localhost:3000/collection/users/size`,
             method: "GET",
             data: {
-                page: page,
-                per_page: per_page
             },
+            headers:{
+                'Authorization': token
+            }
+            }).then(function(success){
+               dispatch(getSize(success.data.size))
+            }).catch(function(error){
+                console.log(error)
+            })
+    }
+}
+
+export function getListUsers(token, page){
+    return function(dispatch){
+        axios({
+            url: `http://localhost:3000/users/?page=${page}`,
+            method: "GET",
             headers:{
                 'Authorization': token
             }
