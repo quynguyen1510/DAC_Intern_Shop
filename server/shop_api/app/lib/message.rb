@@ -41,6 +41,10 @@ class Message
   
   def self.update_succesffuly
     "Account update successfully"
+  
+    
+  def self.category_created
+    "Category created successfully"
   end
 
 end
