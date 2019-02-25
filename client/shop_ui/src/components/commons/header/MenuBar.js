@@ -19,7 +19,7 @@ class Menu extends Component {
                             <a href="#none" data-toggle="dropdown">{name}</a>
                             <ul className="dropdown-menu">
                                 <li className="dropdown-item dropdown-custome">
-                                    <Link to={`/users/${currentUser.id}`} >Thông tin cá nhân</Link>
+                                    <Link to={`/profile/users/${currentUser.id}`} >Thông tin cá nhân</Link>
                                 </li>
                                 <li className="dropdown-item dropdown-custome">
                                     <Link to="/manage/users/1" >Quản lý tài khoản</Link>

@@ -8,7 +8,7 @@ import {BrowserRouter , Route} from 'react-router-dom';
 import Profile from './components/users/Profie';
 import ManageUser from './components/users/ManageUser';
 import {PersistGate} from 'redux-persist/integration/react';
-
+import CreateUser from './components/users/CreateUser';
 
 ReactDOM.render(<Provider store={store}>
                     <PersistGate loading={null} persistor={persistor}>
@@ -17,6 +17,7 @@ ReactDOM.render(<Provider store={store}>
                                 <Route path="/" exact component={HomePageContainer} />
                                 <Route path="/profile/users/:id" component={Profile} />
                                 <Route path="/manage/users/:page_number" component={ManageUser}/>
+                                <Route path="/users/new" component={CreateUser}/>
                             </div>
                         </BrowserRouter>
                     </PersistGate>

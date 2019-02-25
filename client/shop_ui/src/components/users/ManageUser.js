@@ -45,7 +45,7 @@ class ManageUser extends Component {
         return (
             <div className="page">
                 <div>
-                    <a href="#none" className="btn btn-default" id="btnCreateUser">Create User</a>
+                    <Link to="/users/new" className="btn btn-default" id="btnCreateUser">Create User</Link>
                 </div>
                 <table className="table table-hover">
                     <thead>
