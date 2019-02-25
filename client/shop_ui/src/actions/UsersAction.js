@@ -24,3 +24,23 @@ export function getAuthenticatedUser(token){
             })
         }
 }
+
+export function getUserById(token, user_id){
+    return function(dispatch){
+        axios({
+            url: `http://localhost:3000/users/${user_id}`,
+            method: "GET",
+            data: {
+                id: user_id
+            },
+            headers:{
+                'Authorization': token
+            }
+            }).then(function(success){
+                console.log(success.data)
+            }).catch(function(error){
+                console.log(error)
+            })
+        }
+}
+

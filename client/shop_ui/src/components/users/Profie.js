@@ -9,11 +9,14 @@ import {
     validatePasswordConfirm
 } from '../../util/validate';
 import defaultAvatarUrl from '../default_avatar.png'
+import { bindActionCreators } from 'redux';
+import { getUserById} from '../../actions/UsersAction';
 
 class Profile extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            user_id: this.props.match.params.id,
             first_name: '',
             last_name: '',
             email: '',
@@ -24,6 +27,12 @@ class Profile extends Component {
             firstNameError: '',
             lastNameError: '',
             passwordConfirmationError: '',
+        }
+    }
+    componentDidMount() {
+        if(this.state.user_id !== null){
+            const token = localStorage.getItem("token");
+            this.props.getUserById(token, this.state.user_id);
         }
     }
 
@@ -139,5 +148,11 @@ function mapStateToProps(state) {
     }
 }
 
-const ProfileContainer = withRouter(connect(mapStateToProps)(Profile));
+function mapDispatchToProps(dispatch){
+    return bindActionCreators({
+        getUserById
+    }, dispatch)
+}
+
+const ProfileContainer = withRouter(connect(mapStateToProps, mapDispatchToProps)(Profile));
 export default ProfileContainer;
