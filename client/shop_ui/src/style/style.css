@@ -307,6 +307,8 @@
 /* ===End Public body=== */
 
 /* ===Profile=== */
+
+
 .profile  h2{
     text-align: center;
 }
@@ -314,6 +316,27 @@
 .avatar {
     display: flex;
     justify-content: center;
+}
+
+.avatar .avatar-default {
+    max-width: 200px;
+    max-height: 200px;
+    margin-bottom: 10px;
+}
+
+button.update-profile-button {
+    min-width: 200px;
+    margin-top: 50px;
+}
+
+.submit-profile {
+    display: flex;
+    justify-content: center;
+}
+
+.form-group {
+    padding: 10px 0;
+    margin: 0;
 }
 
 /* ===End Profile=== */

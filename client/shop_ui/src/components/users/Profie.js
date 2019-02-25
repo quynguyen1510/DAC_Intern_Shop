@@ -8,6 +8,7 @@ import {
     validatePassword,
     validatePasswordConfirm
 } from '../../util/validate';
+import defaultAvatarUrl from '../default_avatar.png'
 
 class Profile extends Component {
     constructor(props) {
@@ -49,17 +50,20 @@ class Profile extends Component {
 
     render() {
         const {currentUser} = this.props.user; 
-        console.log(currentUser)
         return (
             <div className="profile">
                 <h2> {currentUser.email}</h2>
                 <div className="avatar">
-                    <img className="img-thumbnail" src={`${currentUser.avatar_url }`} alt=""/>
+                    {
+                        currentUser.avatar_url !== null ? <img className="img-thumbnail" src={  `${currentUser.avatar_url}` } alt=""/> :
+                        <img className="avatar-default" src={defaultAvatarUrl} alt=""/>
+                    }
+                    
                 </div>
                 <div className="inputForm">
-                    <form>
+                    <form >
                         <div className="form-group row">
-                            <label className="col-sm-2 col-form-label">First Name</label>
+                            <label className="col-sm-2  col-form-label">First Name</label>
                             <div className="col-sm-8">
                                 <input type="text" disabled className="form-control" placeholder={currentUser.first_name} />
                             </div>
@@ -112,15 +116,14 @@ class Profile extends Component {
                         <div className="form-group row">
                             <label className="col-sm-2 col-form-label">Avatar</label>
                             <div className="col-sm-8">
-                                <div className="col-sm-4">
-                                    <img className="img-thumbnail" src={currentUser.avatar_url} alt=""/>
-                                </div>
-                                <div className="col-sm-8">
+                                <div className="col-sm-12">
                                     <label className="custom-file-label">Choose file</label>
                                 </div>
                             </div>
                         </div>
-
+                        <div className="submit-profile">
+                            <button className="btn btn-primary update-profile-button">Update</button>
+                        </div>
 
                     </form>
 
