@@ -15,7 +15,7 @@ ReactDOM.render(<Provider store={store}>
                         <BrowserRouter >
                             <div>
                                 <Route path="/" exact component={HomePageContainer} />
-                                <Route path="/users/:id" component={Profile} />
+                                <Route path="/profile/users/:id" component={Profile} />
                                 <Route path="/manage/users/:page_number" component={ManageUser}/>
                             </div>
                         </BrowserRouter>

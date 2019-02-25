@@ -97,7 +97,7 @@ class Profile extends Component {
                         <div className="form-group row">
                             <label className="col-sm-2 col-form-label">Password</label>
                             <div className="col-sm-8">
-                                <input type="password" className="form-control" />
+                                <input type="password" disabled className="form-control" />
                             </div>
                             <button className="btn btn-link">Edit</button>
                         </div>
@@ -105,7 +105,7 @@ class Profile extends Component {
                         <div className="form-group row">
                             <label className="col-sm-2 col-form-label">Confirm</label>
                             <div className="col-sm-8">
-                                <input type="password"  className="form-control" />
+                                <input type="password"  disabled className="form-control" />
                             </div>
                             <button className="btn btn-link">Edit</button>
                         </div>

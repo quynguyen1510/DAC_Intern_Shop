@@ -67,8 +67,8 @@ class ManageUser extends Component {
                                         <td>{user.email}</td>
                                         <td>{this.getUserRole(user.role_id)}</td>
                                         <td>
-                                            <a href="#none" className="btn btn-primary btnEditUser">Edit</a>
-                                            <a href="#none" className="btn btn-danger btnDeleteUser">Delete</a>
+                                            <Link to={`/profile/users/${user.id}`} className="btn btn-primary btnEditUser">Edit</Link>
+                                            <a href="#" className="btn btn-danger btnDeleteUser">Delete</a>
                                         </td>
                                     </tr>
                                 )
