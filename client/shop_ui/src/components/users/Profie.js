@@ -1,13 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
-import {
-    validateEmail,
-    validateFisrtName,
-    validateLastName,
-    validatePassword,
-    validatePasswordConfirm
-} from '../../util/validate';
 import defaultAvatarUrl from '../default_avatar.png'
 import { bindActionCreators } from 'redux';
 import { getUserById} from '../../actions/UsersAction';
@@ -60,13 +53,12 @@ class Profile extends Component {
 
     render() {
         const {currentUser} = this.props.user; 
-        console.log(currentUser)
         return (
             <div className="profile">
                 <h2> {currentUser.email}</h2>
                 <div className="avatar">
                     {
-                        currentUser.avatar_url !== null ? <img className="img-thumbnail" src={  `${currentUser.avatar_url}` } alt=""/> :
+                        currentUser.avatar_url !== null ? <img className="avatar-default" src={  `${currentUser.avatar_url}` } alt=""/> :
                         <img className="avatar-default" src={defaultAvatarUrl} alt=""/>
                     }
                     
