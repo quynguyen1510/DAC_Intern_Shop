@@ -2,10 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
 class Menu extends Component {
-    componentDidMount() {
-        const token = localStorage.getItem("token");
-        this.props.getAuthenticatedUser(token);
-    }
+
     render() {
         const { currentUser } = (this.props.session.user)
         let name = '';

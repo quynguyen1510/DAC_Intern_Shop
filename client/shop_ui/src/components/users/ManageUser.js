@@ -1,6 +1,16 @@
 import React, { Component } from 'react';
+import { bindActionCreators } from 'redux';
+import { getListUsers} from '../../actions/UsersAction';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router';
 
 class ManageUser extends Component {
+    
+    componentDidMount(){
+        const token = localStorage.getItem("token");
+        this.props.getListUsers(token);
+    }
+
     render() {
         return (
             <div className="page">
@@ -48,4 +58,18 @@ class ManageUser extends Component {
     }
 }
 
-export default ManageUser;
+function mapStateToProps(state) {
+    return {
+        user: state.user
+    }
+}
+
+function mapDispatchToProps(dispatch){
+    return bindActionCreators({
+        getListUsers
+    }, dispatch)
+}
+
+const ManageUserContainer = withRouter(connect(mapStateToProps, mapDispatchToProps)(ManageUser));
+
+export default ManageUserContainer;

@@ -1,10 +1,17 @@
 import axios from 'axios';
-import { GET_USER } from './actionTypes';
+import { GET_USER, GET_USERS } from './actionTypes';
 
 function getUser(user){
     return {
         type: GET_USER,
         user
+    }
+}
+
+function getUsers(users){
+    return {
+        type: GET_USERS,
+        users
     }
 }
 
@@ -37,10 +44,27 @@ export function getUserById(token, user_id){
                 'Authorization': token
             }
             }).then(function(success){
-                console.log(success.data)
+                dispatch(getUser(success.data))
             }).catch(function(error){
                 console.log(error)
             })
         }
 }
 
+export function getListUsers(token){
+    return function(dispatch){
+        axios({
+            url: `http://localhost:3000/users`,
+            method: "GET",
+            data: {
+            },
+            headers:{
+                'Authorization': token
+            }
+            }).then(function(success){
+               dispatch(getUsers(success.data))
+            }).catch(function(error){
+                console.log(error)
+            })
+    }
+}

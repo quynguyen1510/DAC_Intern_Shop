@@ -10,6 +10,12 @@ class LoginBar extends Component {
             isShowLogin: false,
         };
     }
+
+    componentDidMount() {
+        const token = localStorage.getItem("token");
+        this.props.getAuthenticatedUser(token);
+    }
+    
     handleShowLogin() {
         this.setState({
             isShowLogin: true
