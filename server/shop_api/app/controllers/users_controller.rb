@@ -1,13 +1,13 @@
 class UsersController < ApplicationController
   skip_before_action :authorize_request, only: :create  
-  before_action :get_user, except: [:create, :index, :get_authenticate_user]
+  before_action :get_user, except: [:create, :index, :get_authenticate_user, :get_total_user ]
   before_action :both_current_user_and_admin, only: [:show, :update]
-  before_action :only_admin, only: [:index, :destroy]
+  before_action :only_admin, only: [:index, :destroy, :get_total_user_page]
 
   # GET '/users'
   def index 
     # pagination
-    @users = User.all.paginate(page: params[:page], per_page: params[:per_page])
+    @users = User.all.paginate(page: params[:page], per_page: 4)
     json_response(@users)
   end
 
@@ -21,7 +21,7 @@ class UsersController < ApplicationController
     # use create! method will raise RecordInvalid exception if credentials is invalid
     # add normal user role for signup user
     data = user_params
-    normal_user = Role.find_by(role_name: Roles.user)
+    normal_user = Role.find_by(role_name: Constants.user)
     data[:role_id] = normal_user.id
     data[:active] = true
 
@@ -48,6 +48,12 @@ class UsersController < ApplicationController
   def get_authenticate_user
     json_response({current_user: @current_user})
   end
+
+  def get_total_user
+    page = User.all.size / Constants.record_per_page
+    json_response({page: page})
+  end
+
   private 
   # get user parameter
   def user_params
