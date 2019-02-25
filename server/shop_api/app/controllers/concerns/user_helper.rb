@@ -1,6 +1,6 @@
 module UserHelper
   def is_admin?(user)
-     user.role.role_name == Roles.admin
+     user.role.role_name == Constants.admin
   end
 
   def correct_user?(current_user, request_user)
