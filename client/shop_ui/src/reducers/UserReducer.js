@@ -1,9 +1,10 @@
-import { ADD_USER_FAIL, ADD_USER_SUCCESS, GET_USER, GET_USERS } from '../actions/actionTypes';
+import { ADD_USER_FAIL, ADD_USER_SUCCESS, GET_USER, GET_USERS, GET_USERS_SIZE } from '../actions/actionTypes';
 
 const defaultState = {
     users: [],
     message: "",
-    currentUser: null
+    currentUser: null,
+    size: null
 }
 export default function userReducer(state=defaultState, action) {
     switch(action.type){
@@ -24,10 +25,15 @@ export default function userReducer(state=defaultState, action) {
                 ...state,
                 currentUser: action.user
             }
+        case GET_USERS_SIZE:
+            return {
+                ...state,
+                size: action.size
+            }
         case GET_USERS:
             return {
                 ...state,
-                users: [...state.users, action.users]
+                users: [...action.users]
             }
         default:
             return state;
