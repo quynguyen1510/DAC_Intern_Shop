@@ -15,8 +15,8 @@ ReactDOM.render(<Provider store={store}>
                         <BrowserRouter >
                             <div>
                                 <Route path="/" exact component={HomePageContainer} />
-                                <Route path="/current-user" component={Profile} />
-                                <Route path="/users" component={ManageUser}/>
+                                <Route path="/users/:id" component={Profile} />
+                                <Route path="/manage/users" component={ManageUser}/>
                             </div>
                         </BrowserRouter>
                     </PersistGate>
