@@ -1,9 +1,14 @@
 import React, { Component } from 'react';
 import SignupForm from './SignupForm.js';
 import LoginForm from './LoginForm.js';
-import Menu from './MenuBar.js';
+import Menu from './MenuBar';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router';
+import { bindActionCreators } from 'redux';
+import { login, signup } from '../../../actions/SessionAction';
+import { getAuthenticatedUser } from '../../../actions/UsersAction';
 
-class LoginBar extends Component {
+class AuthenticationBar extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -16,7 +21,6 @@ class LoginBar extends Component {
         const token = localStorage.getItem("token");
        if (token){
            this.setState({isAuthenticated: true});
-           this.props.getAuthenticatedUser(token);
        }
     }
     
@@ -44,7 +48,7 @@ class LoginBar extends Component {
         return (
             <div>
                 {
-                    authenticated ? <Menu {...this.props} /> : (
+                    authenticated ? <Menu {...this.props}/> : (
                         <div>
                             <div className="login-bar container-fluid">
                                 <a href="#top" data-toggle="modal" data-target="#myModal">ĐĂNG NHẬP / ĐĂNG KÝ</a>
@@ -70,4 +74,17 @@ class LoginBar extends Component {
     }
 }
 
-export default LoginBar;
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators({
+      login,
+      signup,
+      getAuthenticatedUser
+    }, dispatch)
+}
+
+function mapStateToProps(state) {
+    return {
+      session: state
+    }
+}
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(AuthenticationBar));
