@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-
+import { ADMIN_ROLE} from '../../../util/constant';
 class Menu extends Component {
 
     render() {
@@ -19,10 +19,14 @@ class Menu extends Component {
                             <a href="#none" data-toggle="dropdown">{name}</a>
                             <ul className="dropdown-menu">
                                 <li className="dropdown-item dropdown-custome">
-                                    <Link to={`/profile/users/${currentUser.id}`} >Thông tin cá nhân</Link>
+                                    {
+                                        currentUser ? <Link to={`/profile/users/${currentUser.id}`} >Thông tin cá nhân</Link> : null
+                                    }
                                 </li>
                                 <li className="dropdown-item dropdown-custome">
-                                    <Link to="/manage/users/1" >Quản lý tài khoản</Link>
+                                    {
+                                        currentUser.role_id == ADMIN_ROLE ? <Link to="/manage/users/1" >Quản lý tài khoản</Link> : null
+                                    }
                                 </li>
                                 <li className="dropdown-item dropdown-custome">
                                     <a href="#">Đăng xuất</a>

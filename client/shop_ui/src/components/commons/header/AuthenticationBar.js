@@ -8,12 +8,16 @@ class LoginBar extends Component {
         super(props);
         this.state = {
             isShowLogin: false,
+            isAuthenticated: false
         };
     }
 
     componentDidMount() {
         const token = localStorage.getItem("token");
-        this.props.getAuthenticatedUser(token);
+       if (token){
+           this.setState({isAuthenticated: true});
+           this.props.getAuthenticatedUser(token);
+       }
     }
     
     handleShowLogin() {
@@ -36,11 +40,11 @@ class LoginBar extends Component {
             elmForm = <SignupForm {...this.props} />
         }
 
-        const authenticated = this.props.session.session;
+        const authenticated = this.state.isAuthenticated;
         return (
             <div>
                 {
-                    authenticated ? <Menu {...this.props}/> : (
+                    authenticated ? <Menu {...this.props} /> : (
                         <div>
                             <div className="login-bar container-fluid">
                                 <a href="#top" data-toggle="modal" data-target="#myModal">ĐĂNG NHẬP / ĐĂNG KÝ</a>
