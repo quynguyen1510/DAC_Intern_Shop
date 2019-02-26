@@ -14,10 +14,10 @@ function loginFail(){
     }
 }
 
-function addUserSuccess(payload){
+function addUserSuccess(token){
     return {
         type: ADD_USER_SUCCESS,
-        payload
+        token
     }
 }
 
@@ -51,7 +51,7 @@ export function signup(crendentials){
             method: 'POST',
             data: crendentials
         }).then(function(success){
-            dispatch(addUserSuccess(success.data.user));
+            dispatch(addUserSuccess(success.data.auth_token));
         })
         .catch(function(error){
             console.log(error)

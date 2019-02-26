@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
-class LoginForm extends Component {
+class SignupForm extends Component {
     constructor(props){
         super(props);
         this.state = {
@@ -18,8 +18,8 @@ class LoginForm extends Component {
         }
     }
 
-    validateFisrtName = () => {
-        const { first_name } = this.state;
+    validateFirstName = () => {
+        const  first_name  = this.state.first_name;
         const valid_name = first_name.length !== 0
         this.setState({ firstNameError: valid_name ? null : "First name can't be blank" });
     }
@@ -44,6 +44,7 @@ class LoginForm extends Component {
         const { password } = this.state;
         this.setState({ passwordError: password.length < 6 ? "Password must be greater than 5" : null })
     }
+
     validatePasswordConfirm = () => {
         const { passwordConfirm, password } = this.state;
         if (passwordConfirm.length < 6) {
@@ -53,6 +54,7 @@ class LoginForm extends Component {
             this.setState({ passwordConfirmationError: "Password confirm don't match password " });
         }
     }
+
     handleFirstNameChange = event => {
         this.setState({first_name: event.target.value });
     }
@@ -87,7 +89,7 @@ class LoginForm extends Component {
     }
 
     static getDerivedStateFromProps(nextProps, prevState){
-        if(nextProps.session.user.message){
+        if(localStorage.getItem("token")){
             return {
                 ...prevState,
                 first_name: '',
@@ -111,18 +113,17 @@ class LoginForm extends Component {
                 <form onSubmit={this.handleSubmit}>
                     <div className="input-group">
                         <input type="text" 
-                                id="firstName" 
-                                value={this.state.first_name}
                                 className="form-control input-custom"
-                                onBlur={this.validateFisrtName}
+                                placeholder="First name" 
                                 onChange={this.handleFirstNameChange}
-                            placeholder="First name" />
+                                onBlur={this.validateFirstName}
+                                />
                         <input type="text"
                                className="form-control input-custom" 
                                placeholder="Last name"
-                               value={this.state.last_name}
+                               onChange={this.handleLastNameChange}
                                onBlur={this.validateLastName}
-                               onChange={this.handleLastNameChange} />
+                                />
                         <div className="invalid-feedback">{this.state.firstNameError}</div>
                         <div className="invalid-feedback">{this.state.lastNameError}</div>
                     </div>
@@ -130,7 +131,6 @@ class LoginForm extends Component {
                         <input type="email" 
                                 className="input-custom form-control" 
                                 placeholder="Enter email"
-                                value={this.state.email}
                                 onBlur={this.validateEmail}
                                 onChange={this.handleEmailChange} />
                         <div className="invalid-feedback">{this.state.emailError}</div>
@@ -139,7 +139,6 @@ class LoginForm extends Component {
                         <input type="password" 
                             className="form-control input-custom" 
                             placeholder="Enter password"
-                            value={this.state.password}
                             onBlur={this.validatePassword}
                             onChange={this.handlePasswordChange} />
                         <div className="invalid-feedback">{this.state.passwordError}</div>
@@ -148,7 +147,6 @@ class LoginForm extends Component {
                         <input type="password" 
                             className="form-control input-custom" 
                             placeholder="Confirm password"
-                            value={this.state.passwordConfirm}
                             onBlur={this.validatePasswordConfirm}
                             onChange={this.handlePasswordConfirmChange} />
                         <div className="invalid-feedback">{this.state.passwordConfirmationError}</div>
@@ -160,4 +158,4 @@ class LoginForm extends Component {
     }
 }
 
-export default LoginForm;
+export default SignupForm;
