@@ -47,7 +47,7 @@ export function login(crendentials){
 export function signup(crendentials){
     return function(dispatch){
         axios({
-            url: "http://localhost:3000/signup",
+            url: "http://localhost:3000/users",
             method: 'POST',
             data: crendentials
         }).then(function(success){
