@@ -245,14 +245,14 @@ class UserForm extends Component {
                                             disabled={this.state.roleDisabled}
                                             value={currentUser.role_id}>
                                         <option value="1">Admin</option>
-                                        <option value="2">Shopper</option>
-                                        <option value="3">User</option>
+                                        <option value="2">User</option>
+                                        <option value="3">Shopeer</option>
                                     </select> :
 
                                     <select onChange={this.handleRoleChange} className="form-control">
                                         <option value="1">Admin</option>
-                                        <option value="2">Shopper</option>
-                                        <option value="3">User</option>
+                                        <option value="2">User</option>
+                                        <option value="3">Shopeer</option>
                                     </select>
                             }
                         </div>
