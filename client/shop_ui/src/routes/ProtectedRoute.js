@@ -15,8 +15,8 @@ class ProtectedRoutes extends Component {
 
     componentDidMount() {
         const token = localStorage.getItem('token')
-        if (token && !this.props.session.user.currentUser){
-         this.props.getAuthenticatedUser(token);
+        if (token && !this.props.session.user.currentUser) {
+            this.props.getAuthenticatedUser(token);
         }
     }
 
@@ -24,11 +24,13 @@ class ProtectedRoutes extends Component {
     getRoute = () => {
         const user = this.props.session.user.currentUser;
         const roleUser = user ? user.role_id : GUEST_ROLE;
-        const isProtected = localStorage.getItem('token')
+        const isProtected = localStorage.getItem('token') != null;
         if (isProtected) {
             if (roleUser === ADMIN_ROLE) {
                 return (
                     <Switch>
+                        <Route path="/profile/users/:id" component={Profile} />
+
                         <Route path="/manage/users/:page_number" component={ManageUser} />
                         <Route path="/users/new" component={CreateUser} />
                     </Switch>
@@ -37,20 +39,20 @@ class ProtectedRoutes extends Component {
             if (roleUser === SHOPPER_ROLE) {
                 return (
                     <>
-                        <Redirect to="/" />
-                    </> 
+                        <Route path="/profile/users/:id" component={Profile} />
+                    </>
                 )
             }
             if (roleUser === USER_ROLE) {
                 return (
-                    <>
+                    <Switch>
+                        <Route path="/profile/users/:id" component={Profile} />
                         <Redirect to="/" />
-                    </>
+                    </Switch>
                 )
             }
         }
         return <Redirect to="/" />
-
     }
 
     render() {
@@ -58,7 +60,6 @@ class ProtectedRoutes extends Component {
         return (
             <Switch>
                 <Route path="/" exact component={() => <HomePage />} />
-                <Route path="/profile/users/:id" component={Profile} />
                 {this.getRoute()}
             </Switch>
 
@@ -68,14 +69,14 @@ class ProtectedRoutes extends Component {
 
 function mapDispatchToProps(dispatch) {
     return bindActionCreators({
-      getAuthenticatedUser
+        getAuthenticatedUser
     }, dispatch)
 }
 
 function mapStateToProps(state) {
     return {
-      session: state
+        session: state
     }
 }
-  
+
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(ProtectedRoutes));
