@@ -21,6 +21,7 @@ class AuthenticationBar extends Component {
         const token = localStorage.getItem("token");
        if (token){
            this.setState({isAuthenticated: true});
+           
        }
     }
     

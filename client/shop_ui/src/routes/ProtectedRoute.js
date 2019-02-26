@@ -15,7 +15,7 @@ class ProtectedRoutes extends Component {
 
     componentDidMount() {
         const token = localStorage.getItem('token')
-        if (token) {
+        if (token && !this.props.session.user.currentUser){
          this.props.getAuthenticatedUser(token);
         }
     }
