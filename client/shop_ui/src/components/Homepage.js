@@ -1,21 +1,15 @@
 import React, { Component } from 'react';
-
 import "../style/style.css";
 import Header from './commons/header/Header';
 import Footer from './commons/footer/Footer';
 import Body from './commons/body/Body';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { withRouter } from 'react-router';
-import { login, signup } from '../actions/SessionAction';
-import { getAuthenticatedUser } from '../actions/UsersAction';
 
 
 class HomePage extends Component {
   render() {
     return (
       <div className="wrapper">
-        <Header {...this.props} />
+        <Header/>
         <Body />
         <Footer />
       </div>
@@ -23,19 +17,7 @@ class HomePage extends Component {
   }
 }
 
-function mapStateToProps(state) {
-  return {
-    session: state
-  }
-}
 
-function mapDispatchToProps(dispatch) {
-  return bindActionCreators({
-    login,
-    signup,
-    getAuthenticatedUser
-  }, dispatch)
-}
 
-const HomePageContainer = withRouter(connect(mapStateToProps, mapDispatchToProps)(HomePage));
-export default HomePageContainer;
+
+export default HomePage;
