@@ -292,11 +292,49 @@
 
 /* ===========Body=========== */
 
-/*=========Banner=========*/
-#banner {
-    min-height: 350px;
-    max-height: 500px;
+/*=========Banner & Categories=========*/
+.cat-banner {
+    background-color: wheat;
+    height: 344px;
 }
+#banner {
+    padding-left: 0;
+    padding-right: 0;
+}
+#categories {
+    background: white;
+    color: black;
+    height: 344px;
+    width: 200px;
+    padding-left: 0;
+    padding-right: 0;
+}
+#categories ul {
+    margin: 0;
+    padding: 0;
+    height: 344px;
+}
+#categories ul li a {
+    text-decoration: none;
+    color: black;
+    font-size: 13px;
+    line-height: 27px;
+    padding-left: 10px;
+} 
+#categories ul li {
+    list-style: none;
+    margin-top: 0.5rem;
+}
+#categories ul li:hover {
+    background-color: rgb(226, 220, 220);
+}
+#categories ul li:hover a {
+    color: rgb(60, 159, 240);
+}
+.carousel-item img{
+    height: 344px;
+}
+
 /*=========End Banner=========*/
 
 
