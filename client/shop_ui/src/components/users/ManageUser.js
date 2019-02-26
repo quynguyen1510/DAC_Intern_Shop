@@ -3,8 +3,9 @@ import { bindActionCreators } from 'redux';
 import { getListUsers, getUsersSize } from '../../actions/UsersAction';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
-import { RECORD_PER_PAGE, ADMIN_ROLE, USER_ROLE } from '../../util/constant';
+import { RECORD_PER_PAGE } from '../../util/constant';
 import { Link } from 'react-router-dom';
+import UserTable from './UserTable';
 
 class ManageUser extends Component {
     constructor(props) {
@@ -24,19 +25,10 @@ class ManageUser extends Component {
         }
     }
 
-    getUserRole = (role_id) => {
-        switch(role_id){
-            case 1:
-                return ADMIN_ROLE;
-            case 2:
-                return USER_ROLE;
-            default:
-                return "Unknown"
-        }
-    }
     getCurrentPage = () => {
         this.setState({currentPage: this.props.match.params.page_number})
     }
+    
     render() {
         const { size } = this.props.user;
         const userPages = (size % 2 !== 0) ? (size / RECORD_PER_PAGE) + 1 : (size / RECORD_PER_PAGE);
@@ -47,35 +39,7 @@ class ManageUser extends Component {
                 <div>
                     <Link to="/users/new" className="btn btn-default" id="btnCreateUser">Create User</Link>
                 </div>
-                <table className="table table-hover">
-                    <thead>
-                        <tr>
-                            <th>First Name</th>
-                            <th>Last Name</th>
-                            <th>Email</th>
-                            <th>Role Name</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {
-                            usersPerPage.map((user, index) => {
-                                return (
-                                    <tr key={index}>
-                                        <td>{user.first_name}</td>
-                                        <td>{user.last_name}</td>
-                                        <td>{user.email}</td>
-                                        <td>{this.getUserRole(user.role_id)}</td>
-                                        <td>
-                                            <Link to={`/profile/users/${user.id}`} className="btn btn-primary btnEditUser">Edit</Link>
-                                            <a href="#" className="btn btn-danger btnDeleteUser">Delete</a>
-                                        </td>
-                                    </tr>
-                                )
-                            })
-                        }
-                    </tbody>
-                </table>
+                <UserTable usersPerPage={usersPerPage}/>
                 <nav aria-label="...">
                     <ul className="pagination pagination-lg">
                         {
