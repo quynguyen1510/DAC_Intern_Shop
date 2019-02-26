@@ -19,7 +19,9 @@ class Menu extends Component {
                             <a href="#none" data-toggle="dropdown">{name}</a>
                             <ul className="dropdown-menu">
                                 <li className="dropdown-item dropdown-custome">
-                                    <Link to={`/profile/users/${currentUser.id}`} >Thông tin cá nhân</Link>
+                                    {
+                                        currentUser ? <Link to={`/profile/users/${currentUser.id}`} >Thông tin cá nhân</Link> : null
+                                    }
                                 </li>
                                 <li className="dropdown-item dropdown-custome">
                                     <Link to="/manage/users/1" >Quản lý tài khoản</Link>
