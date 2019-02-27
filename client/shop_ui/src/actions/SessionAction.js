@@ -14,10 +14,10 @@ function loginFail(){
     }
 }
 
-function addUserSuccess(token){
+function addUserSuccess(authenticated_user){
     return {
         type: ADD_USER_SUCCESS,
-        token
+        authenticated_user
     }
 }
 
@@ -36,7 +36,7 @@ export function login(crendentials){
             method: 'POST',
             data: crendentials
         }).then(function(success){
-            localStorage.setItem("token", success.data.auth_token);
+            localStorage.setItem("token", success.data.authenticated_user);
             dispatch(loginSuccess());
         }).catch(function(error){
             dispatch(loginFail());

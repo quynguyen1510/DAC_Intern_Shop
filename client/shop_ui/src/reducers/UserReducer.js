@@ -9,11 +9,11 @@ const defaultState = {
 export default function userReducer(state=defaultState, action) {
     switch(action.type){
         case ADD_USER_SUCCESS:
-            localStorage.setItem("token", action.token)
             alert("Created successfully");
             window.location.reload();
             return {
-                message: "Created successfully"
+                ...state,
+                currentUser: action.authenticated_user
             }
         case ADD_USER_FAIL:
             return {

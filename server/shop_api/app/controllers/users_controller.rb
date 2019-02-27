@@ -25,8 +25,9 @@ class UsersController < ApplicationController
     data[:role_id] = normal_user.id
     data[:active] = true
 
-    User.create!(data)
+    @user = User.create!(data)
     response = { 
+      authenticated_user: @user,
       message: Message.account_created 
     }
     json_response(response, :created)

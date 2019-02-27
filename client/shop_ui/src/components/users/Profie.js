@@ -48,7 +48,10 @@ class Profile extends Component {
     render() {
         const {users } = this.props.user; 
         const profileUserId = this.props.match.params.id;
-        const updatedUser = users.filter(user =>  String(user.id) === (profileUserId))[0];
+        let updatedUser = users.filter(user =>  String(user.id) === (profileUserId))[0];
+        if(!updatedUser){
+            updatedUser = this.props.user.currentUser
+        }
         return (
             <div className="profile">
                 <h2> {updatedUser.email}</h2>
