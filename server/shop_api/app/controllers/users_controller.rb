@@ -25,10 +25,8 @@ class UsersController < ApplicationController
     data[:role_id] = normal_user.id
     data[:active] = true
 
-    @user = User.create!(data)
-    auth_token = AuthenticateUser.new(@user.email, @user.password).call
+    User.create!(data)
     response = { 
-      auth_token:auth_token,
       message: Message.account_created 
     }
     json_response(response, :created)
