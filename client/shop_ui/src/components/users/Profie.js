@@ -5,6 +5,7 @@ import defaultAvatarUrl from '../default_avatar.png'
 import { bindActionCreators } from 'redux';
 import { getUserById} from '../../actions/UsersAction';
 import UserForm from './UserForm';
+import { Redirect} from 'react-router-dom';
 
 class Profile extends Component {
     constructor(props) {
@@ -48,11 +49,12 @@ class Profile extends Component {
     render() {
         const {users } = this.props.user; 
         const profileUserId = this.props.match.params.id;
-        let updatedUser = users.filter(user =>  String(user.id) === (profileUserId))[0];
+        let updatedUser = users.filter(user =>  String(user.id) === profileUserId)[0];
         if(!updatedUser){
             updatedUser = this.props.user.currentUser
         }
         return (
+            (String(updatedUser.id) == profileUserId) ?
             <div className="profile">
                 <h2> {updatedUser.email}</h2>
                 <div className="avatar">
@@ -66,6 +68,7 @@ class Profile extends Component {
                     < UserForm updatedUser={updatedUser}/>
                 </div>
             </div>
+            : <Redirect to="/"/>
         );
     }
 }
