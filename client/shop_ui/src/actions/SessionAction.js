@@ -4,6 +4,7 @@ import {
     SIGNUP_SUCCESS, 
     SIGNUP_FAIL } from './actionTypes';
 import axios from 'axios';
+import {HEROKU_API_URL} from '../util/constant';
 
 
 function loginSuccess(){
@@ -36,7 +37,7 @@ export function login(crendentials){
         // if login successfully then get token and save it to local storage
         // dispatch an action login successfully
         axios({
-            url: "http://localhost:3000/auth/login",
+            url: `${HEROKU_API_URL}/auth/login`,
             method: 'POST',
             data: crendentials
         }).then(function(success){
@@ -51,7 +52,7 @@ export function login(crendentials){
 export function signup(crendentials){
     return function(dispatch){
         axios({
-            url: "http://localhost:3000/users",
+            url: `${HEROKU_API_URL}/users`,
             method: 'POST',
             data: crendentials
         }).then(function(success){
