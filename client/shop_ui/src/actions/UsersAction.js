@@ -22,6 +22,12 @@ function getSize(size){
     }
 }
 
+function addUser(message){
+    return {
+        type: message
+    }
+}
+
 export function getAuthenticatedUser(token){
     return function(dispatch){
         axios({
@@ -89,5 +95,22 @@ export function getListUsers(token, page){
             }).catch(function(error){
                 console.log(error)
             })
+    }
+}
+
+
+export function addNewUser(crendentials){
+    return function(dispatch){
+        axios({
+            url: "http://localhost:3000/users",
+            method: 'POST',
+            data: crendentials
+        }).then(function(success){
+            //console.log(success.data)
+            dispatch(addUser(success.data.message));
+        })
+        .catch(function(error){
+            console.log(error)
+        })
     }
 }
