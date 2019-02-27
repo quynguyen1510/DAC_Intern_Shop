@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { GET_USER, GET_USERS, GET_USERS_SIZE } from './actionTypes';
+import { GET_USER, GET_USERS, GET_USERS_SIZE, ADD_NEW_USER, UPDATE_USER } from './actionTypes';
 
 function getUser(user){
     return {
@@ -24,7 +24,15 @@ function getSize(size){
 
 function addUser(message){
     return {
-        type: message
+        type: ADD_NEW_USER,
+        message
+    }
+}
+
+function updateUser(message){
+    return {
+        type: UPDATE_USER,
+        message
     }
 }
 
@@ -108,6 +116,25 @@ export function addNewUser(crendentials){
         }).then(function(success){
             //console.log(success.data)
             dispatch(addUser(success.data.message));
+        })
+        .catch(function(error){
+            console.log(error)
+        })
+    }
+}
+
+export function updateExistingUser(crendentials, token, user_id){
+    return function(dispatch){
+        axios({
+            url: `http://localhost:3000/users/${user_id}`,
+            method: 'PUT',
+            data: crendentials,
+            headers: {
+                'Authorization': token
+            }
+        }).then(function(success){
+            console.log(success.data)
+           // dispatch(addUser(success.data.message));
         })
         .catch(function(error){
             console.log(error)
