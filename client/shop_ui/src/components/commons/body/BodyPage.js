@@ -10,8 +10,7 @@ class BodyPage extends Component {
                     <ProductItem/>
                     <ProductItem/>
                     <ProductItem/>
-                    <ProductItem/>
-                    <ProductItem/>
+                    <div className="w-100"></div>
                     <ProductItem/>
                     <ProductItem/>
                     <ProductItem/>

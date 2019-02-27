@@ -480,6 +480,9 @@ button.update-profile-button {
     .col-cus {
         width: 60%;
     }
+    .login-bar a {
+        margin-right: 5em;
+    }
 }
 @media only screen and (max-width: 700px) {
     #searchFrom input {
@@ -545,5 +548,8 @@ button.update-profile-button {
     }
     .carousel-item img{
         height: 250px;
+    }
+    .login-bar a {
+        margin-right: 2em;
     }
 }
