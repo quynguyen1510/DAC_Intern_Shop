@@ -23,12 +23,6 @@ class Profile extends Component {
             passwordConfirmationError: '',
         }
     }
-    componentDidMount() {
-        if(this.state.user_id !== null){
-            const token = localStorage.getItem("token");
-            this.props.getUserById(token, this.state.user_id);
-        }
-    }
 
     handleFirstNameChange = event => {
         this.setState({ first_name: event.target.value });
@@ -52,19 +46,23 @@ class Profile extends Component {
 
 
     render() {
-        const {currentUser} = this.props.user; 
+        const {users } = this.props.user; 
+        const profileUserId = this.props.match.params.id - 1;
+        const updatedUser = users[profileUserId];
+        console.log(this.props.match.params.id);
+        console.log(this.props.user.users)
         return (
             <div className="profile">
-                <h2> {currentUser.email}</h2>
+                <h2> {updatedUser.email}</h2>
                 <div className="avatar">
                     {
-                        currentUser.avatar_url !== null ? <img className="avatar-default" src={  `${currentUser.avatar_url}` } alt=""/> :
+                        updatedUser.avatar_url !== null ? <img className="avatar-default" src={  `${updatedUser.avatar_url}` } alt=""/> :
                         <img className="avatar-default" src={defaultAvatarUrl} alt=""/>
                     }
                     
                 </div>
                 <div className="inputForm">
-                    < UserForm currentUser={currentUser}/>
+                    < UserForm updatedUser={updatedUser}/>
                 </div>
             </div>
         );
