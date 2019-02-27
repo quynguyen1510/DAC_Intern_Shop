@@ -32,7 +32,7 @@ class ManageUser extends Component {
     render() {
         const { size } = this.props.user;
         const userPages = (size % 2 !== 0) ? (size / RECORD_PER_PAGE) + 1 : (size / RECORD_PER_PAGE);
-        const convertedArrayPages = Array(Math.floor(userPages)).fill();
+        const convertedArrayPages = Array(userPages.floor).fill();
         const usersPerPage = this.props.user.users;
         return (
             <div className="page">
