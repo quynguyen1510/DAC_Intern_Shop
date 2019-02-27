@@ -36,7 +36,7 @@ export function login(crendentials){
             method: 'POST',
             data: crendentials
         }).then(function(success){
-            localStorage.setItem("token", success.data.authenticated_user);
+            localStorage.setItem("token", success.data.auth_token);
             dispatch(loginSuccess());
         }).catch(function(error){
             dispatch(loginFail());
@@ -51,7 +51,7 @@ export function signup(crendentials){
             method: 'POST',
             data: crendentials
         }).then(function(success){
-            dispatch(addUserSuccess(success.data.auth_token));
+            dispatch(addUserSuccess(success.data.authenticated_user));
         })
         .catch(function(error){
             console.log(error)
