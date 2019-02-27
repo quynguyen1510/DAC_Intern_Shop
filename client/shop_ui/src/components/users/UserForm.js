@@ -120,7 +120,7 @@ class UserForm extends Component {
     }
 
     render() {
-        const { currentUser } = this.props;
+        const { updatedUser } = this.props;
         return (
             <div>
                 <form encType="multipart/form-data">
@@ -128,22 +128,20 @@ class UserForm extends Component {
                         <label className="col-sm-2  col-form-label">First Name</label>
                         <div className="col-sm-8">
                             {
-                                currentUser ? <input type="text" 
-                                   
+                                updatedUser ? <input type="text"                      
                                     disabled = {this.state.firstNameDisabled}
                                     className="form-control"
                                     onBlur={this.validateFisrtName}
-                                    placeholder={currentUser.first_name}
+                                    placeholder={updatedUser.first_name}
                                     onChange={this.handleFirstNameChange} /> :
                                     <input type="text"
-                                        disabled = {this.state.firstNameDisabled}
                                         className="form-control"
                                         onBlur={this.validateFisrtName}
                                         onChange={this.handleFirstNameChange} />
                             } 
                         </div>
                         {
-                            currentUser ? <label onClick={this.onActiveFirstName} className="btn btn-link">Edit</label> : null
+                            updatedUser ? <label onClick={this.onActiveFirstName} className="btn btn-link">Edit</label> : null
                         }
                         <div className="invalid-feedback">{this.state.firstNameError}</div>
                     </div>
@@ -151,11 +149,11 @@ class UserForm extends Component {
                         <label className="col-sm-2 col-form-label">Last Name</label>
                         <div className="col-sm-8">
                             {
-                                currentUser ? <input type="text" 
+                                updatedUser ? <input type="text" 
                                     disabled={this.state.lastNameDisabled}
                                     className="form-control"
                                     onBlur={this.validateLastName}
-                                    placeholder={currentUser.last_name}
+                                    placeholder={updatedUser.last_name}
                                     onChange={this.handleLastNameChange} /> :
                                     <input type="text"
                                         className="form-control"
@@ -164,7 +162,7 @@ class UserForm extends Component {
                             }
                         </div>
                         {
-                            currentUser ? <label onClick={this.onActiveLastName} className="btn btn-link">Edit</label> : null
+                            updatedUser ? <label onClick={this.onActiveLastName} className="btn btn-link">Edit</label> : null
                         }
                         <div className="invalid-feedback">{this.state.lastNameError}</div>
                     </div>
@@ -173,12 +171,12 @@ class UserForm extends Component {
                         <label className="col-sm-2 col-form-label">Email</label>
                         <div className="col-sm-8">
                             {
-                                currentUser ? 
+                                updatedUser ? 
                                 <input type="email" 
                                     disabled={this.state.emailDisabled}
                                     className="form-control"
                                     onBlur={this.validateEmail}
-                                    placeholder={currentUser.email}
+                                    placeholder={updatedUser.email}
                                     onChange={this.handleEmailChange} /> :
                                 <input type="email" className="form-control"
                                         onBlur={this.validateEmail}
@@ -186,7 +184,7 @@ class UserForm extends Component {
                             }
                         </div>
                         {
-                            currentUser ? <label onClick={this.onActiveEmail} className="btn btn-link">Edit</label> : null
+                            updatedUser ? <label onClick={this.onActiveEmail} className="btn btn-link">Edit</label> : null
                         }
                         <div className="invalid-feedback">{this.state.emailError}</div>
                     </div>
@@ -195,7 +193,7 @@ class UserForm extends Component {
                         <label className="col-sm-2 col-form-label">Password</label>
                         <div className="col-sm-8">
                             {
-                                currentUser ?
+                                updatedUser ?
                                     <input type="password"
                                         onBlur={this.validatePassword} 
                                         disabled={this.state.passwordDisabled}
@@ -208,7 +206,7 @@ class UserForm extends Component {
                             }
                         </div>
                         {
-                            currentUser ? <label onClick={this.onActivePassword} className="btn btn-link">Edit</label> : null
+                            updatedUser ? <label onClick={this.onActivePassword} className="btn btn-link">Edit</label> : null
                         }
                         <div className="invalid-feedback">{this.state.passwordError}</div>
                     </div>
@@ -217,7 +215,7 @@ class UserForm extends Component {
                         <label className="col-sm-2 col-form-label">Confirm</label>
                         <div className="col-sm-8">
                             {
-                                currentUser ?
+                                updatedUser ?
                                     <input type="password"
                                         onBlur={this.validatePasswordConfirm} 
                                         onChange={this.handlePasswordConfirmChange}
@@ -230,7 +228,7 @@ class UserForm extends Component {
                             }
                         </div>
                         {
-                            currentUser ? <label onClick={this.onActiveConfirmPassword} className="btn btn-link">Edit</label> : null
+                            updatedUser ? <label onClick={this.onActiveConfirmPassword} className="btn btn-link">Edit</label> : null
                         }
                         <div className="invalid-feedback">{this.state.passwordConfirmationError}</div>
                     </div>
@@ -239,11 +237,11 @@ class UserForm extends Component {
                         <label className="col-sm-2 col-form-label">Role</label>
                         <div className="col-sm-8">
                             {
-                                currentUser ?
+                                updatedUser ?
                                     <select onChange={this.handleRoleChange} 
                                             className="form-control" 
                                             disabled={this.state.roleDisabled}
-                                            value={currentUser.role_id}>
+                                            value={updatedUser.role_id}>
                                         <option value="1">Admin</option>
                                         <option value="2">User</option>
                                         <option value="3">Shopeer</option>
@@ -257,7 +255,7 @@ class UserForm extends Component {
                             }
                         </div>
                         {
-                            currentUser ? <label onClick={this.onActiveRole} className="btn btn-link">Edit</label> : null
+                            updatedUser ? <label onClick={this.onActiveRole} className="btn btn-link">Edit</label> : null
                         }                        
                     </div>
                     <div className="form-group row">
@@ -279,7 +277,7 @@ class UserForm extends Component {
                 </form>
                 <div className="submit-profile">
                     <button onClick={this.handleSubmit}
-                        className="btn btn-primary update-profile-button">{currentUser ? "Update" : "Create"}</button>
+                        className="btn btn-primary update-profile-button">{updatedUser ? "Update" : "Create"}</button>
                 </div>
             </div>
         );
