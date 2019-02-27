@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { bindActionCreators } from 'redux';
-import { addNewUser  } from '../../actions/UsersAction';
+import { addNewUser, updateExistingUser  } from '../../actions/UsersAction';
 
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
@@ -106,6 +106,8 @@ class UserForm extends Component {
     handleSubmit = () => {
         const { email, password, first_name, last_name, passwordConfirm, role,  imageUrl } = this.state;
 
+        const {updatedUser} = this.props;
+        const token = localStorage.getItem("token")
         const credentials = {
             "first_name" : `${first_name}`,
             "last_name" : `${last_name}`,
@@ -115,8 +117,15 @@ class UserForm extends Component {
             "role_id": role,
             "avatar_url": imageUrl
         }
-        this.props.addNewUser(credentials)
+        if(updatedUser){
+            this.props.updateExistingUser(credentials, token, updatedUser.id);
+            alert(`Update ${updatedUser.email} successfullly`);
+        }
+        else{
+            this.props.addNewUser(credentials)
+        }
         this.props.history.push("/manage/users/1");
+
     }
     
     onActiveFirstName = () => {
@@ -309,7 +318,8 @@ class UserForm extends Component {
 
 function mapDispatchToProps(dispatch) {
     return bindActionCreators({
-      addNewUser
+      addNewUser,
+      updateExistingUser
     }, dispatch)
 }
 
