@@ -6,3 +6,4 @@ export const GET_USER = "GET_USER";
 export const GET_USERS = "GET_USERS";
 export const GET_USERS_SIZE = "GET_USERS_SIZE"
 export const ADD_NEW_USER = "ADD_NEW_USER"
+export const UPDATE_USER = "UPDATE_USER"

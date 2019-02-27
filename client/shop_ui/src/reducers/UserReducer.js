@@ -4,6 +4,7 @@ import {
     GET_USER,
     GET_USERS, GET_USERS_SIZE,
     ADD_NEW_USER,
+    UPDATE_USER,
      } from '../actions/actionTypes';
 
 const defaultState = {
@@ -42,6 +43,11 @@ export default function userReducer(state=defaultState, action) {
                 users: [...action.users]
             }
         case ADD_NEW_USER:
+            return {
+                ...state,
+                message: action.message
+            }
+        case UPDATE_USER:
             return {
                 ...state,
                 message: action.message
