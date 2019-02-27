@@ -1,4 +1,10 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router';
+import { bindActionCreators } from 'redux';
+import { addNewUser  } from '../../actions/UsersAction';
+
+
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
 
@@ -6,6 +12,7 @@ class UserForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            // value 
             first_name: '',
             last_name: '',
             email: '',
@@ -13,11 +20,15 @@ class UserForm extends Component {
             passwordConfirm: '',
             role: '',
             imageUrl: '',
+
+            // Error 
             emailError: '',
             passwordError: '',
             firstNameError: '',
             lastNameError: '',
             passwordConfirmationError: '',
+
+            // disable attribute
             firstNameDisabled: true,
             lastNameDisabled: true,
             emailDisabled: true,
@@ -93,7 +104,19 @@ class UserForm extends Component {
     }
 
     handleSubmit = () => {
-        console.log(this.state);
+        const { email, password, first_name, last_name, passwordConfirm, role,  imageUrl } = this.state;
+
+        const credentials = {
+            "first_name" : `${first_name}`,
+            "last_name" : `${last_name}`,
+            "email" : `${email}`,
+            "password" : `${password}`,
+            "password_confirmation" : `${passwordConfirm}`,
+            "role_id": role,
+            "avatar_url": imageUrl
+        }
+        this.props.addNewUser(credentials)
+        this.props.history.push("/manage/users/1");
     }
     
     onActiveFirstName = () => {
@@ -244,13 +267,13 @@ class UserForm extends Component {
                                             value={updatedUser.role_id}>
                                         <option value="1">Admin</option>
                                         <option value="2">User</option>
-                                        <option value="3">Shopeer</option>
+                                        <option value="3">Shoper</option>
                                     </select> :
 
                                     <select onChange={this.handleRoleChange} className="form-control">
                                         <option value="1">Admin</option>
                                         <option value="2">User</option>
-                                        <option value="3">Shopeer</option>
+                                        <option value="3">Shoper</option>
                                     </select>
                             }
                         </div>
@@ -284,4 +307,16 @@ class UserForm extends Component {
     }
 }
 
-export default UserForm;
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators({
+      addNewUser
+    }, dispatch)
+}
+
+function mapStateToProps(state) {
+    return {
+      user: state
+    }
+}
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(UserForm));
