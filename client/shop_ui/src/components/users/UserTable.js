@@ -40,6 +40,10 @@ class UserTable extends Component {
                                     <td>
                                         <Link to={`/profile/users/${user.id}`} className="btn btn-primary btnEditUser">Edit</Link>
                                         <a href="#" className="btn btn-danger btnDeleteUser">Delete</a>
+                                        {
+                                            updatedUserId ? <span className="badge badge-success"></span> : null
+
+                                        }
                                     </td>
                                 </tr>
                             )

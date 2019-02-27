@@ -38,7 +38,7 @@ class ManageUser extends Component {
         const userPages = (size % RECORD_PER_PAGE !== 0) ? (size / RECORD_PER_PAGE) + 1 : (size / RECORD_PER_PAGE);
         const convertedArrayPages = Array(Math.floor(userPages)).fill();
         const usersPerPage = this.props.user.users;
-        const updatedUserId = this.props.history.location.state.updatedUserId;
+        const updatedUserId = this.props.history.location.state ? this.props.history.location.state.updatedUserId : null
         return (
             <div className="page">
                 <div>
