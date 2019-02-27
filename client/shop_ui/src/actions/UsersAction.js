@@ -1,5 +1,6 @@
 import axios from 'axios';
-import { GET_USER, GET_USERS, GET_USERS_SIZE, ADD_NEW_USER, UPDATE_USER } from './actionTypes';
+import { GET_USER, GET_USERS, GET_USERS_SIZE, ADD_NEW_USER, UPDATE_USER, } from './actionTypes';
+import {HEROKU_API_URL} from '../util/constant';
 
 function getUser(user){
     return {
@@ -39,7 +40,7 @@ function updateUser(message){
 export function getAuthenticatedUser(token){
     return function(dispatch){
         axios({
-            url: `http://localhost:3000/authenticate/profile`,
+            url: `${HEROKU_API_URL}/authenticate/profile`,
             method: "GET",
             data: {},
             headers:{
@@ -56,7 +57,7 @@ export function getAuthenticatedUser(token){
 export function getUserById(token, user_id){
     return function(dispatch){
         axios({
-            url: `http://localhost:3000/users/${user_id}`,
+            url: `${HEROKU_API_URL}/users/${user_id}`,
             method: "GET",
             data: {
                 id: user_id
@@ -75,7 +76,7 @@ export function getUserById(token, user_id){
 export function getUsersSize(token){
     return function(dispatch){
         axios({
-            url: `http://localhost:3000/collection/users/size`,
+            url: `${HEROKU_API_URL}/collection/users/size`,
             method: "GET",
             data: {
             },
@@ -93,7 +94,7 @@ export function getUsersSize(token){
 export function getListUsers(token, page){
     return function(dispatch){
         axios({
-            url: `http://localhost:3000/users/?page=${page}`,
+            url: `${HEROKU_API_URL}/users/?page=${page}`,
             method: "GET",
             headers:{
                 'Authorization': token
@@ -110,7 +111,7 @@ export function getListUsers(token, page){
 export function addNewUser(crendentials){
     return function(dispatch){
         axios({
-            url: "http://localhost:3000/users",
+            url: `${HEROKU_API_URL}/users`,
             method: 'POST',
             data: crendentials
         }).then(function(success){
@@ -126,14 +127,14 @@ export function addNewUser(crendentials){
 export function updateExistingUser(crendentials, token, user_id){
     return function(dispatch){
         axios({
-            url: `http://localhost:3000/users/${user_id}`,
+            url: `${HEROKU_API_URL}/users/${user_id}`,
             method: 'PUT',
             data: crendentials,
             headers: {
                 'Authorization': token
             }
         }).then(function(success){
-           dispatch(addUser(success.data.message));
+           dispatch(updateUser(success.data.message));
         })
         .catch(function(error){
             console.log(error)
