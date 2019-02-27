@@ -16,7 +16,7 @@ class UserTable extends Component {
     }
 
     render() {
-        const { usersPerPage } = this.props;
+        const { usersPerPage, updatedUserId } = this.props;
         return (
             <table className="table table-hover">
                 <thead>

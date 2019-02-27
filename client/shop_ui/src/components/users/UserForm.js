@@ -34,7 +34,8 @@ class UserForm extends Component {
             emailDisabled: true,
             passwordDisabled: true,
             passwordConfirmDisabled: true,
-            roleDisabled: true
+            roleDisabled: true,
+
         }
     }
 
@@ -105,9 +106,9 @@ class UserForm extends Component {
 
     handleSubmit = () => {
         const { email, password, first_name, last_name, passwordConfirm, role,  imageUrl } = this.state;
-
+        
         const {updatedUser} = this.props;
-        const token = localStorage.getItem("token")
+        const token = localStorage.getItem("token");
         const credentials = {
             "first_name" : `${first_name}`,
             "last_name" : `${last_name}`,
@@ -119,13 +120,12 @@ class UserForm extends Component {
         }
         if(updatedUser){
             this.props.updateExistingUser(credentials, token, updatedUser.id);
-            alert(`Update ${updatedUser.email} successfullly`);
+            this.props.history.push("/manage/users/1", {updatedUserId: this.props.match.params.id});
         }
         else{
             this.props.addNewUser(credentials)
+            this.props.history.push("/manage/users/1");
         }
-        this.props.history.push("/manage/users/1");
-
     }
     
     onActiveFirstName = () => {

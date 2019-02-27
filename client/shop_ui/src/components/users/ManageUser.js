@@ -12,7 +12,7 @@ class ManageUser extends Component {
         super(props);
         this.state = {
             currentPage: this.props.match.params.page_number,
-            token:  localStorage.getItem("token")
+            token:  localStorage.getItem("token"),
         }
     }
 
@@ -24,6 +24,10 @@ class ManageUser extends Component {
             this.props.getListUsers(this.state.token, currentPage);        
         }
     }
+    
+    componentWillUnmount(){
+        this.props.history.location.state = null;
+    }
 
     getCurrentPage = () => {
         this.setState({currentPage: this.props.match.params.page_number})
@@ -34,12 +38,13 @@ class ManageUser extends Component {
         const userPages = (size % RECORD_PER_PAGE !== 0) ? (size / RECORD_PER_PAGE) + 1 : (size / RECORD_PER_PAGE);
         const convertedArrayPages = Array(Math.floor(userPages)).fill();
         const usersPerPage = this.props.user.users;
+        const updatedUserId = this.props.history.location.state.updatedUserId;
         return (
             <div className="page">
                 <div>
                     <Link to="/users/new" className="btn btn-default" id="btnCreateUser">Create User</Link>
                 </div>
-                <UserTable usersPerPage={usersPerPage}/>
+                <UserTable usersPerPage={usersPerPage} updatedUserId={updatedUserId}/>
                 <nav aria-label="...">
                     <ul className="pagination pagination-lg">
                         {

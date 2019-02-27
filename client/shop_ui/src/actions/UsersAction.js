@@ -133,8 +133,7 @@ export function updateExistingUser(crendentials, token, user_id){
                 'Authorization': token
             }
         }).then(function(success){
-            console.log(success.data)
-           // dispatch(addUser(success.data.message));
+           dispatch(addUser(success.data.message));
         })
         .catch(function(error){
             console.log(error)

@@ -40,6 +40,7 @@ class UsersController < ApplicationController
     user_params.each do |attr_name, attr_value|
       protected_params[attr_name.to_sym] = attr_value unless attr_value.empty?
     end
+
     @request_user.update(protected_params)
     json_response({message: Message.update_succesffuly})
   end
