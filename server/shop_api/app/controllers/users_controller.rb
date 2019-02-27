@@ -22,7 +22,7 @@ class UsersController < ApplicationController
     # add normal user role for signup user
     data = user_params
     normal_user = Role.find_by(role_name: Constants.user)
-    data[:role_id] = normal_user.id
+    data[:role_id] = normal_user.id unless data[:role_id]
     data[:active] = true
 
     @user = User.create!(data)
@@ -57,7 +57,7 @@ class UsersController < ApplicationController
   private 
   # get user parameter
   def user_params
-    params.permit(:first_name, :last_name, :email, :password, :password_confirmation)
+    params.permit(:first_name, :last_name, :email, :password, :password_confirmation, :role_id, :avatar_url)
   end
 
   # get request user
