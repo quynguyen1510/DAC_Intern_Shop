@@ -1,4 +1,8 @@
-import { LOG_IN_SUCCESS , LOG_IN_FAIL, ADD_USER_FAIL, ADD_USER_SUCCESS } from './actionTypes';
+import { 
+    LOG_IN_SUCCESS , 
+    LOG_IN_FAIL, 
+    SIGNUP_SUCCESS, 
+    SIGNUP_FAIL } from './actionTypes';
 import axios from 'axios';
 
 
@@ -14,16 +18,16 @@ function loginFail(){
     }
 }
 
-function addUserSuccess(authenticated_user){
+function signupSuccess(authenticated_user){
     return {
-        type: ADD_USER_SUCCESS,
+        type: SIGNUP_SUCCESS,
         authenticated_user
     }
 }
 
-function addUserFail(){
+function signupFail(){
     return {
-        type: ADD_USER_FAIL,
+        type: SIGNUP_FAIL,
     }
 }
 
@@ -51,11 +55,10 @@ export function signup(crendentials){
             method: 'POST',
             data: crendentials
         }).then(function(success){
-            dispatch(addUserSuccess(success.data.authenticated_user));
+            dispatch(signupSuccess(success.data.authenticated_user));
         })
         .catch(function(error){
-            console.log(error)
-            dispatch(addUserFail());
+            dispatch(signupFail());
         })
     }
 }
