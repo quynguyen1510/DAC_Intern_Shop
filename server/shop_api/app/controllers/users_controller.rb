@@ -7,7 +7,7 @@ class UsersController < ApplicationController
   # GET '/users'
   def index 
     # pagination
-    @users = User.all.paginate(page: params[:page], per_page: Constants.record_per_page)
+    @users = User.all.order("id ASC").paginate(page: params[:page], per_page: Constants.record_per_page)
     json_response(@users)
   end
 
@@ -35,7 +35,12 @@ class UsersController < ApplicationController
 
   # PUT /users/:id 
   def update 
-    @request_user.update(user_params)
+    # only get credentials have value
+    protected_params = Hash.new
+    user_params.each do |attr_name, attr_value|
+      protected_params[attr_name.to_sym] = attr_value unless attr_value.empty?
+    end
+    @request_user.update(protected_params)
     json_response({message: Message.update_succesffuly})
   end
 
@@ -57,7 +62,7 @@ class UsersController < ApplicationController
   private 
   # get user parameter
   def user_params
-    params.permit(:first_name, :last_name, :email, :password, :password_confirmation, :role_id, :avatar_url)
+    params.require(:user).permit(:first_name, :last_name, :email, :password, :password_confirmation, :role_id, :avatar_url)
   end
 
   # get request user
