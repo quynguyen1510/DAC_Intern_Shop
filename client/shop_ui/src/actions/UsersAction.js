@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { GET_USER, GET_USERS, GET_USERS_SIZE, ADD_NEW_USER, UPDATE_USER, } from './actionTypes';
+import { GET_USER, GET_USERS, GET_USERS_SIZE, ADD_NEW_USER, UPDATE_USER, DELETE_USER} from './actionTypes';
 import {HEROKU_API_URL} from '../util/constant';
 
 function getUser(user){
@@ -36,6 +36,7 @@ function updateUser(message){
         message
     }
 }
+
 
 export function getAuthenticatedUser(token){
     return function(dispatch){
@@ -135,6 +136,25 @@ export function updateExistingUser(crendentials, token, user_id){
             }
         }).then(function(success){
            dispatch(updateUser(success.data.message));
+        })
+        .catch(function(error){
+            console.log(error)
+        })
+    }
+}
+
+export function deleteExistingUser(token, user_id){
+    return function(dispatch){
+        axios({
+            url: `${HEROKU_API_URL}/users/${user_id}`,
+            method: 'DELETE',
+            headers: {
+                'Authorization': token
+            }
+        }).then(function(success){
+            console.log(success.data.message)
+            // update new list
+            dispatch(getListUsers(token, 1));
         })
         .catch(function(error){
             console.log(error)
