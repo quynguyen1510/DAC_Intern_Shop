@@ -4,6 +4,11 @@ import { ADMIN_ROLE} from '../../../util/constant';
 
 
 class Menu extends Component {
+    
+    handleLogOut = () => {
+        localStorage.removeItem("token");
+        localStorage.removeItem("persist:root");
+    }
 
     render() {
         const { currentUser } = (this.props.session.user)
@@ -31,7 +36,7 @@ class Menu extends Component {
                                     }
                                 </li>
                                 <li className="dropdown-item dropdown-custome">
-                                    <a href="#">Đăng xuất</a>
+                                    <a onClick={this.handleLogOut} href="#">Đăng xuất</a>
                                 </li>
                             </ul>
                         </div>
