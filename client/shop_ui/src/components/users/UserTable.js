@@ -1,17 +1,16 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { ADMIN_ROLE, USER_ROLE } from '../../util/constant';
 
 class UserTable extends Component {
 
     getUserRole = (role_id) => {
-        switch(role_id){
+        switch (role_id) {
             case 1:
-                return ADMIN_ROLE;
+                return "ADMIN";
             case 2:
-                return USER_ROLE;
+                return "USER";
             default:
-                return "Unknown"
+                return "SHOPER"
         }
     }
 
@@ -32,20 +31,21 @@ class UserTable extends Component {
                     {
                         usersPerPage.map((user, index) => {
                             return (
-                                <tr key={index}>
-                                    <td>{user.first_name}</td>
-                                    <td>{user.last_name}</td>
-                                    <td>{user.email}</td>
-                                    <td>{this.getUserRole(user.role_id)}</td>
-                                    <td>
-                                        <Link to={`/profile/users/${user.id}`} className="btn btn-primary btnEditUser">Edit</Link>
-                                        <a href="#" className="btn btn-danger btnDeleteUser">Delete</a>
-                                        {
-                                            updatedUserId ? <span className="badge badge-success"></span> : null
-
-                                        }
-                                    </td>
-                                </tr>
+                                user.active && (
+                                    <tr key={index}>
+                                        <td>{user.first_name}</td>
+                                        <td>{user.last_name}</td>
+                                        <td>{user.email}</td>
+                                        <td>{this.getUserRole(user.role_id)}</td>
+                                        <td>
+                                            <Link to={`/profile/users/${user.id}`} className="btn btn-primary btnEditUser">Edit</Link>
+                                            <Link to={`/delete/users/${user.id}`} className="btn btn-danger btnDeleteUser">Delete</Link>
+                                            {
+                                                updatedUserId ? <span className="badge badge-success"></span> : null
+                                            }
+                                        </td>
+                                    </tr>
+                                )
                             )
                         })
                     }
