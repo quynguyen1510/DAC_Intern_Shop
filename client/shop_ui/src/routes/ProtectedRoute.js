@@ -6,6 +6,7 @@ import HomePage from '../components/Homepage';
 import Profile from '../components/users/Profie';
 import ManageUser from '../components/users/ManageUser';
 import CreateUser from '../components/users/CreateUser';
+import DeleteUser from '../components/users/DeleteUser';
 import { ADMIN_ROLE, USER_ROLE, SHOPPER_ROLE, GUEST_ROLE } from '../util/constant';
 import { getAuthenticatedUser } from '../actions/UsersAction';
 import { bindActionCreators } from 'redux';
@@ -30,9 +31,9 @@ class ProtectedRoutes extends Component {
                 return (
                     <Switch>
                         <Route path="/profile/users/:id" component={Profile} />
-
                         <Route path="/manage/users/:page_number" component={ManageUser} />
                         <Route path="/users/new" component={CreateUser} />
+                        <Route path="/delete/users/:id" component={DeleteUser} />
                     </Switch>
                 )
             }
