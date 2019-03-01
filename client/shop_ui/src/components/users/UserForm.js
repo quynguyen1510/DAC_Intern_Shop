@@ -276,10 +276,8 @@ class UserForm extends Component {
                     </div>
                     {  updatedUser && this.getUserRole(updatedUser.role_id) == "ADMIN" ?
                         <div className="form-group row">
-                        
                             <label className="col-sm-2 col-form-label">Role</label>
                             <div className="col-sm-8">
-                                
                                         <select onChange={this.handleRoleChange} 
                                                 className="form-control" 
                                                 disabled={this.state.roleDisabled}
@@ -288,11 +286,8 @@ class UserForm extends Component {
                                             <option value="2">User</option>
                                             <option value="3">Shoper</option>
                                         </select> 
-
-                                      
-                            
                             </div>
-                        <label onClick={this.onActiveRole} className="btn btn-link">Edit</label>                     
+                        <label onClick={this.onActiveRole} className="btn btn-link">Edit</label>                   
                         </div> :null
                     }
                     <div className="form-group row">
