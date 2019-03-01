@@ -163,6 +163,7 @@ class UserForm extends Component {
 
     render() {
         const { updatedUser } = this.props;
+        const currentUser = this.props.user.user.currentUser;
         return (
             <div>
                 <form encType="multipart/form-data">
@@ -274,7 +275,7 @@ class UserForm extends Component {
                         }
                         <div className="invalid-feedback">{this.state.passwordConfirmationError}</div>
                     </div>
-                    {  updatedUser && this.getUserRole(updatedUser.role_id) == "ADMIN" ?
+                    {  updatedUser && this.getUserRole(currentUser.role_id) == "ADMIN" ?
                         <div className="form-group row">
                             <label className="col-sm-2 col-form-label">Role</label>
                             <div className="col-sm-8">
