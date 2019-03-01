@@ -5,12 +5,12 @@ class BodyPage extends Component {
     render() {
         return (
             <div className="container-fluid mb-5 mt-5" id="body-page">
-                <div className="row justify-content-center">
+                <div className="row" id="item-row">
                     <ProductItem/>
                     <ProductItem/>
                     <ProductItem/>
                     <ProductItem/>
-                    <div className="w-100"></div>
+                    <ProductItem/>
                     <ProductItem/>
                     <ProductItem/>
                     <ProductItem/>

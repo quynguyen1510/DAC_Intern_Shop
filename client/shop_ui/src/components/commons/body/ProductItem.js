@@ -3,11 +3,11 @@ import React, { Component } from 'react';
 class ProductItem extends Component {
     render() {
         return (
-            <div className="col-md-2 ml-4 mr-4 mb-2 col-cus">
+            <div className="col-md-2 col-sm-2 col-xs-12 mb-2 col-cus">
                 <div className="product-item">
                     <div className="pi-img-wrapper">
                         <a href="#none">
-                            <img src="http://keenthemes.com/assets/bootsnipp/k1.jpg" className="img-responsive" alt="Berry Lace Dress" width="100%" height="241px" />
+                            <img src="http://keenthemes.com/assets/bootsnipp/k1.jpg" className="img-responsive" alt="Berry Lace Dress" />
                         </a>
                     </div>
                     <a href="#none" className="item-name">
@@ -22,5 +22,7 @@ class ProductItem extends Component {
         );
     }
 }
+
+// width="100%" height="241px" 
 
 export default ProductItem;

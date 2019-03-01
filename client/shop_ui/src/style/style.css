@@ -369,7 +369,14 @@
     background-color: #f57224;
     color: white;
 }
-
+#item-row {
+    margin-left: 0;
+    margin-right: 0;
+}
+.pi-img-wrapper  img {
+    width: 100%;
+    height: auto;
+}
 /* ===End Public body=== */
 
 /* =======================================End Bod====================================== */
