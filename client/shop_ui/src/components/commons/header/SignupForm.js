@@ -34,44 +34,55 @@ class SignupForm extends Component {
 
         if (email.length === 0) {
             this.setState({ emailError: "Email can't be blank" });
-        }
+        }else{
         const valid_email = EMAIL_REGEX.test(email)
         this.setState({ emailError: valid_email ? null : "Please enter a valid email" })
+        }
 
     }
 
     validatePassword = () => {
         const { password } = this.state;
+        if (password.length === 0) {
+            this.setState({ passwordError: "Password can't be blank" });
+        }else{
         this.setState({ passwordError: password.length < 6 ? "Password must be greater than 5" : null })
+        }
     }
 
     validatePasswordConfirm = () => {
         const { passwordConfirm, password } = this.state;
-        if (passwordConfirm.length < 6) {
+        if (passwordConfirm.length === 0) {
+            this.setState({ passwordConfirmationError: "Password confirm can't be blank" });
+        }else if (passwordConfirm.length < 6) {
             this.setState({ passwordConfirmationError: "Password confirm must be greater than 5" });
-        }
-        if (passwordConfirm !== password) {
+        }else if (passwordConfirm !== password) {
             this.setState({ passwordConfirmationError: "Password confirm don't match password " });
         }
     }
 
     handleFirstNameChange = event => {
         this.setState({first_name: event.target.value });
+        this.setState({ firstNameError: "" });
     }
 
     handleLastNameChange = event => {
+        this.setState({ lastNameError: "" });
         this.setState({last_name: event.target.value });
     }
 
     handleEmailChange = event => {
+        this.setState({ emailError: "" });
         this.setState({email: event.target.value });
     }
 
     handlePasswordChange = event => {
+        this.setState({ passwordError: "" });
         this.setState({ password: event.target.value });
     }
 
     handlePasswordConfirmChange = event => {
+        this.setState({ passwordConfirmationError: "" });
         this.setState({ passwordConfirm: event.target.value });
     }
 

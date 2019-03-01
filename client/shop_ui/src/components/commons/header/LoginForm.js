@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
 class LoginForm extends Component {
-    constructor(props){
+    constructor(props) {
         super(props);
         this.state = {
             email: '',
@@ -11,12 +11,14 @@ class LoginForm extends Component {
             passwordError: ''
         }
     }
-    
+
     handleEmailChange = event => {
-        this.setState({email: event.target.value });
+        this.setState({ emailError: ''});
+        this.setState({ email: event.target.value });
     }
 
     handlePasswordChange = event => {
+        this.setState({ passwordError: ''});
         this.setState({ password: event.target.value });
     }
 
@@ -30,19 +32,23 @@ class LoginForm extends Component {
     }
 
     validateEmail = () => {
-        const {email} = this.state;
+        const { email } = this.state;
 
-        if (email.length === 0){
-            this.setState({ emailError: "Email can't be blank"});
+        if (email.length === 0) {
+            this.setState({ emailError: "Email can't be blank" });
+        } else {
+            const valid_email = EMAIL_REGEX.test(email)
+            this.setState({ emailError: valid_email ? null : "Please enter a valid email" })
         }
-        const valid_email = EMAIL_REGEX.test(email)
-        this.setState({ emailError: valid_email ? null : "Please enter a valid email"})
-        
     }
 
     validatePassword = () => {
         const { password } = this.state;
-        this.setState({ passwordError: password.length < 6 ? "Password must be greater than 5" : null }) 
+        if (password.length === 0) {
+            this.setState({ passwordError: "Password can't be blank" })
+        } else {
+            this.setState({ passwordError: password.length < 6 ? "Password must be greater than 5" : null })
+        }
     }
 
     render() {
@@ -51,16 +57,16 @@ class LoginForm extends Component {
                 <h2 className="titlePopup text-center">Login</h2>
                 <form>
                     <div className="form-group">
-                        <input  type="email" 
-                                className="input-custom form-control" 
-                                placeholder="Enter email"
-                                onChange={this.handleEmailChange}
-                                onBlur={this.validateEmail} />
+                        <input type="email"
+                            className="input-custom form-control"
+                            placeholder="Enter email"
+                            onChange={this.handleEmailChange}
+                            onBlur={this.validateEmail} />
                         <div className="invalid-feedback">{this.state.emailError}</div>
                     </div>
                     <div className="form-group">
-                    <input  type="password" 
-                            className="form-control input-custom" 
+                        <input type="password"
+                            className="form-control input-custom"
                             placeholder="Enter password"
                             onChange={this.handlePasswordChange}
                             onBlur={this.validatePassword} />
