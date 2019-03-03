@@ -3,9 +3,10 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import defaultAvatarUrl from '../default_avatar.png'
 import { bindActionCreators } from 'redux';
-import { getUserById} from '../../actions/UsersAction';
+import { getUserById } from '../../actions/UsersAction';
 import UserForm from './UserForm';
-import { Redirect} from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
+import Navbar from '../commons/header/Navbar';
 
 class Profile extends Component {
     constructor(props) {
@@ -47,28 +48,31 @@ class Profile extends Component {
 
 
     render() {
-        const {users } = this.props.user; 
+        const { users } = this.props.user;
         const profileUserId = this.props.match.params.id;
-        let updatedUser = users.filter(user =>  String(user.id) === profileUserId)[0];
-        if(!updatedUser){
+        let updatedUser = users.filter(user => String(user.id) === profileUserId)[0];
+        if (!updatedUser) {
             updatedUser = this.props.user.currentUser
         }
         return (
             (String(updatedUser.id) == profileUserId) ?
-            <div className="profile">
-                <h2> {updatedUser.email}</h2>
-                <div className="avatar">
-                    {
-                        updatedUser.avatar_url !== null ? <img className="avatar-default" src={  `${updatedUser.avatar_url}` } alt=""/> :
-                        <img className="avatar-default" src={defaultAvatarUrl} alt=""/>
-                    }
-                    
+                <div>
+                    <Navbar/>
+                    <div className="profile">
+                        <h2> {updatedUser.email}</h2>
+                        <div className="avatar">
+                            {
+                                updatedUser.avatar_url !== null ? <img className="avatar-default" src={`${updatedUser.avatar_url}`} alt="" /> :
+                                    <img className="avatar-default" src={defaultAvatarUrl} alt="" />
+                            }
+
+                        </div>
+                        <div className="inputForm">
+                            < UserForm updatedUser={updatedUser} />
+                        </div>
+                    </div>
                 </div>
-                <div className="inputForm">
-                    < UserForm updatedUser={updatedUser}/>
-                </div>
-            </div>
-            : <Redirect to="/"/>
+                : <Redirect to="/" />
         );
     }
 }
@@ -79,7 +83,7 @@ function mapStateToProps(state) {
     }
 }
 
-function mapDispatchToProps(dispatch){
+function mapDispatchToProps(dispatch) {
     return bindActionCreators({
         getUserById
     }, dispatch)
