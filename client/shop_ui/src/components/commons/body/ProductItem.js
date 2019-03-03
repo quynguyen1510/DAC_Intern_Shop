@@ -13,7 +13,7 @@ class ProductItem extends Component {
                     <a href="#none" className="item-name">
                         <h3 className="text-center">Berry Lace Dress</h3>
                     </a>
-                    <div>
+                    <div className="inforItem">
                         <p className="item-price">$29.00</p>
                         <a href="#none" className="btn add-cart">Add to cart</a>
                     </div>

@@ -361,7 +361,7 @@
     display: inline-block;
 }
 .add-cart {
-    margin-left: 6rem;
+    margin-left: 3rem;
     color: #a8aeb3;
     border: 1px #ededed solid;
 }
@@ -469,9 +469,25 @@ button.update-profile-button {
 
 /* ===End Form=== */
 /* ========================== */
+@media only screen and (min-width: 1750px) {
+    .inforItem {
+        justify-content: center;
+    }
+    .add-cart {
+       margin-left: 3rem;
+        font-size: 30px;
+    }
+    .item-price {
+        font-size: 30px;
+    }
+}
 @media only screen and (max-width: 1650px) {
     .add-cart {
         margin-left: 0.5rem;
+        font-size: 20px;
+    }
+    .item-price {
+        font-size: 20px;
     }
 }
 @media only screen and (max-width: 1300px) {
@@ -504,6 +520,16 @@ button.update-profile-button {
     .col-cus {
         width: 60%;
     }
+    .product-item .item-name h3{
+        font-size: 20px;
+    }
+    .add-cart {
+        margin-left: 0;
+        font-size: 15px;
+    }
+    #contactForm {
+        margin-bottom: 2rem;
+    }
 }
 @media only screen and (max-width: 600px) {
     #categories {
@@ -519,16 +545,58 @@ button.update-profile-button {
         width: 50%;
     }
     .add-cart {
-        margin-left: 5rem;
+        margin-left: 0;
+        font-size: 10px;
     }
     .cat-banner {
         height: 250px;
     }
-    .carousel-item img{
+    .carousel-item img {
         height: 250px;
     }
-    .col-cus {
-        width: 80%;
+    .product-item .item-name h3 {
+        font-size: 15px;
+    }
+    .item-price {
+        font-size: 10px;
+    }
+}
+@media only screen and (max-width: 575px) {
+    #item-row {
+        justify-content: center;
+    }
+    .add-cart {
+        margin-left: 8rem;
+    }
+    #checkFemale {
+        padding-left: 3rem;
+    }
+    #iso9001 {
+        width: 40px;
+        height: 40px;
+    }
+    #checklogo {
+        width: 53px;
+        height: 30px;
+    }
+}
+@media only screen and (max-width: 500px) {
+    #item-row {
+        justify-content: center;
+    }
+    .add-cart {
+        margin-left: 3rem;
+    }
+    #checkFemale {
+        padding-left: 3rem;
+    }
+    #iso9001 {
+        width: 40px;
+        height: 40px;
+    }
+    #checklogo {
+        width: 53px;
+        height: 30px;
     }
 }
 @media only screen and (max-width: 400px) {
@@ -548,7 +616,8 @@ button.update-profile-button {
         width: 50%;
     }
     .add-cart {
-        margin-left: 4rem;
+        font-size: 20px;
+        margin-left: 6rem;
     }
     .cat-banner {
         height: 250px;
@@ -558,5 +627,29 @@ button.update-profile-button {
     }
     .login-bar a {
         margin-right: 2em;
+    }
+    #body-page {
+        padding-left: 0;
+        padding-right: 0;
+    }
+    #item-row {
+        justify-content: center;
+    }
+    .item-price {
+        font-size: 20px;
+    }
+    #contactForm {
+        margin-bottom: 2rem;
+    }
+    #checkFemale {
+        padding-left: 3rem;
+    }
+    #iso9001 {
+        width: 40px;
+        height: 40px;
+    }
+    #checklogo {
+        width: 53px;
+        height: 30px;
     }
 }

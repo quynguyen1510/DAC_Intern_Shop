@@ -34,20 +34,20 @@ class FooterFirst extends Component {
                     <div className="col-lg-6">
                         <h3 className="footer-first-title">ĐĂNG KÝ NHẬN TIN</h3>
                         <div>
-                            <form className="form-inline" action="/action_page.php">
+                            <form className="form-inline">
                                 <input type="email" className="form-control mb-2 mr-sm-2" id="email" placeholder="Your email address"/>
                                 <div className="form-check mb-2 mr-sm-2">
-                                    <label className="form-check-label ml-2">
+                                    <label className="form-check-label ml-2" id="checkMale">
                                         <input className="form-check-input" type="radio" /> Nam
                                     </label>
-                                    <label  className="form-check-label ml-2">
+                                    <label  className="form-check-label ml-2" id="checkFemale">
                                         <input className="form-check-input" type="radio" /> Nu
                                      </label>
                                 </div>
                                 <button type="submit" className="btn btn-primary mb-2" id="btnSubmitContact">Đăng ký</button>
                             </form>
                         </div>
-                        <div className="container">
+                        <div className="container" id="contactForm">
                             <div className="row">
                                 <div className="col-sm-1" id="imgLogo">
                                     <img src="./images/logo-footer.png" alt="logo"></img>
