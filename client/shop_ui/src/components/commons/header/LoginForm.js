@@ -13,22 +13,26 @@ class LoginForm extends Component {
     }
 
     handleEmailChange = event => {
-        this.setState({ emailError: ''});
+        this.setState({ emailError: '' });
         this.setState({ email: event.target.value });
     }
 
     handlePasswordChange = event => {
-        this.setState({ passwordError: ''});
+        this.setState({ passwordError: '' });
         this.setState({ password: event.target.value });
     }
 
     handleSubmit = event => {
         event.preventDefault();
         const { email, password } = this.state;
-        this.props.login({
-            "email": `${email}`,
-            "password": `${password}`
-        });
+        if (email.length === 0 || password.length === 0) {
+            alert("Please input your account");
+        } else {
+            this.props.login({
+                "email": `${email}`,
+                "password": `${password}`
+            });
+        }
     }
 
     validateEmail = () => {
