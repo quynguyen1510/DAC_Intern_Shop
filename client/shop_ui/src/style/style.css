@@ -474,11 +474,11 @@ button.update-profile-button {
         justify-content: center;
     }
     .add-cart {
-       margin-left: 3rem;
-        font-size: 30px;
+        margin-left: 3rem;
+        font-size: 20px;
     }
     .item-price {
-        font-size: 30px;
+        font-size: 20px;
     }
 }
 @media only screen and (max-width: 1650px) {
