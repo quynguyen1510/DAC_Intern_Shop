@@ -39,7 +39,9 @@ class UserTable extends Component {
                                         <td>{this.getUserRole(user.role_id)}</td>
                                         <td>
                                             <Link to={`/profile/users/${user.id}`} className="btn btn-primary btnEditUser">Edit</Link>
-                                            <Link to={`/delete/users/${user.id}`} className="btn btn-danger btnDeleteUser">Delete</Link>
+                                            {
+                                                this.getUserRole(user.role_id) === "USER" ? <Link to={`/delete/users/${user.id}`} className="btn btn-danger btnDeleteUser">Delete</Link> : null
+                                            }
                                             {
                                                 updatedUserId ? <span className="badge badge-success"></span> : null
                                             }

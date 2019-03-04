@@ -166,6 +166,12 @@
 }
 /* ===End MenuBar=== */
 
+/* ===Nav Bar=== */
+#nav-cus:hover {
+    color: #f57224;
+}
+/* ===End nav bar=== */
+
 /* ==Logo Bar== */
 .logo-bar {
     padding-top: 2em;

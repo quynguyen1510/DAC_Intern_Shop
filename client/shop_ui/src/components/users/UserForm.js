@@ -38,6 +38,16 @@ class UserForm extends Component {
 
         }
     }
+    getUserRole = (role_id) => {
+        switch (role_id) {
+            case 1:
+                return "ADMIN";
+            case 2:
+                return "USER";
+            default:
+                return "SHOPER"
+        }
+    }
 
     validateFisrtName = () => {
         const { first_name } = this.state;
@@ -153,6 +163,7 @@ class UserForm extends Component {
 
     render() {
         const { updatedUser } = this.props;
+        const currentUser = this.props.user.user.currentUser;
         return (
             <div>
                 <form encType="multipart/form-data">
@@ -264,32 +275,22 @@ class UserForm extends Component {
                         }
                         <div className="invalid-feedback">{this.state.passwordConfirmationError}</div>
                     </div>
-
-                    <div className="form-group row">
-                        <label className="col-sm-2 col-form-label">Role</label>
-                        <div className="col-sm-8">
-                            {
-                                updatedUser ?
-                                    <select onChange={this.handleRoleChange} 
-                                            className="form-control" 
-                                            disabled={this.state.roleDisabled}
-                                            value={updatedUser.role_id}>
-                                        <option value="1">Admin</option>
-                                        <option value="2">User</option>
-                                        <option value="3">Shoper</option>
-                                    </select> :
-
-                                    <select onChange={this.handleRoleChange} className="form-control">
-                                        <option value="1">Admin</option>
-                                        <option value="2">User</option>
-                                        <option value="3">Shoper</option>
-                                    </select>
-                            }
-                        </div>
-                        {
-                            updatedUser ? <label onClick={this.onActiveRole} className="btn btn-link">Edit</label> : null
-                        }                        
-                    </div>
+                    {  updatedUser && this.getUserRole(currentUser.role_id) == "ADMIN" ?
+                        <div className="form-group row">
+                            <label className="col-sm-2 col-form-label">Role</label>
+                            <div className="col-sm-8">
+                                        <select onChange={this.handleRoleChange} 
+                                                className="form-control" 
+                                                disabled={this.state.roleDisabled}
+                                                value={updatedUser.role_id}>
+                                            <option value="1">Admin</option>
+                                            <option value="2">User</option>
+                                            <option value="3">Shoper</option>
+                                        </select> 
+                            </div>
+                        <label onClick={this.onActiveRole} className="btn btn-link">Edit</label>                   
+                        </div> :null
+                    }
                     <div className="form-group row">
                         <label className="col-sm-2 col-form-label">Avatar</label>
                         <div className="col-sm-8">
