@@ -1,41 +1,46 @@
 import React, { Component } from 'react';
+import { bindActionCreators } from 'redux';
+import { getListCategories } from '../../../actions/CategoriesAction';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router';
 
 class Categories extends Component {
+    constructor(props) {
+        super(props);
+    }
+
+    componentDidMount() {
+        if(!this.props.categories.categories){
+            this.props.getListCategories();
+        }
+    }
+
     render() {
+        const {categories} = this.props.categories;
         return (
             <div id="categories">
-            <ul>
-                <li>
-                    <a href="#none">Thiết Bị Điện Tử</a>
-                </li>
-                <li>
-                    <a href="#none">Phụ Kiện Điện Tử</a>
-                </li>
-                <li>
-                    <a href="#none">TV & Thiết Bị Gia Dụng</a>
-                </li>
-                <li>
-                    <a href="#none">Sức Khỏe & Làm Đẹp</a>
-                </li>
-                <li>
-                    <a href="#none">Hàng Mẹ,Bé & Đồ Chơi</a>
-                </li>
-                <li>
-                    <a href="#none">Siêu Thị Tạp Hóa</a>
-                </li>
-                <li>
-                    <a href="#none">Hàng Gia Dụng & Đời Sống</a>
-                </li>
-                <li>
-                    <a href="#none">Thời Trang</a>
-                </li>
-                <li>
-                    <a href="#none">Du Lịch</a>
-                </li>
-            </ul>
-        </div>
+                <ul>
+                  {
+                      categories.map((category, index) => {
+                        return <li key={index}>
+                            <a href="#none">{category.catname}</a>
+                         </li>
+                      })
+                  }
+                   
+                </ul>
+            </div>
         );
     }
 }
+function mapStateToProps(state) {
+    return { categories: state.categories }
+}
 
-export default Categories;
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators({
+        getListCategories
+    }, dispatch)
+}
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Categories));
