@@ -19,9 +19,6 @@ class Menu extends Component {
             name = name = first_name + last_name;
         }
        
-        var token = localStorage.getItem("token");
-        var decoded = jwtDecode(token);
-        console.log(decoded);
         return (
             <div>
                 <div className="menu-bar container-fluid clearfix">

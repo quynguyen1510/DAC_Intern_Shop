@@ -138,7 +138,7 @@ class UserForm extends Component {
                 this.props.history.push("/manage/users/1", {updatedUserId: this.props.match.params.id});
             }
             else {
-                this.props.updateExistingUser(credentials, token, updatedUser.id, 1);
+                this.props.updateExistingUser(credentials, token, updatedUser.id);
                 this.props.history.push("/");
             }
         }
