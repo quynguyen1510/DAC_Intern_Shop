@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { GET_USER, GET_USERS, GET_USERS_SIZE, ADD_NEW_USER, UPDATE_USER, DELETE_USER} from './actionTypes';
+import { GET_USER, GET_USERS, GET_USERS_SIZE, ADD_NEW_USER, UPDATE_USER} from './actionTypes';
 import {HEROKU_API_URL} from '../util/constant';
 
 function getUser(user){
@@ -136,6 +136,7 @@ export function updateExistingUser(crendentials, token, user_id){
             }
         }).then(function(success){
            dispatch(updateUser(success.data.message));
+           dispatch(getListUsers(token, 1));
         })
         .catch(function(error){
             console.log(error)
