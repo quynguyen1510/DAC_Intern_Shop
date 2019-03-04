@@ -125,7 +125,7 @@ export function addNewUser(crendentials){
     }
 }
 
-export function updateExistingUser(crendentials, token, user_id){
+export function updateExistingUser(crendentials, token, user_id, role_id=2){
     return function(dispatch){
         axios({
             url: `${HEROKU_API_URL}/users/${user_id}`,
@@ -136,7 +136,10 @@ export function updateExistingUser(crendentials, token, user_id){
             }
         }).then(function(success){
            dispatch(updateUser(success.data.message));
-           dispatch(getListUsers(token, 1));
+           if(role_id === 1 ){
+              dispatch(getListUsers(token, 1)); 
+           }
+            dispatch(getAuthenticatedUser(token));
         })
         .catch(function(error){
             console.log(error)
