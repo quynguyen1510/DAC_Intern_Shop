@@ -12,6 +12,8 @@ class ApplicationController < ActionController::API
   private
 
   def authorize_request
-    @current_user = (AuthorizeApiRequest.new(request.headers).call)[:user]
+    request_user = (AuthorizeApiRequest.new(request.headers).call)[:user]
+    check_user_id = JsonWebToken.decode(request_user.token)[:user_id]
+    @current_user = request_user if check_user_id == request_user.id
   end
 end
