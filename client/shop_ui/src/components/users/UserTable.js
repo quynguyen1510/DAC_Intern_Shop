@@ -24,6 +24,7 @@ class UserTable extends Component {
                         <th>Last Name</th>
                         <th>Email</th>
                         <th>Role Name</th>
+                        <th>Status</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -31,23 +32,23 @@ class UserTable extends Component {
                     {
                         usersPerPage.map((user, index) => {
                             return (
-                                user.active && (
                                     <tr key={index}>
                                         <td>{user.first_name}</td>
                                         <td>{user.last_name}</td>
                                         <td>{user.email}</td>
                                         <td>{this.getUserRole(user.role_id)}</td>
+                                        <td>{user.active ? "Active" : "Non active"}</td>
                                         <td>
                                             <Link to={`/profile/users/${user.id}`} className="btn btn-primary btnEditUser">Edit</Link>
                                             {
-                                                this.getUserRole(user.role_id) === "USER" ? <Link to={`/delete/users/${user.id}`} className="btn btn-danger btnDeleteUser">Delete</Link> : null
+                                                this.getUserRole(user.role_id) !== "ADMIN" ? <Link to={`/delete/users/${user.id}`} className="btn btn-danger btnDeleteUser">Delete</Link> : null
                                             }
                                             {
                                                 updatedUserId ? <span className="badge badge-success"></span> : null
                                             }
                                         </td>
                                     </tr>
-                                )
+                                
                             )
                         })
                     }
