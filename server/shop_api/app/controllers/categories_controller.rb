@@ -1,6 +1,6 @@
 class CategoriesController < ApplicationController
     before_action :only_admin, only: [:create, :destroy, :update]
-    before_action :get_category, only: [:Show, :update, :destroy]
+    before_action :get_category, only: [:show, :update, :destroy]
   
   # GET '/categories'
   def index 
