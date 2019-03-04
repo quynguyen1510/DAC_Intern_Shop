@@ -4,6 +4,7 @@ import { withRouter } from 'react-router';
 import { bindActionCreators } from 'redux';
 import { addNewUser, updateExistingUser  } from '../../actions/UsersAction';
 import { ADMIN_ROLE } from '../../util/constant';
+import { uploadImage } from '../../api/imgur_api';
 
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
@@ -39,6 +40,7 @@ class UserForm extends Component {
 
         }
     }
+
     getUserRole = (role_id) => {
         switch (role_id) {
             case 1:
@@ -111,8 +113,13 @@ class UserForm extends Component {
     }
 
     handleUploadAvatar  = event => {
-        const imageUrl = event.target.value;
-        this.setState({imageUrl: imageUrl})
+        const file = event.target.files[0];
+        uploadImage(file).then(response => {
+            const imageUrl = `https://i.imgur.com/${response.data.data.id}.png`
+            this.setState({imageUrl: imageUrl})
+        }).catch(err => {
+            console.log(err)
+        })
     }
 
     handleSubmit = () => {
@@ -126,12 +133,12 @@ class UserForm extends Component {
             "email" : `${email}`,
             "password" : `${password}`,
             "password_confirmation" : `${passwordConfirm}`,
-            "role_id": role,
-            "avatar_url": imageUrl
+            "role_id": `${role}`,
+            "avatar_url": `${imageUrl}`
         }
         if(email.length === 0 && first_name.length === 0 && last_name.length === 0 ){
-            alert("You must input new information")
-            return;
+           alert("You must input new information")
+             return;
         }
         if(updatedUser){
             if(currentUser.role_id === ADMIN_ROLE){
