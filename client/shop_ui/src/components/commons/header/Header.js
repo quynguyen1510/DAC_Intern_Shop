@@ -7,7 +7,7 @@ class Header extends Component {
     render() {
         return (
             <div className="header">
-                <AuthenticationBar {...this.props} />
+                <AuthenticationBar  />
                 <LogoBar />
             </div>
         );

@@ -1,17 +1,20 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import configStore from './store/ConfigStore';
+import {store, persistor} from './store/ConfigStore';
 import { Provider } from 'react-redux';
-import HomePageContainer from './components/Homepage';
-import {BrowserRouter , Route} from 'react-router-dom';
+import {BrowserRouter} from 'react-router-dom';
+import {PersistGate} from 'redux-persist/integration/react';
 
-const store = configStore();
+import ProtectedRoutesContainer from './routes/ProtectedRoute';
+
 
 ReactDOM.render(<Provider store={store}>
-                    <BrowserRouter >
-                        <Route path="/" exact component={HomePageContainer} />
-                    </BrowserRouter>
+                    <PersistGate loading={null} persistor={persistor}>
+                        <BrowserRouter >
+                            <ProtectedRoutesContainer/>
+                        </BrowserRouter>
+                    </PersistGate>
                 </Provider>, 
 document.getElementById('root'));
 

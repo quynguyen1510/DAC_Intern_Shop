@@ -1,16 +1,23 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+import { ADMIN_ROLE } from '../../../util/constant';
+var jwtDecode = require('jwt-decode');
+
 
 class Menu extends Component {
-    componentDidMount() {
-        const token = localStorage.getItem("token");
-        this.props.getAuthenticatedUser(token);
+
+    handleLogOut = () => {
+        this.props.logout(localStorage.getItem("token"));
+        localStorage.removeItem("token");
+        localStorage.removeItem("persist:root");
     }
+
     render() {
-        const {currentUser} = (this.props.session.user)
-        let name = ''
-        if (currentUser){
+        const { currentUser } = (this.props.session.user)
+        let name = '';
+        if (currentUser) {
             const { first_name, last_name } = currentUser
-             name = name =  first_name + last_name 
+            name = name = first_name + last_name;
         }
         return (
             <div>
@@ -19,11 +26,21 @@ class Menu extends Component {
                         <img src="./images/img_avatar.png" alt="Avatar" id="avatar" />
                         <div className="dropdown" id="dropMenu">
                             <a href="#none" data-toggle="dropdown">{name}</a>
-                            <div className="dropdown-menu">
-                                <a className="dropdown-item dropdown-custome" href="#">Thông tin cá nhân</a>
-                                <a className="dropdown-item dropdown-custome" href="#">Quản lý chiến dịch</a>
-                                <a className="dropdown-item dropdown-custome" href="#">Đăng xuất</a>
-                            </div>
+                            <ul className="dropdown-menu">
+                                <li className="dropdown-item dropdown-custome">
+                                    {
+                                        currentUser ? <Link to={`/profile/users/${currentUser.id}`} >Thông tin cá nhân</Link> : null
+                                    }
+                                </li>
+                                <li className="dropdown-item dropdown-custome">
+                                    {
+                                        currentUser ? (currentUser.role_id == ADMIN_ROLE ? <Link to="/manage/users/1" >Quản lý tài khoản</Link> : null) : null
+                                    }
+                                </li>
+                                <li className="dropdown-item dropdown-custome">
+                                    <a onClick={this.handleLogOut} href="#">Đăng xuất</a>
+                                </li>
+                            </ul>
                         </div>
                     </div>
                 </div>
@@ -31,5 +48,7 @@ class Menu extends Component {
         );
     }
 }
+
+
 
 export default Menu;

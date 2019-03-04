@@ -1,15 +1,30 @@
 import React, { Component } from 'react';
 import SignupForm from './SignupForm.js';
 import LoginForm from './LoginForm.js';
-import Menu from './MenuBar.js';
+import Menu from './MenuBar';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router';
+import { bindActionCreators } from 'redux';
+import { login, signup, logout } from '../../../actions/SessionAction';
+import { getAuthenticatedUser } from '../../../actions/UsersAction';
 
-class LoginBar extends Component {
+class AuthenticationBar extends Component {
     constructor(props) {
         super(props);
         this.state = {
             isShowLogin: false,
+            isAuthenticated: false
         };
     }
+
+    componentDidMount() {
+        const token = localStorage.getItem("token");
+       if (token){
+           this.setState({isAuthenticated: true});
+           
+       }
+    }
+    
     handleShowLogin() {
         this.setState({
             isShowLogin: true
@@ -30,7 +45,7 @@ class LoginBar extends Component {
             elmForm = <SignupForm {...this.props} />
         }
 
-        const authenticated = this.props.session.session;
+        const authenticated = this.state.isAuthenticated;
         return (
             <div>
                 {
@@ -60,4 +75,18 @@ class LoginBar extends Component {
     }
 }
 
-export default LoginBar;
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators({
+      login,
+      signup,
+      logout,
+      getAuthenticatedUser
+    }, dispatch)
+}
+
+function mapStateToProps(state) {
+    return {
+      session: state
+    }
+}
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(AuthenticationBar));

@@ -1,4 +1,4 @@
-class Roles
+class Constants
   def self.admin
     "admin"
   end
@@ -9,5 +9,9 @@ class Roles
 
   def self.user
     "user"
+  end
+
+  def self.record_per_page
+    10
   end
 end

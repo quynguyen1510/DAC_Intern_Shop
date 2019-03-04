@@ -1,5 +1,10 @@
-import { LOG_IN_SUCCESS , LOG_IN_FAIL, ADD_USER_FAIL, ADD_USER_SUCCESS } from './actionTypes';
+import { 
+    LOG_IN_SUCCESS , 
+    LOG_IN_FAIL, 
+    SIGNUP_SUCCESS, 
+    SIGNUP_FAIL } from './actionTypes';
 import axios from 'axios';
+import {HEROKU_API_URL} from '../util/constant';
 
 
 function loginSuccess(){
@@ -14,16 +19,16 @@ function loginFail(){
     }
 }
 
-function addUserSuccess(payload){
+function signupSuccess(authenticated_user){
     return {
-        type: ADD_USER_SUCCESS,
-        payload
+        type: SIGNUP_SUCCESS,
+        authenticated_user
     }
 }
 
-function addUserFail(){
+function signupFail(){
     return {
-        type: ADD_USER_FAIL,
+        type: SIGNUP_FAIL,
     }
 }
 
@@ -32,7 +37,7 @@ export function login(crendentials){
         // if login successfully then get token and save it to local storage
         // dispatch an action login successfully
         axios({
-            url: "http://localhost:3000/auth/login",
+            url: `${HEROKU_API_URL}/auth/login`,
             method: 'POST',
             data: crendentials
         }).then(function(success){
@@ -47,15 +52,33 @@ export function login(crendentials){
 export function signup(crendentials){
     return function(dispatch){
         axios({
-            url: "http://localhost:3000/signup",
+            url: `${HEROKU_API_URL}/users`,
             method: 'POST',
             data: crendentials
         }).then(function(success){
-            dispatch(addUserSuccess(success.data.user));
+            dispatch(signupSuccess(success.data.authenticated_user));
         })
         .catch(function(error){
-            console.log(error)
-            dispatch(addUserFail());
+            dispatch(signupFail());
         })
     }
 }
+
+export function logout(token){
+    return function(dispatch){
+        axios({
+            url: `${HEROKU_API_URL}/auth/logout`,
+            method: 'PUT',
+            headers:{
+                'Authorization': token
+            }
+        }).then(function(success){
+            console.log(success.data.message);
+        })
+        .catch(function(error){
+            dispatch(signupFail());
+        })
+    }
+}
+
+
