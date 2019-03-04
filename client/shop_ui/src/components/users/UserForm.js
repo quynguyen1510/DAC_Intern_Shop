@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { bindActionCreators } from 'redux';
 import { addNewUser, updateExistingUser  } from '../../actions/UsersAction';
+import { ADMIN_ROLE } from '../../util/constant';
 
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
@@ -116,7 +117,6 @@ class UserForm extends Component {
 
     handleSubmit = () => {
         const { email, password, first_name, last_name, passwordConfirm, role,  imageUrl } = this.state;
-        
         const {updatedUser} = this.props;
         const token = localStorage.getItem("token");
         const credentials = {
@@ -128,9 +128,19 @@ class UserForm extends Component {
             "role_id": role,
             "avatar_url": imageUrl
         }
+        if(email.length === 0 && first_name.length === 0 && last_name.length === 0 ){
+            alert("You must input new information")
+            return;
+        }
         if(updatedUser){
-            this.props.updateExistingUser(credentials, token, updatedUser.id);
-            this.props.history.push("/manage/users/1", {updatedUserId: this.props.match.params.id});
+            if(updatedUser.role_id === ADMIN_ROLE){
+                this.props.updateExistingUser(credentials, token, updatedUser.id, 1);
+                this.props.history.push("/manage/users/1", {updatedUserId: this.props.match.params.id});
+            }
+            else {
+                this.props.updateExistingUser(credentials, token, updatedUser.id, 1);
+                this.props.history.push("/");
+            }
         }
         else{
             this.props.addNewUser(credentials)
@@ -174,10 +184,12 @@ class UserForm extends Component {
                                 updatedUser ? <input type="text"                      
                                     disabled = {this.state.firstNameDisabled}
                                     className="form-control"
+                                    name="first_name"
                                     onBlur={this.validateFisrtName}
-                                    placeholder={updatedUser.first_name}
+                                    defaultValue={updatedUser.first_name}
                                     onChange={this.handleFirstNameChange} /> :
                                     <input type="text"
+                                        name="first_name"
                                         className="form-control"
                                         onBlur={this.validateFisrtName}
                                         onChange={this.handleFirstNameChange} />
@@ -195,10 +207,12 @@ class UserForm extends Component {
                                 updatedUser ? <input type="text" 
                                     disabled={this.state.lastNameDisabled}
                                     className="form-control"
+                                    name="last_name"
                                     onBlur={this.validateLastName}
-                                    placeholder={updatedUser.last_name}
+                                    defaultValue={updatedUser.last_name}
                                     onChange={this.handleLastNameChange} /> :
                                     <input type="text"
+                                        name="last_name"
                                         className="form-control"
                                         onBlur={this.validateLastName}
                                         onChange={this.handleLastNameChange} />
@@ -218,11 +232,13 @@ class UserForm extends Component {
                                 <input type="email" 
                                     disabled={this.state.emailDisabled}
                                     className="form-control"
+                                    name="email"
                                     onBlur={this.validateEmail}
-                                    placeholder={updatedUser.email}
+                                    defaultValue={updatedUser.email}
                                     onChange={this.handleEmailChange} /> :
                                 <input type="email" className="form-control"
                                         onBlur={this.validateEmail}
+                                        name="email"
                                         onChange={this.handleEmailChange} />
                             }
                         </div>
