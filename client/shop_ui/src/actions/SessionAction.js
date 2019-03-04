@@ -63,3 +63,22 @@ export function signup(crendentials){
         })
     }
 }
+
+export function logout(token){
+    return function(dispatch){
+        axios({
+            url: `${HEROKU_API_URL}/auth/logout`,
+            method: 'PUT',
+            headers:{
+                'Authorization': token
+            }
+        }).then(function(success){
+            console.log(success.data.message);
+        })
+        .catch(function(error){
+            dispatch(signupFail());
+        })
+    }
+}
+
+
