@@ -1,4 +1,11 @@
-import { ADD_USER_FAIL, ADD_USER_SUCCESS, GET_USER, GET_USERS, GET_USERS_SIZE } from '../actions/actionTypes';
+import { 
+    SIGNUP_SUCCESS, 
+    SIGNUP_FAIL, 
+    GET_USER,
+    GET_USERS, GET_USERS_SIZE,
+    ADD_NEW_USER,
+    UPDATE_USER,
+     } from '../actions/actionTypes';
 
 const defaultState = {
     users: [],
@@ -8,14 +15,14 @@ const defaultState = {
 }
 export default function userReducer(state=defaultState, action) {
     switch(action.type){
-        case ADD_USER_SUCCESS:
-            localStorage.setItem("token", action.token)
-            alert("Created successfully");
+        case SIGNUP_SUCCESS:
+            alert("Signup successfully");
             window.location.reload();
             return {
-                message: "Created successfully"
+                ...state,
+                currentUser: action.authenticated_user
             }
-        case ADD_USER_FAIL:
+        case SIGNUP_FAIL:
             return {
                 ...state,
                 message: "Created failed"
@@ -34,6 +41,16 @@ export default function userReducer(state=defaultState, action) {
             return {
                 ...state,
                 users: [...action.users]
+            }
+        case ADD_NEW_USER:
+            return {
+                ...state,
+                message: action.message
+            }
+        case UPDATE_USER:
+            return {
+                ...state,
+                message: action.message
             }
         default:
             return state;

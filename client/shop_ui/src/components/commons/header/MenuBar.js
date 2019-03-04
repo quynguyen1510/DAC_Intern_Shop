@@ -1,7 +1,15 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { ADMIN_ROLE} from '../../../util/constant';
+import { ADMIN_ROLE } from '../../../util/constant';
+var jwtDecode = require('jwt-decode');
+
+
 class Menu extends Component {
+
+    handleLogOut = () => {
+        localStorage.removeItem("token");
+        localStorage.removeItem("persist:root");
+    }
 
     render() {
         const { currentUser } = (this.props.session.user)
@@ -10,6 +18,10 @@ class Menu extends Component {
             const { first_name, last_name } = currentUser
             name = name = first_name + last_name;
         }
+       
+        var token = localStorage.getItem("token");
+        var decoded = jwtDecode(token);
+        console.log(decoded);
         return (
             <div>
                 <div className="menu-bar container-fluid clearfix">
@@ -25,11 +37,11 @@ class Menu extends Component {
                                 </li>
                                 <li className="dropdown-item dropdown-custome">
                                     {
-                                        currentUser.role_id == ADMIN_ROLE ? <Link to="/manage/users/1" >Quản lý tài khoản</Link> : null
+                                        currentUser ? (currentUser.role_id == ADMIN_ROLE ? <Link to="/manage/users/1" >Quản lý tài khoản</Link> : null) : null
                                     }
                                 </li>
                                 <li className="dropdown-item dropdown-custome">
-                                    <a href="#">Đăng xuất</a>
+                                    <a onClick={this.handleLogOut} href="#">Đăng xuất</a>
                                 </li>
                             </ul>
                         </div>
@@ -39,5 +51,7 @@ class Menu extends Component {
         );
     }
 }
+
+
 
 export default Menu;

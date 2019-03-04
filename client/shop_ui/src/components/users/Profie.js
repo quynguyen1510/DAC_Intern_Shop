@@ -3,8 +3,10 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import defaultAvatarUrl from '../default_avatar.png'
 import { bindActionCreators } from 'redux';
-import { getUserById} from '../../actions/UsersAction';
+import { getUserById } from '../../actions/UsersAction';
 import UserForm from './UserForm';
+import { Redirect } from 'react-router-dom';
+import Navbar from '../commons/header/Navbar';
 
 class Profile extends Component {
     constructor(props) {
@@ -21,12 +23,6 @@ class Profile extends Component {
             firstNameError: '',
             lastNameError: '',
             passwordConfirmationError: '',
-        }
-    }
-    componentDidMount() {
-        if(this.state.user_id !== null){
-            const token = localStorage.getItem("token");
-            this.props.getUserById(token, this.state.user_id);
         }
     }
 
@@ -52,21 +48,31 @@ class Profile extends Component {
 
 
     render() {
-        const {currentUser} = this.props.user; 
+        const { users } = this.props.user;
+        const profileUserId = this.props.match.params.id;
+        let updatedUser = users.filter(user => String(user.id) === profileUserId)[0];
+        if (!updatedUser) {
+            updatedUser = this.props.user.currentUser
+        }
         return (
-            <div className="profile">
-                <h2> {currentUser.email}</h2>
-                <div className="avatar">
-                    {
-                        currentUser.avatar_url !== null ? <img className="avatar-default" src={  `${currentUser.avatar_url}` } alt=""/> :
-                        <img className="avatar-default" src={defaultAvatarUrl} alt=""/>
-                    }
-                    
+            (String(updatedUser.id) == profileUserId) ?
+                <div>
+                    <Navbar/>
+                    <div className="profile">
+                        <h2> {updatedUser.email}</h2>
+                        <div className="avatar">
+                            {
+                                updatedUser.avatar_url !== null ? <img className="avatar-default" src={`${updatedUser.avatar_url}`} alt="" /> :
+                                    <img className="avatar-default" src={defaultAvatarUrl} alt="" />
+                            }
+
+                        </div>
+                        <div className="inputForm">
+                            < UserForm updatedUser={updatedUser} />
+                        </div>
+                    </div>
                 </div>
-                <div className="inputForm">
-                    < UserForm currentUser={currentUser}/>
-                </div>
-            </div>
+                : <Redirect to="/" />
         );
     }
 }
@@ -77,7 +83,7 @@ function mapStateToProps(state) {
     }
 }
 
-function mapDispatchToProps(dispatch){
+function mapDispatchToProps(dispatch) {
     return bindActionCreators({
         getUserById
     }, dispatch)

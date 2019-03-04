@@ -12,6 +12,6 @@ class Constants
   end
 
   def self.record_per_page
-    4
+    10
   end
 end
