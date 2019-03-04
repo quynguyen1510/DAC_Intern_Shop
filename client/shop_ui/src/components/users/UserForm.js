@@ -118,6 +118,7 @@ class UserForm extends Component {
     handleSubmit = () => {
         const { email, password, first_name, last_name, passwordConfirm, role,  imageUrl } = this.state;
         const {updatedUser} = this.props;
+        const {currentUser} = this.props.user.user;
         const token = localStorage.getItem("token");
         const credentials = {
             "first_name" : `${first_name}`,
@@ -133,12 +134,12 @@ class UserForm extends Component {
             return;
         }
         if(updatedUser){
-            if(updatedUser.role_id === ADMIN_ROLE){
+            if(currentUser.role_id === ADMIN_ROLE){
                 this.props.updateExistingUser(credentials, token, updatedUser.id, 1);
                 this.props.history.push("/manage/users/1", {updatedUserId: this.props.match.params.id});
             }
             else {
-                this.props.updateExistingUser(credentials, token, updatedUser.id, 1);
+                this.props.updateExistingUser(credentials, token, updatedUser.id);
                 this.props.history.push("/");
             }
         }

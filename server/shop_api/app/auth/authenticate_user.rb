@@ -9,7 +9,11 @@ class AuthenticateUser
     payload = {
         user_id: user.id,    
     }
-    JsonWebToken.encode(payload) if user 
+    if (user)
+      token = JsonWebToken.encode(payload)  
+      user.update(token: token)
+      return token
+    end
   end
   
   private

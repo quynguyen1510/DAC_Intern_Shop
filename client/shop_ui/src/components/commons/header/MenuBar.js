@@ -7,6 +7,7 @@ var jwtDecode = require('jwt-decode');
 class Menu extends Component {
 
     handleLogOut = () => {
+        this.props.logout(localStorage.getItem("token"));
         localStorage.removeItem("token");
         localStorage.removeItem("persist:root");
     }
@@ -18,10 +19,6 @@ class Menu extends Component {
             const { first_name, last_name } = currentUser
             name = name = first_name + last_name;
         }
-       
-        var token = localStorage.getItem("token");
-        var decoded = jwtDecode(token);
-        console.log(decoded);
         return (
             <div>
                 <div className="menu-bar container-fluid clearfix">
