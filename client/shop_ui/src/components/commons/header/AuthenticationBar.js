@@ -5,7 +5,7 @@ import Menu from './MenuBar';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { bindActionCreators } from 'redux';
-import { login, signup } from '../../../actions/SessionAction';
+import { login, signup, logout } from '../../../actions/SessionAction';
 import { getAuthenticatedUser } from '../../../actions/UsersAction';
 
 class AuthenticationBar extends Component {
@@ -79,6 +79,7 @@ function mapDispatchToProps(dispatch) {
     return bindActionCreators({
       login,
       signup,
+      logout,
       getAuthenticatedUser
     }, dispatch)
 }
