@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   post 'auth/login', to: 'authentication#authenticate'
   get 'authenticate/profile', to: 'users#get_authenticate_user'
   get 'collection/users/size', to: 'users#get_total_user'
- 
+  put 'auth/logout', to: 'authentication#logout'
   #entry point for api on heroku
   get '/', to: 'application#home'
 end
