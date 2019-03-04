@@ -1,6 +1,7 @@
 class CategoriesController < ApplicationController
     before_action :only_admin, only: [:create, :destroy, :update]
     before_action :get_category, only: [:show, :update, :destroy]
+    skip_before_action :authorize_request, only: :index
   
   # GET '/categories'
   def index 
