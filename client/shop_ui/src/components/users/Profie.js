@@ -46,7 +46,6 @@ class Profile extends Component {
         this.setState({ passwordConfirm: event.target.value });
     }
 
-
     render() {
         const { users } = this.props.user;
         const profileUserId = this.props.match.params.id;
@@ -68,7 +67,7 @@ class Profile extends Component {
 
                         </div>
                         <div className="inputForm">
-                            < UserForm updatedUser={updatedUser} />
+                            <UserForm updatedUser={updatedUser} />
                         </div>
                     </div>
                 </div>
