@@ -14,4 +14,7 @@ Rails.application.routes.draw do
 
   # get product by categoryid
   get '/categories/:category_id/products', to: 'products#get_product_by_category'
+
+  # search product by product_name
+  get 'search/products/:product_name', to: 'products#search_product_by_name'
 end
