@@ -299,7 +299,7 @@ class UserForm extends Component {
                         }
                         <div className="invalid-feedback">{this.state.passwordConfirmationError}</div>
                     </div>
-                    {  updatedUser && this.getUserRole(currentUser.role_id) == "ADMIN" ?
+                    {  updatedUser && this.getUserRole(currentUser.role_id) === "ADMIN" ?
                         <div className="form-group row">
                             <label className="col-sm-2 col-form-label">Role</label>
                             <div className="col-sm-8">

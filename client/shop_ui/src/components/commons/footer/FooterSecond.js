@@ -8,61 +8,61 @@ class FooterSecond extends Component {
                     <div className="col-5">
                         <h3 className="footer-second-title">CÁCH THỨC THANH TOÁN</h3>
                         <span className="logoBankMethod">
-                            <img src="./images/visa.png"/>
+                            <img alt="visa" src="./images/visa.png"/>
                         </span>
                         <span className="logoBankMethod">
-                            <img src="./images/master-card.png"/>
+                            <img alt="master-card" src="./images/master-card.png"/>
                         </span>
                         <span className="logoBankMethod">
-                            <img src="./images/jcb.png"/>
+                            <img alt="jcb" src="./images/jcb.png"/>
                         </span>
                         <span className="logoBankMethod">
-                            <img src="./images/delivery.png"/>
+                            <img alt="delivery" src="./images/delivery.png"/>
                         </span>
                         <span className="logoBankMethod">
-                            <img src="./images/napas.png"/>
+                            <img alt="napas" src="./images/napas.png"/>
                         </span>
                         <span className="logoBankMethod">
-                            <img src="./images/pig.png"/>
+                            <img alt="pig" src="./images/pig.png"/>
                         </span>
                     </div>
                     <div className="col-3">
                         <h3 className="footer-second-title">DỊCH VỤ GIAO HÀNG</h3>
                         <span className="logoBankMethod">
-                            <img src="./images/express.png" width="80px" height="30px"/>
+                            <img alt="express" src="./images/express.png" width="80px" height="30px"/>
                         </span>
                         <span className="logoBankMethod">
-                            <img src="./images/vnport.png" width="54px" height="40px"/>
+                            <img alt="vnport" src="./images/vnport.png" width="54px" height="40px"/>
                         </span>
                         <span className="logoBankMethod">
-                            <img src="./images/ghn.png" width="92px" height="38px"/>
+                            <img alt="ghn" src="./images/ghn.png" width="92px" height="38px"/>
                         </span>
                         <span className="logoBankMethod">
-                            <img src="./images/lzd.png" width="89px" height="40px"/>
+                            <img alt="lzd" src="./images/lzd.png" width="89px" height="40px"/>
                         </span>
                         <span className="logoBankMethod">
-                            <img src="./images/ninja.png"/>
+                            <img alt="ninja" src="./images/ninja.png"/>
                         </span>
                         <span className="logoBankMethod">
-                            <img src="./images/dhl.png" width="80px" height="30px"/>
+                            <img alt="dh1" src="./images/dhl.png" width="80px" height="30px"/>
                         </span>
                         <span className="logoBankMethod">
-                            <img src="./images/vnc.png" width="90px" height="30px"/>
+                            <img alt="vnc" src="./images/vnc.png" width="90px" height="30px"/>
                         </span>
                         <span className="logoBankMethod">
-                            <img src="./images/netco.png" width="60px" height="30px"/>
+                            <img alt="netco" src="./images/netco.png" width="60px" height="30px"/>
                         </span>
                         <span className="logoBankMethod">
-                            <img src="./images/ship60.png" width="60px" height="30px"/>
+                            <img alt="ship60" src="./images/ship60.png" width="60px" height="30px"/>
                         </span>
                     </div>
                     <div className="col-3">
                         <h3 className="footer-second-title">CHỨNG NHẬN</h3>
                         <span className="logoBankMethod">
-                            <img src="./images/ios9001.png" id="iso9001"width="80px" height="80px"/>
+                            <img alt="iso9001" src="./images/ios9001.png" id="iso9001"width="80px" height="80px"/>
                         </span>
                         <span className="logoBankMethod">
-                            <img src="./images/check.png" id="checklogo" width="106px" height="40px"/>
+                            <img alt="check" src="./images/check.png" id="checklogo" width="106px" height="40px"/>
                         </span>
                     </div>
                 </div>

@@ -54,7 +54,7 @@ class Profile extends Component {
             updatedUser = this.props.user.currentUser
         }
         return (
-            (String(updatedUser.id) == profileUserId) ?
+            (String(updatedUser.id) === profileUserId) ?
                 <div>
                     <Navbar/>
                     <div className="profile">

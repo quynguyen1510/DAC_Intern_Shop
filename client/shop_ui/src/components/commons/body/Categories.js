@@ -5,10 +5,6 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 
 class Categories extends Component {
-    constructor(props) {
-        super(props);
-    }
-
     componentDidMount() {
         if(!this.props.categories.categories){
             this.props.getListCategories();
