@@ -2,7 +2,7 @@ class ProductsController < ApplicationController
   before_action :only_admin_and_shop, only: [:create, :destroy, :update]
   before_action :get_product, only: [:show, :destroy, :update]
   before_action :get_category, only: [:get_product_by_category]
-  skip_before_action :authorize_request, only: [:index, :show, :get_product_by_category]
+  skip_before_action :authorize_request, only: [:index, :show, :get_product_by_category, :search_product_by_name]
 
   # GET '/products'
   def index 
@@ -40,6 +40,22 @@ class ProductsController < ApplicationController
   # GET /categories/:category_id/products
   def get_product_by_category
     json_response(@category.products)
+  end
+
+  # GET search/products/:product_name
+  def search_product_by_name
+    @products = Product.where("product_name like ?", "%#{params[:product_name]}%")
+    if @products.empty?
+      response = {
+        message: "Sorry can't find this item"
+      }
+    else
+      response = {
+        products: @products
+      }
+    end 
+
+    json_response(response)
   end
 
   private
