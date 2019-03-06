@@ -9,13 +9,12 @@ class DeleteUser extends Component {
         const userId = this.props.match.params.id;
         const token = localStorage.getItem("token");
         this.props.deleteExistingUser(token, userId);
-        console.log(this.props.match)
         this.props.history.goBack();
     }
     render() {
         return (
             <div > 
-        </div>
+            </div>
         );
     }
 }

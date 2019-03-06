@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import SearchBar from './SearchBar.js';
 import Cart from './Cart.js';
+import Categories from '../body/Categories.js';
 
 class LogoBar extends Component {
     render() {
@@ -14,7 +15,12 @@ class LogoBar extends Component {
                         </div>
                     </div>
                 </div>
+                <div className="dropdown-category">
+                    <span className="btn btn-link">Categories</span>
+                    <Categories />
+                </div>
             </div>
+            
         );
     }
 }

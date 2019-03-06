@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { ADMIN_ROLE } from '../../../util/constant';
-var jwtDecode = require('jwt-decode');
-
 
 class Menu extends Component {
 
@@ -34,7 +32,7 @@ class Menu extends Component {
                                 </li>
                                 <li className="dropdown-item dropdown-custome">
                                     {
-                                        currentUser ? (currentUser.role_id == ADMIN_ROLE ? <Link to="/manage/users/1" >Quản lý tài khoản</Link> : null) : null
+                                        currentUser ? (currentUser.role_id === ADMIN_ROLE ? <Link to="/manage/users/1" >Quản lý tài khoản</Link> : null) : null
                                     }
                                 </li>
                                 <li className="dropdown-item dropdown-custome">

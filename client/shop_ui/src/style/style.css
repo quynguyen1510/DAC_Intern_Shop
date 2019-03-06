@@ -343,6 +343,13 @@
     height: 344px;
 }
 
+
+
+.logo-bar #categories ul {
+   height: 100%;
+}
+
+
 /*=========End Banner=========*/
 
 /* ===Public body=== */
@@ -368,7 +375,8 @@
 }
 .add-cart {
     margin-left: 3rem;
-    color: #a8aeb3;
+    color: tomato;
+    padding: 1px;
     border: 1px #ededed solid;
 }
 .add-cart:hover {
@@ -513,10 +521,12 @@ button.update-profile-button {
         margin-right: 5em;
     }
 }
-@media only screen and (max-width: 700px) {
+@media only screen and (min-width: 700px) and (max-width: 1299px) {
+    
     #searchFrom input {
         width: 80%;
     }
+    
     .add-cart {
         margin-left: 9rem;
     }
@@ -527,22 +537,30 @@ button.update-profile-button {
         width: 60%;
     }
     .product-item .item-name h3{
-        font-size: 20px;
+        font-size: 15px;
+        margin-top: 3px;
     }
     .add-cart {
-        margin-left: 0;
-        font-size: 15px;
+        margin: 0 auto;
+        padding: 0;
+        font-size: 11px;
+        margin-left: 2px;
     }
     #contactForm {
         margin-bottom: 2rem;
     }
+    .item-price {
+        font-size: 10px;
+    }
 }
-@media only screen and (max-width: 600px) {
+@media only screen and (min-width: 600px) and (max-width: 699px) {
+
     #categories {
       display: none;
     }
     #searchFrom input {
-        width: 60%;
+        width: 80%;
+        margin: 0 10px;
     }
     .nav-avatar {
         padding-right: 5rem;
@@ -551,8 +569,9 @@ button.update-profile-button {
         width: 50%;
     }
     .add-cart {
-        margin-left: 0;
-        font-size: 10px;
+        margin: 0 auto;
+        padding: 0;
+        font-size: 8px;
     }
     .cat-banner {
         height: 250px;
@@ -563,16 +582,34 @@ button.update-profile-button {
     .product-item .item-name h3 {
         font-size: 15px;
     }
+    .product-item h3.text-center {
+        font-size: 10px;
+    }
     .item-price {
         font-size: 10px;
     }
 }
-@media only screen and (max-width: 575px) {
+@media only screen and (min-width: 401px) and (max-width: 599px) {
+    #categories {
+        display: none;
+    }
+    .search-bar {
+        display: flex;
+    }
+    #searchFrom input {
+        width: 60%;
+        margin: 0 10px;
+    }
+
     #item-row {
         justify-content: center;
+    }
+    .product-item .inforItem {
+        display: inline;
     }
     .add-cart {
         margin-left: 8rem;
+        font-size: 10px;
     }
     #checkFemale {
         padding-left: 3rem;
@@ -585,27 +622,14 @@ button.update-profile-button {
         width: 53px;
         height: 30px;
     }
-}
-@media only screen and (max-width: 500px) {
-    #item-row {
-        justify-content: center;
-    }
-    .add-cart {
-        margin-left: 3rem;
-    }
-    #checkFemale {
-        padding-left: 3rem;
-    }
-    #iso9001 {
-        width: 40px;
-        height: 40px;
-    }
-    #checklogo {
-        width: 53px;
-        height: 30px;
+
+    .item-price {
+        font-size: 9px;
     }
 }
-@media only screen and (max-width: 400px) {
+
+@media only screen and (max-width: 400px){
+    
     #categories {
       display: none;
     }
@@ -657,5 +681,34 @@ button.update-profile-button {
     #checklogo {
         width: 53px;
         height: 30px;
+    }
+}
+
+@media only screen and (min-width: 701px){
+    .logo-bar .dropdown-category{
+        display: none;
+    }
+}
+@media only screen and (max-width: 700px){
+    .dropdown-category{
+        position: relative;
+        display: inline-block;
+        margin-left: 2rem;
+    }
+
+    #categories{
+        display: none;
+        position: absolute;
+        background-color: #f9f9f9;
+        left: 0;
+        max-width: 100px;
+        min-height: 200px;
+        max-height: 250px;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        z-index: 1;
+    }
+
+    .dropdown-category:hover #categories {
+        display: block;
     }
 }
