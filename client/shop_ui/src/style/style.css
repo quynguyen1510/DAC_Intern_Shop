@@ -361,6 +361,7 @@
     color: #f57224;
 }
 .product-item {
+    margin-top: 2rem;
     padding: 1rem;
     border: 2px solid #ededed;  
 }
@@ -390,6 +391,14 @@
 .pi-img-wrapper  img {
     width: 100%;
     height: auto;
+}
+
+button.get-more-product {
+    width: 10%;
+    margin-left: 45%;
+    margin-right: 45%;
+    margin-bottom: 2rem;
+    margin-top: 2rem;
 }
 /* ===End Public body=== */
 
