@@ -218,8 +218,9 @@
 }
 
 .nav-cart a img {
-    width: 50px;
-    height: 50px;
+    width: 30px;
+    height: 30px;
+    margin-top: 5px;
 }
 .cart-icon {
     color: white;
@@ -361,6 +362,7 @@
     color: #f57224;
 }
 .product-item {
+    margin-top: 2rem;
     padding: 1rem;
     border: 2px solid #ededed;  
 }
@@ -390,6 +392,14 @@
 .pi-img-wrapper  img {
     width: 100%;
     height: auto;
+}
+
+button.get-more-product {
+    width: 10%;
+    margin-left: 45%;
+    margin-right: 45%;
+    margin-bottom: 2rem;
+    margin-top: 2rem;
 }
 /* ===End Public body=== */
 
@@ -480,7 +490,15 @@ button.update-profile-button {
     margin-right: 100px;
 }
 
-
+/*======== PRODUCTS BY CATEGORY PAGE =======*/
+.products-by-category {
+    clear: both;
+}
+.product-pagination {
+    float: right;
+    margin-right: 5rem;
+    margin-top: 5rem;
+}
 /* ===End Form=== */
 /* ========================== */
 @media only screen and (min-width: 1750px) {

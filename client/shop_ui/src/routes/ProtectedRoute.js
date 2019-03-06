@@ -13,7 +13,7 @@ import { bindActionCreators } from 'redux';
 import ManageProduct from '../components/products/ManageProduct';
 import CreateProduct from '../components/products/CreateProduct';
 import ProductInfor from '../components/products/ProductInfor';
-
+import ProductsByCategory from '../components/ProductsByCategory';
 
 class ProtectedRoutes extends Component {
 
@@ -70,7 +70,9 @@ class ProtectedRoutes extends Component {
         return (
             <Switch>
                 <Route path="/" exact component={() => <HomePage />} />
+                <Route path="/categories/:id" component={ProductsByCategory}/>
                 {this.getRoute()}
+               
             </Switch>
 
         )

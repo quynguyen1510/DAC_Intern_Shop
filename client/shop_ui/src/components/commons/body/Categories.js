@@ -3,6 +3,7 @@ import { bindActionCreators } from 'redux';
 import { getListCategories } from '../../../actions/CategoriesAction';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
+import { Link } from 'react-router-dom';
 
 class Categories extends Component {
 
@@ -20,7 +21,10 @@ class Categories extends Component {
                   {
                       categories.map((category, index) => {
                         return <li key={index}>
-                            <a href="#none">{category.catname}</a>
+                           <Link onClick={this.navigateToProductsOfCategoryPage} 
+                                to={`/categories/${category.id}`}>
+                                {category.catname}
+                            </Link>
                          </li>
                       })
                   }

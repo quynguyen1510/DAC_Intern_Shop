@@ -5,7 +5,7 @@ class Cart extends Component {
         return (
             <div className="col-md-1 nav-cart">
                 <a href="#top">
-                    <img src="./images/cart-icon.png" alt="Giỏ hàng" />
+                    <img src="https://img.icons8.com/ios/50/000000/add-shopping-cart.png" alt="Giỏ hàng" />
                 </a>
             </div>
         );
