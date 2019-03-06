@@ -218,8 +218,9 @@
 }
 
 .nav-cart a img {
-    width: 50px;
-    height: 50px;
+    width: 30px;
+    height: 30px;
+    margin-top: 5px;
 }
 .cart-icon {
     color: white;
@@ -489,7 +490,15 @@ button.update-profile-button {
     margin-right: 100px;
 }
 
-
+/*======== PRODUCTS BY CATEGORY PAGE =======*/
+.products-by-category {
+    clear: both;
+}
+.product-pagination {
+    float: right;
+    margin-right: 5rem;
+    margin-top: 5rem;
+}
 /* ===End Form=== */
 /* ========================== */
 @media only screen and (min-width: 1750px) {

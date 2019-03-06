@@ -10,6 +10,7 @@ import DeleteUser from '../components/users/DeleteUser';
 import { ADMIN_ROLE, USER_ROLE, SHOPPER_ROLE, GUEST_ROLE } from '../util/constant';
 import { getAuthenticatedUser } from '../actions/UsersAction';
 import { bindActionCreators } from 'redux';
+import ProductsByCategory from '../components/ProductsByCategory';
 
 
 class ProtectedRoutes extends Component {
@@ -61,7 +62,9 @@ class ProtectedRoutes extends Component {
         return (
             <Switch>
                 <Route path="/" exact component={() => <HomePage />} />
+                <Route path="/categories/:id" component={ProductsByCategory}/>
                 {this.getRoute()}
+               
             </Switch>
 
         )
