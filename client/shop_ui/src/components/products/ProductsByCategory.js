@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import Header from './commons/header/Header';
+import Header from '../commons/header/Header';
 import { withRouter } from 'react-router';
-import { getProductByCategoryId } from '../api/product_api';
-import ProductItem from './commons/body/ProductItem';
+import { getProductByCategoryId } from '../../api/product_api';
+import ProductItem from './ProductItem';
 
 const RECORD_PERPAGE = 10;
 class ProductsByCategory extends Component {

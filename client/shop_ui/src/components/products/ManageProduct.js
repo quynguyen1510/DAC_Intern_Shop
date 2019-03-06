@@ -5,12 +5,14 @@ import { Link } from 'react-router-dom';
 import axios from 'axios'
 
 class ManageProduct extends Component {
+    
     constructor(props) {
         super(props)
         this.state = {
             products: []
         }
     }
+
     componentDidMount() {
         axios({
             url: `http://localhost:3000/products/`,
@@ -21,6 +23,7 @@ class ManageProduct extends Component {
             })
         }).catch(error => console.log(error))
     }
+
     render() {
         console.log("List products:",this.state.products)
         return (

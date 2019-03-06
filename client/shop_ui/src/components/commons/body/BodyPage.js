@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import ProductItem from './ProductItem';
+import ProductItem from '../../products/ProductItem';
 import { getListProduct } from '../../../api/product_api';
 
 class BodyPage extends Component {
