@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { ADMIN_ROLE } from '../../../util/constant';
+import { ADMIN_ROLE, SHOPPER_ROLE } from '../../../util/constant';
 
 class Menu extends Component {
 
@@ -37,7 +37,9 @@ class Menu extends Component {
                                 </li>
                                 <li className="dropdown-item dropdown-custome">
                                     {
-                                        currentUser ? (currentUser.role_id === ADMIN_ROLE ? <Link to="/manage/products" >Quản lý sản phẩm</Link> : null) : null
+                                        currentUser &&
+                                        ((currentUser.role_id === ADMIN_ROLE || currentUser.role_id === SHOPPER_ROLE) ? 
+                                        <Link to="/manage/products" >Quản lý sản phẩm</Link> : null) 
                                     }
                                 </li>
                                 <li className="dropdown-item dropdown-custome">
