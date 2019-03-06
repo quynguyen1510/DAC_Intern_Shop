@@ -1,12 +1,28 @@
 import axios from 'axios';
-const urlLocalHost = 'http://localhost:3000'
-export async function getListProduct(page){
-    const listUrl = `${urlLocalHost}/products?page=${page}`;
+const urlLocalHost = 'http://localhost:3000';
+
+async function getProducts(url){
     try{
-        const result = await axios.get(listUrl);
-        return result;
+        return await axios.get(url);
     }
     catch(err){
         console.log(err)
     }
+}
+export  function getListProduct(page){
+    const listProductUrl = `${urlLocalHost}/products?page=${page}`;
+    const result = getProducts(listProductUrl);
+    if(result){
+        return result;
+    }
+    return null;
+}
+
+export function getProductByCategoryId(categoryId){
+    const listProductUrl = `${urlLocalHost}/categories/${categoryId}/products`;
+    const result = getProducts(listProductUrl);
+    if(result){
+        return result;
+    }
+    return null;
 }
