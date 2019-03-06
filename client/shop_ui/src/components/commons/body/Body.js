@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Categories from './Categories';
 import Banner from './SlideBanner';
-import BodyPage from './BodyPage';
+import BodyPage from '../../products/BodyPage';
 
 class Body extends Component {
     render() {

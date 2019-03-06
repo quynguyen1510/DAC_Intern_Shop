@@ -4,7 +4,7 @@ class ProductItem extends Component {
     render() {
         const {product} = this.props;
         return (
-            <div className="col-md-2 col-sm-2 col-xs-12 mb-2 col-cus">
+            <div className="col-md-3 col-sm-12 col-xs-12 mb-2 col-cus">
                 <div className="product-item">
                     <div className="pi-img-wrapper">
                         <a href="#none">
