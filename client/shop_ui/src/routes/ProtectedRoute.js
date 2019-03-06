@@ -10,6 +10,9 @@ import DeleteUser from '../components/users/DeleteUser';
 import { ADMIN_ROLE, USER_ROLE, SHOPPER_ROLE, GUEST_ROLE } from '../util/constant';
 import { getAuthenticatedUser } from '../actions/UsersAction';
 import { bindActionCreators } from 'redux';
+import ManageProduct from '../components/products/ManageProduct';
+import CreateProduct from '../components/products/CreateProduct';
+import ProductInfor from '../components/products/ProductInfor';
 
 
 class ProtectedRoutes extends Component {
@@ -32,6 +35,9 @@ class ProtectedRoutes extends Component {
                     <Switch>
                         <Route path="/profile/users/:id" component={Profile} />
                         <Route path="/manage/users/:page_number" component={ManageUser} />
+                        <Route path="/manage/products" component={ManageProduct} />
+                        <Route path="/products/new" component={CreateProduct} />
+                        <Route path="/products/infor" component={ProductInfor} />
                         <Route path="/users/new" component={CreateUser} />
                         <Route path="/delete/users/:id" component={DeleteUser} />
                     </Switch>
@@ -41,6 +47,9 @@ class ProtectedRoutes extends Component {
                 return (
                     <>
                         <Route path="/profile/users/:id" component={Profile} />
+                        <Route path="/manage/products" component={ManageProduct} />
+                        <Route path="/products/new" component={CreateProduct} />
+                        <Route path="/products/infor" component={ProductInfor} />
                     </>
                 )
             }
