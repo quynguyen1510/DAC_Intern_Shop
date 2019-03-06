@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import ProductTable from './ProductTable';
 import Navbar from '../commons/header/Navbar';
 import { Link } from 'react-router-dom';
-import axios from 'axios'
 import { getListProduct } from '../../api/product_api';
 
 class ManageProduct extends Component {
@@ -55,7 +54,7 @@ class ManageProduct extends Component {
     render() {
         const { page } = this.state;
         return (
-            <div>
+            <div className="manage-product">
                 <Navbar />
                 <div className="page">
                     <div>
@@ -65,9 +64,6 @@ class ManageProduct extends Component {
                         <span className="btn btn-info">Page: {page > 0 ? page : (page + 1)}</span>
                     </div>
                     <ProductTable listProducts={this.state.products} />
-                    <div>
-                        <span className="btn btn-info">Page: {page > 0 ? page : (page + 1)}</span>
-                    </div>
                     <nav aria-label="...">
                         <ul className="pagination pagination-lg">
                             <li className="page-item"><button onClick={this.onPrevious} className="page-link" href="#none" >Previous</button></li>

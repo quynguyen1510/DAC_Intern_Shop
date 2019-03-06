@@ -6,8 +6,8 @@ class FormCreateProduct extends Component {
             <div>
                 <form encType="multipart/form-data">
                     <div className="form-group row justify-content-center">
-                        <label className="col-sm-1  col-form-label">Product Name</label>
                         <div className="col-sm-6">
+                            <label className="col-form-label">Product Name</label>
                             <input type="text"
                                 name="first_name"
                                 className="form-control"
@@ -17,23 +17,23 @@ class FormCreateProduct extends Component {
                     </div>
 
                     <div className="form-group row justify-content-center">
-                        <label className="col-sm-1 col-form-label">Product Description</label>
                         <div className="col-sm-6">
+                            <label className="col-form-label">Product Description</label>
                             <input type="text" name="last_name" className="form-control" />
                             <div className="invalid-feedback"></div>
                         </div>
                     </div>
                     <div className="form-group row justify-content-center">
-                        <label className="col-sm-1 col-form-label">Product Price</label>
                         <div className="col-sm-6">
+                            <label className="col-form-label">Product Price</label>
                             <input type="email" className="form-control" name="email" />
                         </div>
                         <div className="invalid-feedback"></div>
                     </div>
 
                     <div className="form-group row justify-content-center">
-                        <label className="col-sm-1 col-form-label">Category Name</label>
                         <div className="col-sm-6">
+                            <label className="col-form-label">Category Name</label>
                             <select className="form-control">
                                 <option value="1">Điện tử</option>
                                 <option value="2">Đồ mẹ & bé</option>
@@ -44,8 +44,8 @@ class FormCreateProduct extends Component {
                     </div>
 
                     <div className="form-group row justify-content-center">
-                        <label className="col-sm-1 col-form-label">Product Image</label>
                         <div className="col-sm-6">
+                            <label className="col-form-label">Product Image</label>
                             <div className="col-sm-12">
                                 <input type="file" className="custom-file-input" id="uploadImage" />
                                 <label htmlFor="uploadImage" className="custom-file-label">Choose File</label>

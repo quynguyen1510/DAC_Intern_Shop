@@ -45,12 +45,12 @@ class ProtectedRoutes extends Component {
             }
             if (roleUser === SHOPPER_ROLE) {
                 return (
-                    <>
+                    <Switch>
                         <Route path="/profile/users/:id" component={Profile} />
                         <Route path="/manage/products" component={ManageProduct} />
                         <Route path="/products/new" component={CreateProduct} />
                         <Route path="/products/infor" component={ProductInfor} />
-                    </>
+                    </Switch>
                 )
             }
             if (roleUser === USER_ROLE) {
