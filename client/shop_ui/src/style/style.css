@@ -510,6 +510,15 @@ button.update-profile-button {
     margin-right: 5rem;
     margin-top: 5rem;
 }
+/*==========END PAGE===========*/
+
+/*======= PRODUCT TABLE PAGE ==========*/
+.product-row-img {
+    width: 100px;
+    height: 100px;
+}
+/*=========END PAGE */
+
 /* ===End Form=== */
 /* ========================== */
 @media only screen and (min-width: 1750px) {
