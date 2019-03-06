@@ -41,7 +41,7 @@ class BodyPage extends Component {
     }
 
     render() {
-        const {productList} = this.state;
+        const {productList, shouldGetMore} = this.state;
         return (
             <div className="container col-md-10 col-lg-10" id="body-page">
                 <div className="row" id="item-row">
@@ -51,7 +51,7 @@ class BodyPage extends Component {
                        })
                    }
                 </div>
-                <button onClick={this.handleLoadMoreProduct} className="btn btn-dark get-more-product">Tải thêm</button>
+              {  shouldGetMore &&   <button onClick={this.handleLoadMoreProduct} className="btn btn-dark get-more-product">Tải thêm</button>}
             </div>
         );
     }
