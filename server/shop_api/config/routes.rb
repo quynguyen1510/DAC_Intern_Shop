@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   resources :roles 
   resources :users
   resources :categories
+  resources :products
 
   post 'auth/login', to: 'authentication#authenticate'
   get 'authenticate/profile', to: 'users#get_authenticate_user'
@@ -10,4 +11,10 @@ Rails.application.routes.draw do
   put 'auth/logout', to: 'authentication#logout'
   #entry point for api on heroku
   get '/', to: 'application#home'
+
+  # get product by categoryid
+  get '/categories/:category_id/products', to: 'products#get_product_by_category'
+
+  # search product by product_name
+  get 'search/products/:product_name', to: 'products#search_product_by_name'
 end

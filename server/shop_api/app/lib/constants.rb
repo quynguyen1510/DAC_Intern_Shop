@@ -14,4 +14,8 @@ class Constants
   def self.record_per_page
     10
   end
+
+  def self.product_per_page
+    12
+  end
 end

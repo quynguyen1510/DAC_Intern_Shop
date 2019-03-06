@@ -47,4 +47,11 @@ class Message
     "Category created successfully"
   end
 
+  def self.product_created
+    "Product created successfully"
+  end
+  def self.product_updated
+    "Product update successfully"
+  end
+
 end
