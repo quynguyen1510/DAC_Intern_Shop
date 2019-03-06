@@ -7,6 +7,10 @@ class Body extends Component {
     render() {
         return (
             <div className="main-content">
+                <div className="dropdown-category">
+                    <span className="btn btn-link">Categories</span>
+                    <Categories />
+                </div>
                 <div className="container-fluid cat-banner">
                     <div className="row justify-content-center cat-banner">
                         <Categories />
