@@ -180,7 +180,17 @@
     padding-bottom: 2em;
     background-image: linear-gradient(-90deg, #0f8aac, #013e51);
 }
-
+.homepage {
+    text-decoration: none;
+    color: #fff;
+    margin-top: 0.5rem;
+    margin-right: 0.5rem;
+    font-size: 1.5rem;
+}
+.homepage:hover {
+    text-decoration: none;
+    color: tomato;
+}
 .nav-logo a img {
     width: 127px;
     height: 40px;
@@ -512,10 +522,13 @@ button.update-profile-button {
 }
 /*==========END PAGE===========*/
 
-/*======= PRODUCT TABLE PAGE ==========*/
+/*======= MANAGE PRODUCT PAGE ==========*/
 .product-row-img {
     width: 100px;
     height: 100px;
+}
+.manage-product .pagination{
+    justify-content: space-between;
 }
 /*=========END PAGE */
 
@@ -591,6 +604,11 @@ button.update-profile-button {
     }
     .item-price {
         font-size: 10px;
+    }
+
+    .homepage {
+        font-size: 1rem;
+        margin: 0;
     }
 }
 @media only screen and (min-width: 600px) and (max-width: 699px) {
@@ -743,7 +761,8 @@ button.update-profile-button {
 }
 
 @media only screen and (min-width: 701px){
-    .logo-bar .dropdown-category{
+    .dropdown-category{
+        background: #111111;
         display: none;
     }
 }
