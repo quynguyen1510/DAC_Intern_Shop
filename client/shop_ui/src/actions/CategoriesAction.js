@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { GET_CATEGORIES} from './actionTypes';
-
+import { HEROKU_API_URL} from '../util/constant'
 function getCategories(categories){
     return {
         type: GET_CATEGORIES,
@@ -12,7 +12,7 @@ function getCategories(categories){
 export function getListCategories(){
     return function(dispatch){
         axios({
-            url: `http://localhost:3000/categories/`,
+            url: `${HEROKU_API_URL}/categories/`,
             method: "GET"
             }).then(function(success){
                 dispatch(getCategories(success.data))

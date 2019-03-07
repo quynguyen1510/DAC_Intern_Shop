@@ -1,4 +1,5 @@
 import axios from 'axios';
+import {HEROKU_API_URL} from '../util/constant'
 const urlLocalHost = 'http://localhost:3000';
 
 async function getProducts(url){
@@ -10,7 +11,7 @@ async function getProducts(url){
     }
 }
 export  function getListProduct(page){
-    const listProductUrl = `${urlLocalHost}/products?page=${page}`;
+    const listProductUrl = `${HEROKU_API_URL}/products?page=${page}`;
     const result = getProducts(listProductUrl);
     if(result){
         return result;
@@ -19,7 +20,7 @@ export  function getListProduct(page){
 }
 
 export function getProductByCategoryId(categoryId){
-    const listProductUrl = `${urlLocalHost}/categories/${categoryId}/products`;
+    const listProductUrl = `${HEROKU_API_URL}/categories/${categoryId}/products`;
     const result = getProducts(listProductUrl);
     if(result){
         return result;
@@ -29,7 +30,7 @@ export function getProductByCategoryId(categoryId){
 
 export function addNewProduct(token,product){
     axios({
-        url: `${urlLocalHost}/products/`,
+        url: `${HEROKU_API_URL}/products/`,
         method: "POST",
         data: product,
         headers: {
