@@ -91,6 +91,8 @@ class SignupForm extends Component {
         const { email, password, first_name, last_name, passwordConfirm } = this.state;
         if (email.length === 0 || password.length === 0 || first_name.length === 0 || last_name.length === 0 || passwordConfirm.length === 0) {
             alert("Please fill out the information");
+        } else if (this.state.emailError !== null || this.state.passwordError !== null || this.state.passwordConfirmationError !== null){
+            return 
         } else {
             const credentials = {
                 "first_name": `${first_name}`,
