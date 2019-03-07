@@ -27,6 +27,8 @@ class LoginForm extends Component {
         const { email, password } = this.state;
         if (email.length === 0 || password.length === 0) {
             alert("Please input your account");
+        } else if (this.state.passwordError !== null || this.state.emailError !== null) {
+            return
         } else {
             this.props.login({
                 "email": `${email}`,
