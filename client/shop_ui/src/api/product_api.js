@@ -26,3 +26,16 @@ export function getProductByCategoryId(categoryId){
     }
     return null;
 }
+
+export function addNewProduct(token,product){
+    axios({
+        url: `${urlLocalHost}/products/`,
+        method: "POST",
+        data: product,
+        headers: {
+            'Authorization': token
+        }
+    }).then(response => {
+        console.log(response)
+    }).catch(error => console.log(error))
+}

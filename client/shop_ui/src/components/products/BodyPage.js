@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import ProductItem from './ProductItem';
-import { getListProduct } from '../../../api/product_api';
+import { getListProduct } from '../../api/product_api';
 
 class BodyPage extends Component {
     constructor(props){

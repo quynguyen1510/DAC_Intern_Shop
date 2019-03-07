@@ -180,7 +180,17 @@
     padding-bottom: 2em;
     background-image: linear-gradient(-90deg, #0f8aac, #013e51);
 }
-
+.homepage {
+    text-decoration: none;
+    color: #fff;
+    margin-top: 0.5rem;
+    margin-right: 0.5rem;
+    font-size: 1.5rem;
+}
+.homepage:hover {
+    text-decoration: none;
+    color: tomato;
+}
 .nav-logo a img {
     width: 127px;
     height: 40px;
@@ -364,8 +374,19 @@
 .product-item {
     margin-top: 2rem;
     padding: 1rem;
+    text-align: center;
     border: 2px solid #ededed;  
 }
+
+.product-item .item-name h3 {
+    font-size: 20px;
+}
+
+
+.product-item .inforItem  .item-price{
+    font-size: 16px;
+}
+
 .product-item:hover {
     box-shadow: 0px 15px 50px -25px rgba(0,0,0, .8);
 }
@@ -376,11 +397,11 @@
     display: inline-block;
 }
 .add-cart {
-    margin-left: 3rem;
+    display: block;
     color: tomato;
-    padding: 1px;
     border: 1px #ededed solid;
 }
+
 .add-cart:hover {
     background-color: #f57224;
     color: white;
@@ -499,6 +520,18 @@ button.update-profile-button {
     margin-right: 5rem;
     margin-top: 5rem;
 }
+/*==========END PAGE===========*/
+
+/*======= MANAGE PRODUCT PAGE ==========*/
+.product-row-img {
+    width: 100px;
+    height: 100px;
+}
+.manage-product .pagination{
+    justify-content: space-between;
+}
+/*=========END PAGE */
+
 /* ===End Form=== */
 /* ========================== */
 @media only screen and (min-width: 1750px) {
@@ -506,17 +539,19 @@ button.update-profile-button {
         justify-content: center;
     }
     .add-cart {
-        margin-left: 3rem;
-        font-size: 20px;
+        margin-left: 1rem;
+        margin-right: 1rem;
+        font-size: 14px;
     }
     .item-price {
         font-size: 20px;
     }
 }
-@media only screen and (max-width: 1650px) {
+@media only screen and (min-width: 1301px) and (max-width: 1650px) {
     .add-cart {
         margin-left: 0.5rem;
-        font-size: 20px;
+        margin-right: 0.5rem;
+        font-size: 13px;
     }
     .item-price {
         font-size: 20px;
@@ -570,6 +605,11 @@ button.update-profile-button {
     .item-price {
         font-size: 10px;
     }
+
+    .homepage {
+        font-size: 1rem;
+        margin: 0;
+    }
 }
 @media only screen and (min-width: 600px) and (max-width: 699px) {
 
@@ -605,6 +645,10 @@ button.update-profile-button {
     }
     .item-price {
         font-size: 10px;
+    }
+    .get-more-product {
+        width: 120px;
+        font-size: 12px;
     }
 }
 @media only screen and (min-width: 401px) and (max-width: 599px) {
@@ -643,6 +687,20 @@ button.update-profile-button {
 
     .item-price {
         font-size: 9px;
+    }
+    .add-cart {
+        width: 20%;
+        margin: 0;
+        margin-left: 40%;
+        margin-right: 40%;
+    }
+    button.get-more-product {
+        margin: 0;
+        width: 20%;
+        margin-left: 40%;
+        margin-right: 40%;
+        margin-bottom: 20px;
+        font-size: 12px;
     }
 }
 
@@ -703,7 +761,8 @@ button.update-profile-button {
 }
 
 @media only screen and (min-width: 701px){
-    .logo-bar .dropdown-category{
+    .dropdown-category{
+        background: #111111;
         display: none;
     }
 }

@@ -3,11 +3,7 @@ import { Link } from 'react-router-dom';
 
 
 class ProductTable extends Component {
-    constructor(props) {
-        super(props)
-    }
     render() {
-        let listProducts = this.props.listProducts;
         return (
             <table className="table table-hover">
                 <thead>
@@ -26,10 +22,10 @@ class ProductTable extends Component {
                         return (
                             <tr key={index}>
                                 <td>{product.product_name}</td>
-                                <td><img src={product.product_img} /></td>
+                                <td><img className="product-row-img" alt={product.product_name} src={product.product_img} /></td>
                                 <td>{product.product_desc}</td>
                                 <td>{product.price}</td>
-                                <td>{product.category_id}</td>
+                                <td>{product.category_name}</td>
                                 <td>{product.active ? "Active" : "Non active"}</td>
                                 <td>
                                     <Link to={`/products/infor`} className="btn btn-primary btnEditUser">Edit</Link>

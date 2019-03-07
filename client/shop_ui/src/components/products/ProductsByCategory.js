@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import Header from './commons/header/Header';
+import Header from '../commons/header/Header';
 import { withRouter } from 'react-router';
-import { getProductByCategoryId } from '../api/product_api';
-import ProductItem from './commons/body/ProductItem';
+import { getProductByCategoryId } from '../../api/product_api';
+import ProductItem from './ProductItem';
+import {RECORD_PER_PAGE} from '../../util/constant';
 
-const RECORD_PERPAGE = 10;
 class ProductsByCategory extends Component {
     constructor(props) {
         super(props);
@@ -23,10 +23,10 @@ class ProductsByCategory extends Component {
     componentDidMount() {
         const categoryId = this.props.match.params.id;
         getProductByCategoryId(categoryId).then(res => {
-            const numberPageArr = Array(Math.floor(res.data.length / RECORD_PERPAGE)).fill();
+            const numberPageArr = Array(Math.floor(res.data.length / RECORD_PER_PAGE)).fill();
             this.setState({ listProduct: res.data, 
                             numberPageArr: numberPageArr,
-                            productsPerPage: this.pagination(res.data, RECORD_PERPAGE, 1)
+                            productsPerPage: this.pagination(res.data, RECORD_PER_PAGE, 1)
                              });
         }).catch(err => {
             console.log(err)
@@ -36,7 +36,7 @@ class ProductsByCategory extends Component {
     getCurrentPage = (event) => {
         const page = event.target.innerHTML;
         const { listProduct } = this.state;
-        const arrPerPage = this.pagination(listProduct, RECORD_PERPAGE, page);
+        const arrPerPage = this.pagination(listProduct, RECORD_PER_PAGE, page);
         this.setState({ productsPerPage: arrPerPage });
     }
 

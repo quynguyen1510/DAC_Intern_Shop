@@ -7,7 +7,19 @@ class ProductsController < ApplicationController
   # GET '/products'
   def index 
     @products = Product.all.order("id ASC").paginate(page: params[:page], per_page: Constants.product_per_page)
-    json_response(@products) 
+    result = Array.new
+    @products.each do |product|
+      tmp = Hash.new
+      tmp[:id] = product.id
+      tmp[:product_name] = product.product_name
+      tmp[:product_img] = product.product_img
+      tmp[:product_desc] = product.product_desc
+      tmp[:price] = product.price
+      tmp[:active] = product.active
+      tmp[:category_name]= product.category.catname 
+      result.push(tmp)
+    end
+    json_response(result) 
   end
 
   # POST '/products'
