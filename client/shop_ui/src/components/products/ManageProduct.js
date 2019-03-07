@@ -40,13 +40,20 @@ class ManageProduct extends Component {
             this.loadProduct(page + 1);
             this.setState({ page: page + 1 });
         }
+        else{
+            return;
+        }
     }
 
     onPrevious = () => {
-        const { page, shouldNavigatePage } = this.state;
-        if (shouldNavigatePage && page > 0) {
+        const { page } = this.state;
+        if ( page > 0) {
             this.loadProduct(page);
             this.setState({ page: page - 1 })
+        }
+        else{
+            this.setState({shouldNavigatePage: true});
+            return;
         }
 
     }
