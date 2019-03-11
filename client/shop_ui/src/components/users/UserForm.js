@@ -106,78 +106,77 @@ class UserForm extends Component {
     }
 
     handlePasswordConfirmChange = event => {
-        this.setState({ passwordConfirm: event.target.value });
+        this.setState({ passwordConfirm: event.target.value, passwordConfirmationError: '' });
     }
 
     handleRoleChange = event => {
         this.setState({ role: event.target.value })
     }
 
-    handleUploadAvatar  = event => {
+    handleUploadAvatar = event => {
         const file = event.target.files[0];
         uploadImage(file).then(response => {
             const imageUrl = `https://i.imgur.com/${response.data.data.id}.png`
-            this.setState({ imageUrl: imageUrl, loadImageSuccess: true});
+            this.setState({ imageUrl: imageUrl, loadImageSuccess: true });
         }).catch(err => {
             console.log(err)
         })
     }
 
     handleSubmit = () => {
-        const { email, password, first_name, last_name, passwordConfirm, role,  imageUrl, loadImageSuccess } = this.state;
-        const {updatedUser} = this.props;
-        const {currentUser} = this.props.user.user;
+        const { email, password, first_name, last_name, passwordConfirm, role, imageUrl, loadImageSuccess } = this.state;
+        const { updatedUser } = this.props;
+        const { currentUser } = this.props.user.user;
         const token = localStorage.getItem("token");
         const credentials = {
-            "first_name" : `${first_name}`,
-            "last_name" : `${last_name}`,
-            "email" : `${email}`,
-            "password" : `${password}`,
-            "password_confirmation" : `${passwordConfirm}`,
+            "first_name": `${first_name}`,
+            "last_name": `${last_name}`,
+            "email": `${email}`,
+            "password": `${password}`,
+            "password_confirmation": `${passwordConfirm}`,
             "role_id": `${role}`,
             "avatar_url": `${imageUrl}`
         }
-        if((email.length === 0 && first_name.length === 0 && last_name.length === 0) && !loadImageSuccess ){
-           alert("You must input new information")
+        if (this.state.passwordConfirmationError) {
             return;
         }
-        if(updatedUser){
-            if(currentUser.role_id === ADMIN_ROLE){
+        if (updatedUser) {
+            if (currentUser.role_id === ADMIN_ROLE) {
                 this.props.updateExistingUser(credentials, token, updatedUser.id, 1);
-                this.props.history.push("/manage/users/1", {updatedUserId: this.props.match.params.id});
+                this.props.history.push("/manage/users/1", { updatedUserId: this.props.match.params.id });
             }
             else {
                 this.props.updateExistingUser(credentials, token, updatedUser.id);
                 this.props.history.push("/");
             }
         }
-        else{
+        else {
             this.props.addNewUser(credentials)
             this.props.history.push("/manage/users/1");
         }
     }
-    
+
     onActiveFirstName = () => {
-       this.setState({firstNameDisabled: false})
+        this.setState({ firstNameDisabled: false })
     }
 
     onActiveLastName = () => {
-        this.setState({lastNameDisabled: false})
+        this.setState({ lastNameDisabled: false })
     }
 
     onActiveEmail = () => {
-        this.setState({emailDisabled: false})
+        this.setState({ emailDisabled: false })
     }
 
     onActivePassword = () => {
-        this.setState({passwordDisabled: false})
+        this.setState({ passwordDisabled: false })
     }
     onActiveConfirmPassword = () => {
-        this.setState({passwordConfirmDisabled: false})
+        this.setState({ passwordConfirmDisabled: false })
     }
 
     onActiveRole = () => {
-        this.setState({roleDisabled: false})
+        this.setState({ roleDisabled: false })
     }
 
     render() {
@@ -190,8 +189,8 @@ class UserForm extends Component {
                         <label className="col-sm-2  col-form-label">First Name</label>
                         <div className="col-sm-8">
                             {
-                                updatedUser ? <input type="text"                      
-                                    disabled = {this.state.firstNameDisabled}
+                                updatedUser ? <input type="text"
+                                    disabled={this.state.firstNameDisabled}
                                     className="form-control"
                                     name="first_name"
                                     onBlur={this.validateFisrtName}
@@ -202,7 +201,7 @@ class UserForm extends Component {
                                         className="form-control"
                                         onBlur={this.validateFisrtName}
                                         onChange={this.handleFirstNameChange} />
-                            } 
+                            }
                         </div>
                         {
                             updatedUser ? <label onClick={this.onActiveFirstName} className="btn btn-link">Edit</label> : null
@@ -213,7 +212,7 @@ class UserForm extends Component {
                         <label className="col-sm-2 col-form-label">Last Name</label>
                         <div className="col-sm-8">
                             {
-                                updatedUser ? <input type="text" 
+                                updatedUser ? <input type="text"
                                     disabled={this.state.lastNameDisabled}
                                     className="form-control"
                                     name="last_name"
@@ -237,15 +236,15 @@ class UserForm extends Component {
                         <label className="col-sm-2 col-form-label">Email</label>
                         <div className="col-sm-8">
                             {
-                                updatedUser ? 
-                                <input type="email" 
-                                    disabled={this.state.emailDisabled}
-                                    className="form-control"
-                                    name="email"
-                                    onBlur={this.validateEmail}
-                                    defaultValue={updatedUser.email}
-                                    onChange={this.handleEmailChange} /> :
-                                <input type="email" className="form-control"
+                                updatedUser ?
+                                    <input type="email"
+                                        disabled={this.state.emailDisabled}
+                                        className="form-control"
+                                        name="email"
+                                        onBlur={this.validateEmail}
+                                        defaultValue={updatedUser.email}
+                                        onChange={this.handleEmailChange} /> :
+                                    <input type="email" className="form-control"
                                         onBlur={this.validateEmail}
                                         name="email"
                                         onChange={this.handleEmailChange} />
@@ -260,7 +259,7 @@ class UserForm extends Component {
                             {
                                 updatedUser ?
                                     <input type="password"
-                                        onBlur={this.validatePassword} 
+                                        onBlur={this.validatePassword}
                                         disabled={this.state.passwordDisabled}
                                         className="form-control"
                                         onChange={this.handlePasswordChange} /> :
@@ -282,7 +281,7 @@ class UserForm extends Component {
                             {
                                 updatedUser ?
                                     <input type="password"
-                                        onBlur={this.validatePasswordConfirm} 
+                                        onBlur={this.validatePasswordConfirm}
                                         onChange={this.handlePasswordConfirmChange}
                                         disabled={this.state.passwordConfirmDisabled}
                                         className="form-control" /> :
@@ -297,35 +296,35 @@ class UserForm extends Component {
                         }
                         <div className="invalid-feedback">{this.state.passwordConfirmationError}</div>
                     </div>
-                    {  updatedUser && this.getUserRole(currentUser.role_id) === "ADMIN" ?
+                    {updatedUser && this.getUserRole(currentUser.role_id) === "ADMIN" ?
                         <div className="form-group row">
                             <label className="col-sm-2 col-form-label">Role</label>
                             <div className="col-sm-8">
-                                        <select onChange={this.handleRoleChange} 
-                                                className="form-control" 
-                                                disabled={this.state.roleDisabled}
-                                                value={updatedUser.role_id}>
-                                            <option value="1">Admin</option>
-                                            <option value="2">User</option>
-                                            <option value="3">Shoper</option>
-                                        </select> 
+                                <select onChange={this.handleRoleChange}
+                                    className="form-control"
+                                    disabled={this.state.roleDisabled}
+                                    value={updatedUser.role_id}>
+                                    <option value="1">Admin</option>
+                                    <option value="2">User</option>
+                                    <option value="3">Shoper</option>
+                                </select>
                             </div>
-                        <label onClick={this.onActiveRole} className="btn btn-link">Edit</label>                   
-                        </div> :null
+                            <label onClick={this.onActiveRole} className="btn btn-link">Edit</label>
+                        </div> : null
                     }
                     <div className="form-group row">
                         <label className="col-sm-2 col-form-label">Avatar</label>
                         <div className="col-sm-8">
                             <div className="col-sm-12">
                                 {
-                                    this.state.imageUrl ? <label htmlFor="uploadImage" className="custom-file-label">{this.state.imageUrl}</label> : 
-                                    <label  htmlFor="uploadImage" className="custom-file-label">Choose File</label>
+                                    this.state.imageUrl ? <label htmlFor="uploadImage" className="custom-file-label">{this.state.imageUrl}</label> :
+                                        <label htmlFor="uploadImage" className="custom-file-label">Choose File</label>
                                 }
                             </div>
-                            <input type="file" 
-                                    className="form-control-file"
-                                    id="uploadImage"
-                                    onChange={this.handleUploadAvatar}/>
+                            <input type="file"
+                                className="form-control-file"
+                                id="uploadImage"
+                                onChange={this.handleUploadAvatar} />
 
                         </div>
                     </div>
@@ -333,7 +332,7 @@ class UserForm extends Component {
                 <div className="submit-profile">
                     <button onClick={this.handleSubmit}
                         className="btn btn-primary update-profile-button"
-                        disabled={!this.state.password && !this.state.first_name && !this.state.last_name && !this.state.imageUrl}  
+                        disabled={!this.state.password && !this.state.first_name && !this.state.last_name && !this.state.imageUrl}
                     >{updatedUser ? "Update" : "Create"}</button>
                 </div>
             </div>
@@ -343,14 +342,14 @@ class UserForm extends Component {
 
 function mapDispatchToProps(dispatch) {
     return bindActionCreators({
-      addNewUser,
-      updateExistingUser
+        addNewUser,
+        updateExistingUser
     }, dispatch)
 }
 
 function mapStateToProps(state) {
     return {
-      user: state
+        user: state
     }
 }
 
