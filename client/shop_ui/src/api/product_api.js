@@ -44,6 +44,22 @@ export async function addNewProduct(token,product){
    }
 }
 
+export async function updateProduct(token,product,product_id){
+    const config = configRequest(token);
+    const url = `${HEROKU_API_URL}/products/${product_id}`;
+    try{
+        await axios({
+            url: url,
+            data: product,
+            headers: config,
+            method:'PUT'
+        });
+    } 
+    catch(error){
+        console.log(error);
+    }
+ }
+
 export async function getProductById(productId){
     const url = `${HEROKU_API_URL}/products/${productId}`;
     try{
