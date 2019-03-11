@@ -2,7 +2,7 @@ class UsersController < ApplicationController
   skip_before_action :authorize_request, only: :create  
   before_action :get_user, except: [:create, :index, :get_authenticate_user, :get_total_user ]
   before_action :both_current_user_and_admin, only: [:show, :update]
-  before_action :only_admin, only: [:index, :destroy, :get_total_user_page]
+  before_action :only_admin, only: [:index, :destroy, :get_total_user]
 
   # GET '/users'
   def index 
