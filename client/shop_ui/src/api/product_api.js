@@ -28,15 +28,45 @@ export function getProductByCategoryId(categoryId){
     return null;
 }
 
-export function addNewProduct(token,product){
-    axios({
-        url: `${HEROKU_API_URL}/products/`,
-        method: "POST",
-        data: product,
-        headers: {
-            'Authorization': token
-        }
-    }).then(response => {
-        console.log(response)
-    }).catch(error => console.log(error))
+export async function addNewProduct(token,product){
+   const config = configRequest(token);
+   const url = `${HEROKU_API_URL}/products`;
+   try{
+       await axios({
+           url: url,
+           data: product,
+           headers: config,
+           method:'POST'
+       });
+   } 
+   catch(error){
+       console.log(error);
+   }
+}
+
+export async function getProductById(productId){
+    const url = `${HEROKU_API_URL}/products/${productId}`;
+    try{
+        return await axios.get(url);
+    }
+    catch(error){
+        console.log(error);
+    }
+}
+
+export async function getCategories(){
+    const url = `${HEROKU_API_URL}/categories`;
+    try{
+        return await axios.get(url);
+    }
+    catch(error){
+        console.log(error);
+    }
+}
+
+function configRequest(token){
+    return {
+        "Authorization": token,
+        'Content-Type': 'application/json'
+    }
 }
