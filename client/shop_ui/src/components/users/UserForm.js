@@ -38,6 +38,7 @@ class UserForm extends Component {
             passwordConfirmDisabled: true,
             roleDisabled: true,
 
+            loadImageSuccess: false
         }
     }
 
@@ -116,14 +117,14 @@ class UserForm extends Component {
         const file = event.target.files[0];
         uploadImage(file).then(response => {
             const imageUrl = `https://i.imgur.com/${response.data.data.id}.png`
-            this.setState({imageUrl: imageUrl})
+            this.setState({ imageUrl: imageUrl, loadImageSuccess: true});
         }).catch(err => {
             console.log(err)
         })
     }
 
     handleSubmit = () => {
-        const { email, password, first_name, last_name, passwordConfirm, role,  imageUrl } = this.state;
+        const { email, password, first_name, last_name, passwordConfirm, role,  imageUrl, loadImageSuccess } = this.state;
         const {updatedUser} = this.props;
         const {currentUser} = this.props.user.user;
         const token = localStorage.getItem("token");
@@ -136,9 +137,9 @@ class UserForm extends Component {
             "role_id": `${role}`,
             "avatar_url": `${imageUrl}`
         }
-        if(email.length === 0 && first_name.length === 0 && last_name.length === 0 ){
+        if((email.length === 0 && first_name.length === 0 && last_name.length === 0) && !loadImageSuccess ){
            alert("You must input new information")
-             return;
+            return;
         }
         if(updatedUser){
             if(currentUser.role_id === ADMIN_ROLE){
@@ -250,9 +251,6 @@ class UserForm extends Component {
                                         onChange={this.handleEmailChange} />
                             }
                         </div>
-                        {
-                            updatedUser ? <label onClick={this.onActiveEmail} className="btn btn-link">Edit</label> : null
-                        }
                         <div className="invalid-feedback">{this.state.emailError}</div>
                     </div>
 
@@ -334,7 +332,9 @@ class UserForm extends Component {
                 </form>
                 <div className="submit-profile">
                     <button onClick={this.handleSubmit}
-                        className="btn btn-primary update-profile-button">{updatedUser ? "Update" : "Create"}</button>
+                        className="btn btn-primary update-profile-button"
+                        disabled={!this.state.password && !this.state.first_name && !this.state.last_name && !this.state.imageUrl}  
+                    >{updatedUser ? "Update" : "Create"}</button>
                 </div>
             </div>
         );
