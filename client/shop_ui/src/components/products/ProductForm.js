@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { addNewProduct } from '../../api/product_api';
+import { addNewProduct, updateProduct } from '../../api/product_api';
 import { uploadImage } from '../../api/imgur_api';
-import {withRouter} from 'react-router';
+import {withRouter,Redirect} from 'react-router';
 var jwt_decode = require('jwt-decode');
 class FormCreateProduct extends Component {
     constructor(props) {
@@ -79,6 +79,9 @@ class FormCreateProduct extends Component {
         }
         if(this.props.currentProduct === undefined){
             addNewProduct(token,product);
+            this.props.history.push('/manage/products')
+        }else {
+            updateProduct(token,product,this.props.currentProduct.id);
             this.props.history.push('/manage/products')
         }
     }
