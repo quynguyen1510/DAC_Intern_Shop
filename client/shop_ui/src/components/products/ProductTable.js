@@ -28,7 +28,7 @@ class ProductTable extends Component {
                                 <td>{product.category_name}</td>
                                 <td>{product.active ? "Active" : "Non active"}</td>
                                 <td>
-                                    <Link to={`/products/infor`} className="btn btn-primary btnEditUser">Edit</Link>
+                                    <Link to={`/products/${product.id}`} className="btn btn-primary btnEditUser">Edit</Link>
                                     <Link to={`none`} className="btn btn-danger btnDeleteUser">Delete</Link>
                                 </td>
                             </tr>

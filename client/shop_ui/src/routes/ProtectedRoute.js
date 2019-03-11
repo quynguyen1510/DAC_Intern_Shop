@@ -37,7 +37,7 @@ class ProtectedRoutes extends Component {
                         <Route path="/manage/users/:page_number" component={ManageUser} />
                         <Route path="/manage/products" component={ManageProduct} />
                         <Route path="/products/new" component={CreateProduct} />
-                        <Route path="/products/infor" component={ProductInfor} />
+                        <Route path="/products/:product_id" component={ProductInfor} />
                         <Route path="/users/new" component={CreateUser} />
                         <Route path="/delete/users/:id" component={DeleteUser} />
                     </Switch>
