@@ -16,7 +16,6 @@ const defaultState = {
 export default function userReducer(state=defaultState, action) {
     switch(action.type){
         case SIGNUP_SUCCESS:
-            alert("Signup successfully");
             window.location.reload();
             return {
                 ...state,
