@@ -36,9 +36,7 @@ class UserForm extends Component {
             emailDisabled: true,
             passwordDisabled: true,
             passwordConfirmDisabled: true,
-            roleDisabled: true,
-
-            loadImageSuccess: false
+            roleDisabled: true
         }
     }
 
@@ -124,7 +122,7 @@ class UserForm extends Component {
     }
 
     handleSubmit = () => {
-        const { email, password, first_name, last_name, passwordConfirm, role, imageUrl, loadImageSuccess } = this.state;
+        const { email, password, first_name, last_name, passwordConfirm, role, imageUrl } = this.state;
         const { updatedUser } = this.props;
         const { currentUser } = this.props.user.user;
         const token = localStorage.getItem("token");
@@ -137,7 +135,7 @@ class UserForm extends Component {
             "role_id": `${role}`,
             "avatar_url": `${imageUrl}`
         }
-        if (this.state.passwordConfirmationError) {
+        if (this.state.passwordConfirmationError || this.state.passwordConfirm !== this.state.password) {
             return;
         }
         if (updatedUser) {
