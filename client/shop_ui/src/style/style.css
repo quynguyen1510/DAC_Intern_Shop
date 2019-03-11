@@ -339,16 +339,15 @@
     font-size: 13px;
     line-height: 27px;
     padding-left: 10px;
+    display: block;
 } 
 #categories ul li {
     list-style: none;
     padding-top: 0.5em;
 }
-#categories ul li:hover {
-    background-color: rgb(226, 220, 220);
-}
-#categories ul li:hover a {
+#categories ul li a:hover{
     color: rgb(60, 159, 240);
+    background-color: rgb(226, 220, 220);
 }
 .carousel-item img{
     height: 344px;
