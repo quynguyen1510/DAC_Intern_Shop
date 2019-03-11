@@ -82,7 +82,8 @@ export function getUsersSize(token){
             data: {
             },
             headers:{
-                'Authorization': token
+                'Authorization': token,
+                'Content-Type': "application/json"
             }
             }).then(function(success){
                dispatch(getSize(success.data.size))
@@ -98,7 +99,7 @@ export function getListUsers(token, page){
             url: `${HEROKU_API_URL}/users/?page=${page}`,
             method: "GET",
             headers:{
-                'Authorization': token
+                'Authorization': token,
             }
             }).then(function(success){
                dispatch(getUsers(success.data))
