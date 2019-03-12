@@ -41,7 +41,13 @@ class ProductsController < ApplicationController
 
   # PUT /products/:id 
   def update 
-    @product.update(product_params)
+    protected_params = Hash.new
+    product_params.each do |attr_name, attr_value|
+      protected_params[attr_name.to_sym] = attr_value unless attr_value.empty?
+    end
+    puts "#{protected_params}"
+
+    @product.update(protected_params)
     response = {
         product: @product,
         message: Message.product_updated
