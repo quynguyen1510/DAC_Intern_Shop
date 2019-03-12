@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { addNewProduct, updateProduct } from '../../api/product_api';
 import { uploadImage } from '../../api/imgur_api';
 import {withRouter} from 'react-router';
-
+import {Link} from 'react-router-dom';
 var jwt_decode = require('jwt-decode');
 class FormCreateProduct extends Component {
     constructor(props) {
@@ -18,7 +18,9 @@ class FormCreateProduct extends Component {
             // error
             nameError: '',
             descError: '',
-            priceError: ''
+            priceError: '',
+
+            message: ''
         }
     }
 
@@ -79,17 +81,33 @@ class FormCreateProduct extends Component {
             "user_id": `${payload.user_id}`
         }
         if(this.props.currentProduct === undefined){
-            addNewProduct(token,product);
-            this.props.history.push('/manage/products')
+            addNewProduct(token,product).then(res => {
+                this.setState({message: res.data.message})
+            }).catch(err => {
+                console.log(err)
+            });
+            this.setState({shouldRedirect: true});
         }else {
-            updateProduct(token,product,this.props.currentProduct.id);
-            this.props.history.push('/manage/products')
+            updateProduct(token,product,this.props.currentProduct.id).then(res => {
+                this.setState({
+                    product_name: res.data.product.product_name,
+                    product_desc: res.data.product.product_desc,
+                    product_img: res.data.product.product_img,
+                    price: res.data.product.price,
+                    category_id: res.data.product.category_id,
+                    message: res.data.message
+                })
+            }).catch(err => {
+                console.log(err)
+            })
         }
     }
 
     render() {
         const {currentProduct, categories} = this.props;
-    
+        if(this.state.message){
+           alert(this.state.message)
+        }
         return (
             <div>
                 <form encType="multipart/form-data">
@@ -98,7 +116,7 @@ class FormCreateProduct extends Component {
                             <label className="col-form-label">Product Name</label>
                             <input type="text"
                                 name="product_name"
-                                defaultValue={currentProduct ? currentProduct.product_name: ""}
+                                defaultValue={currentProduct ? currentProduct.product_name: this.state.product_name}
                                 className="form-control"
                                 onChange={this.handleProductNameChange}
                                 onBlur={this.validateNameProduct}
@@ -113,7 +131,7 @@ class FormCreateProduct extends Component {
                             <input onChange={this.handleProductDescChange}
                                     type="text"
                                     name="product_desc" 
-                                    defaultValue={currentProduct ? currentProduct.product_desc: ""}
+                                    defaultValue={currentProduct ? currentProduct.product_desc: this.state.product_desc}
                                     className="form-control"
                                     onBlur={this.validateDescProduct} />
                             <div className="invalid-feedback">{this.state.descError}</div>
@@ -127,7 +145,7 @@ class FormCreateProduct extends Component {
                                     className="form-control" 
                                     name="price"
                                     onBlur={this.validatePrice}
-                                    defaultValue={currentProduct ? currentProduct.price: ""} />
+                                    defaultValue={currentProduct ? currentProduct.price: this.state.price} />
                         </div>
                         <div className="invalid-feedback">{this.state.priceError}</div>
                     </div>
@@ -175,7 +193,10 @@ class FormCreateProduct extends Component {
                     <button onClick=
                         {this.handleSubmit} 
                         className="btn btn-primary update-profile-button">
-                        {currentProduct ? "Update" : "Create"}</button>
+                        {currentProduct ? "Update" : "Create"}
+                    </button>
+                    <Link className="btn btn-link back" to="/manage/products">Back</Link>
+
                 </div>
             </div>
         );
