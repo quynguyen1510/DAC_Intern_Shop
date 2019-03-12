@@ -449,10 +449,25 @@ button.get-more-product {
     width: 30%;
     height: 150px;
     margin: 0 35%;
+    margin-top: 10px;
 }
 button.update-profile-button {
     min-width: 200px;
     margin-top: 50px;
+}
+
+a.back {
+    width: 120px;
+    height: 40px;
+    margin: 0 10px;
+    margin-top: 50px;
+    text-align: center;
+    text-decoration: none;
+}
+
+a.back:hover {
+    text-decoration: none;
+    background: tomato;
 }
 
 .submit-profile {

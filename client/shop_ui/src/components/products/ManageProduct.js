@@ -29,9 +29,7 @@ class ManageProduct extends Component {
     }
 
     componentDidMount() {
-        if (this.state.products.length === 0) {
-            this.loadProduct(this.state.page);
-        }
+        this.loadProduct(this.state.page);
     }
 
     onNext = () => {

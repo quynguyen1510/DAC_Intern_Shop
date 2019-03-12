@@ -32,12 +32,7 @@ export async function addNewProduct(token,product){
    const config = configRequest(token);
    const url = `${HEROKU_API_URL}/products`;
    try{
-       await axios({
-           url: url,
-           data: product,
-           headers: config,
-           method:'POST'
-       });
+       return await axios.post(url, product, {headers: config});
    } 
    catch(error){
        console.log(error);
@@ -48,12 +43,7 @@ export async function updateProduct(token,product,product_id){
     const config = configRequest(token);
     const url = `${HEROKU_API_URL}/products/${product_id}`;
     try{
-        await axios({
-            url: url,
-            data: product,
-            headers: config,
-            method:'PUT'
-        });
+        return await axios.put(url, product , {headers: config});
     } 
     catch(error){
         console.log(error);

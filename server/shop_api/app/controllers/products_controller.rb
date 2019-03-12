@@ -6,7 +6,7 @@ class ProductsController < ApplicationController
 
   # GET '/products'
   def index 
-    @products = Product.all.order("id ASC").paginate(page: params[:page], per_page: Constants.product_per_page)
+    @products = Product.all.order("id DESC").paginate(page: params[:page], per_page: Constants.product_per_page)
     result = Array.new
     @products.each do |product|
       tmp = Hash.new
@@ -45,8 +45,6 @@ class ProductsController < ApplicationController
     product_params.each do |attr_name, attr_value|
       protected_params[attr_name.to_sym] = attr_value unless attr_value.empty?
     end
-    puts "#{protected_params}"
-
     @product.update(protected_params)
     response = {
         product: @product,
