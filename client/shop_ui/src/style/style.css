@@ -445,7 +445,11 @@ button.get-more-product {
     max-height: 200px;
     margin-bottom: 10px;
 }
-
+.avatar-preview {
+    width: 30%;
+    height: 150px;
+    margin: 0 35%;
+}
 button.update-profile-button {
     min-width: 200px;
     margin-top: 50px;

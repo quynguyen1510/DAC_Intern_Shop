@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { addNewProduct, updateProduct } from '../../api/product_api';
 import { uploadImage } from '../../api/imgur_api';
-import {withRouter,Redirect} from 'react-router';
+import {withRouter} from 'react-router';
+
 var jwt_decode = require('jwt-decode');
 class FormCreateProduct extends Component {
     constructor(props) {
@@ -162,6 +163,10 @@ class FormCreateProduct extends Component {
                                     <label htmlFor="uploadImage" className="custom-file-label">Choose File</label>
                                 }
                             </div>
+                                {
+                                    this.state.product_img ? <img className="avatar-preview" src={this.state.product_img} alt="preview" /> :
+                                    null
+                                }
                         </div>
                     </div>
 
