@@ -43,6 +43,13 @@ class Menu extends Component {
                                     }
                                 </li>
                                 <li className="dropdown-item dropdown-custome">
+                                    {
+                                        currentUser &&
+                                        ((currentUser.role_id === ADMIN_ROLE || currentUser.role_id === SHOPPER_ROLE) ? 
+                                        <Link to="/manage/campaign" >Quản lý chiến dịch</Link> : null) 
+                                    }
+                                </li>
+                                <li className="dropdown-item dropdown-custome">
                                     <a onClick={this.handleLogOut} href="#">Đăng xuất</a>
                                 </li>
                             </ul>
