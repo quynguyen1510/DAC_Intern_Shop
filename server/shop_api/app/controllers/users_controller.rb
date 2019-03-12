@@ -24,10 +24,11 @@ class UsersController < ApplicationController
     normal_user = Role.find_by(role_name: Constants.user)
     data[:role_id] = normal_user.id unless data[:role_id]
     data[:active] = true
-
     @user = User.create!(data)
+    auth_token = AuthenticateUser.new(data[:email], data[:password]).call
     response = { 
       authenticated_user: @user,
+      auth_token: auth_token,  
       message: Message.account_created 
     }
     json_response(response, :created)

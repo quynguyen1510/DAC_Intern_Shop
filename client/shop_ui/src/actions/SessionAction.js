@@ -22,7 +22,7 @@ function loginFail(){
 function signupSuccess(authenticated_user){
     return {
         type: SIGNUP_SUCCESS,
-        authenticated_user
+        authenticated_user,
     }
 }
 
@@ -56,6 +56,7 @@ export function signup(crendentials){
             method: 'POST',
             data: crendentials
         }).then(function(success){
+            localStorage.setItem("token", success.data.auth_token)
             dispatch(signupSuccess(success.data.authenticated_user));
         })
         .catch(function(error){

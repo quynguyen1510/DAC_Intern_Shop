@@ -21,12 +21,12 @@ class SignupForm extends Component {
     validateFirstName = () => {
         const first_name = this.state.first_name;
         const valid_name = first_name.length !== 0
-        this.setState({ firstNameError: valid_name ? null : "First name can't be blank" });
+        this.setState({ firstNameError: valid_name ? "" : "First name can't be blank" });
     }
     validateLastName = () => {
         const { last_name } = this.state;
         const valid_name = last_name.length !== 0;
-        this.setState({ lastNameError: valid_name ? null : "Last name can't be blank" });
+        this.setState({ lastNameError: valid_name ? "" : "Last name can't be blank" });
     }
 
     validateEmail = () => {
@@ -36,7 +36,7 @@ class SignupForm extends Component {
             this.setState({ emailError: "Email can't be blank" });
         } else {
             const valid_email = EMAIL_REGEX.test(email)
-            this.setState({ emailError: valid_email ? null : "Please enter a valid email" })
+            this.setState({ emailError: valid_email ? "" : "Please enter a valid email" })
         }
 
     }
@@ -46,7 +46,7 @@ class SignupForm extends Component {
         if (password.length === 0) {
             this.setState({ passwordError: "Password can't be blank" });
         } else {
-            this.setState({ passwordError: password.length < 6 ? "Password must be greater than 5" : null })
+            this.setState({ passwordError: password.length < 6 ? "Password must be greater than 5" : "" })
         }
     }
 
@@ -91,8 +91,10 @@ class SignupForm extends Component {
         const { email, password, first_name, last_name, passwordConfirm } = this.state;
         if (email.length === 0 || password.length === 0 || first_name.length === 0 || last_name.length === 0 || passwordConfirm.length === 0) {
             alert("Please fill out the information");
-        } else if (this.state.emailError !== null || this.state.passwordError !== null || this.state.passwordConfirmationError !== null){
-            return 
+        } else if (this.state.emailError.length > 0 || 
+                this.state.passwordError.length > 0 || 
+                this.state.passwordConfirmationError.length  > 0){
+            return;
         } else {
             const credentials = {
                 "first_name": `${first_name}`,
