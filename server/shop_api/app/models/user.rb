@@ -4,6 +4,7 @@ class User < ApplicationRecord
   # association
   belongs_to :role
   has_many :products
+  has_many :campaigns
   # validations
   validates_presence_of :first_name, :last_name, :email, :password_digest
   validates_uniqueness_of :email
