@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   resources :users
   resources :categories
   resources :products
+  resources :campaigns
 
   post 'auth/login', to: 'authentication#authenticate'
   get 'authenticate/profile', to: 'users#get_authenticate_user'
