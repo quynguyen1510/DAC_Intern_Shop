@@ -2,7 +2,8 @@ class CampaignsController < ApplicationController
     before_action :get_campaign, only: [:show, :destroy, :update]
     before_action :only_shop, only: [:update, :destroy]
     before_action :only_admin_and_shop, only: [:index]
-
+    before_action :get_shoper, only: [:campaign_by_shoper]
+    
     # GET '/categories'
   def index 
     @campaigns = Campaign.all
@@ -22,7 +23,7 @@ class CampaignsController < ApplicationController
   end
 
    # PUT /campaigns/:id 
-   def update 
+  def update 
     protected_params = Hash.new
     campaign_params.each do |attr_name, attr_value|
       protected_params[attr_name.to_sym] = attr_value unless attr_value.empty?
@@ -35,12 +36,26 @@ class CampaignsController < ApplicationController
     json_response(response)
   end
 
+    #DELETE /campaigns/:id
+  def destroy
+    @campaign.update_attribute("status", false)
+    json_response({ message: Message.campaign_removed})
+  end
+  
+   #GET /campaigns/shop/:user_id
+  def campaign_by_shoper
+    json_response(@user.campaigns)
+  end
 
 
   private
 
   def campaign_params
     params.permit(:startdate, :enddate, :budget, :bid, :campaignimg, :status, :user_id)
+  end
+
+  def get_shoper
+    @user = User.find(params[:user_id])
   end
 
   def get_campaign
