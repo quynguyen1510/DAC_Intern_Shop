@@ -7,7 +7,8 @@ class AuthenticateUser
   # entry point of service
   def call  
     payload = {
-        user_id: user.id,    
+        user_id: user.id,
+        role_id: user.role_id    
     }
     if (user)
       token = JsonWebToken.encode(payload)  
