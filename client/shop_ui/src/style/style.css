@@ -569,6 +569,70 @@ a.back:hover {
 
 /* ===End Form=== */
 /* ========================== */
+
+/*-----------------------------------campain--------------------------*/
+.main{
+    padding: 15px 0;
+}
+.campaign-container{
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0;
+    justify-content: center;
+    padding: 20px;
+    background: white;
+}
+.card{
+    margin-bottom: 20px;
+}
+.custom-card-header{
+    display: inline-flex;
+    justify-content: space-between;
+}
+.pull-right button {
+    background: none;
+    border: none;
+}
+.pull-right button i {
+    font-size: 26px;
+}
+.custom-form-row{
+    text-align: right;
+}
+.custom-style{
+    display: inherit
+}
+.custom-style select{
+    display: block;
+    width: 30%;
+}
+.custom-style input[type="text"]{
+    width: 40%
+}
+.input-left,
+.input-right{
+    width: 40%;
+}
+.input-left{
+    margin-right: 5px;
+}
+.input-right{
+    margin-left: 5px;
+}
+.input-right input[type="time"]{
+    width: 70%;
+}
+.input-campaign {
+    width: 40%;
+}
+.form-contain-button{
+    display: flex;
+    justify-content: flex-end;
+}
+.img-preview img{
+    width: 100%;
+    height: auto;
+}
 @media only screen and (min-width: 1750px) {
     .inforItem {
         justify-content: center;
