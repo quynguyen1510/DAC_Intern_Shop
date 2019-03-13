@@ -1,9 +1,9 @@
 class CampaignsController < ApplicationController
     before_action :get_campaign, only: [:show, :destroy, :update]
-    before_action :only_shop, only: [:update, :destroy]
-    before_action :only_admin_and_shop, only: [:index]
+    before_action :only_shop, only: [:index, :create, :update]
+    before_action :only_admin, only: [:index, :create, :destroy]
     before_action :get_shoper, only: [:campaign_by_shoper]
-    
+
     # GET '/categories'
   def index 
     @campaigns = Campaign.all
@@ -66,7 +66,7 @@ class CampaignsController < ApplicationController
     json_response({ message: "Don't have permission"}, :forbidden) unless is_shop?(@current_user)
   end
 
-  def only_admin_and_shop
-    json_response({ message: "Don't have permission"}, :forbidden) unless is_admin?(@current_user) || is_shop?(@current_user)
+  def only_admin
+    json_response({ message: "Don't have permission"}, :forbidden) unless is_admin?(@current_user)
   end
 end
