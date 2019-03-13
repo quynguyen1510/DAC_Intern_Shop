@@ -53,6 +53,14 @@ class ProductsController < ApplicationController
     json_response(response)
   end
 
+  # DELETE /products/:id 
+  def destroy
+    @product.update({active: false})
+    json_response({
+      message: "Product is unactive successfully"
+    })
+  end
+
   # GET /categories/:category_id/products
   def get_product_by_category
     json_response(@category.products)
