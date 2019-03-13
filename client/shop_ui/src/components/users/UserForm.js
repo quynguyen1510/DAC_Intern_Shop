@@ -301,7 +301,7 @@ class UserForm extends Component {
                                 <select onChange={this.handleRoleChange}
                                     className="form-control"
                                     disabled={this.state.roleDisabled}
-                                    value={updatedUser.role_id}>
+                                    defaultValue={updatedUser.role_id}>
                                     <option value="1">Admin</option>
                                     <option value="2">User</option>
                                     <option value="3">Shoper</option>
@@ -330,7 +330,7 @@ class UserForm extends Component {
                 <div className="submit-profile">
                     <button onClick={this.handleSubmit}
                         className="btn btn-primary update-profile-button"
-                        disabled={!this.state.password && !this.state.first_name && !this.state.last_name && !this.state.imageUrl}
+                        disabled={!this.state.password && !this.state.first_name && !this.state.last_name && !this.state.imageUrl && !this.state.role}
                     >{updatedUser ? "Update" : "Create"}</button>
                 </div>
             </div>

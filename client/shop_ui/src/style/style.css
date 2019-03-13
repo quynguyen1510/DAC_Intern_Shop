@@ -376,6 +376,7 @@
     padding: 1rem;
     text-align: center;
     border: 2px solid #ededed;  
+    height: 90%;
 }
 
 .product-item .item-name h3 {
@@ -411,8 +412,8 @@
     margin-right: 0;
 }
 .pi-img-wrapper  img {
-    width: 100%;
-    height: auto;
+    width: 80%;
+    height: 8rem;
 }
 
 button.get-more-product {
