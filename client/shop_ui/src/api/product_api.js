@@ -50,6 +50,17 @@ export async function updateProduct(token,product,product_id){
     }
  }
 
+ export async function getProductByShop(token,user_id){
+    const config = configRequest(token);
+    const url = `${HEROKU_API_URL}/shop/products/${user_id}`;
+    try{
+        return await axios.get(url , {headers: config});
+    } 
+    catch(error){
+        console.log(error);
+    }
+ }
+
 export async function getProductById(productId){
     const url = `${HEROKU_API_URL}/products/${productId}`;
     try{

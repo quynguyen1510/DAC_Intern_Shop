@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import ProductTable from './ProductTable';
 import Navbar from '../commons/header/Navbar';
 import { Link } from 'react-router-dom';
-import { getListProduct } from '../../api/product_api';
+import { getListProduct, getProductByShop } from '../../api/product_api';
+import { SHOPPER_ROLE } from '../../util/constant';
+var jwtDecode = require('jwt-decode');
 
 class ManageProduct extends Component {
 
@@ -16,16 +18,28 @@ class ManageProduct extends Component {
     }
 
     loadProduct = (page) => {
-        getListProduct(page).then(res => {
-            if (res.data.length > 0) {
-                this.setState({ products: res.data });
-            }
-            else {
-                this.setState({ shouldNavigatePage: false, page: this.state.page - 1 })
-            }
-        }).catch(err => {
-            console.log(err)
-        });
+        const token = localStorage.getItem('token');
+        const user = jwtDecode(token);
+        if (user.role_id === SHOPPER_ROLE) {
+            getProductByShop(token,user.user_id).then(res => {
+                if (res.data.length > 0) {
+                    this.setState({ products: res.data });
+                }
+            }).catch(err => {
+                console.log(err)
+            });
+        } else {
+            getListProduct(page).then(res => {
+                if (res.data.length > 0) {
+                    this.setState({ products: res.data });
+                }
+                else {
+                    this.setState({ shouldNavigatePage: false, page: this.state.page - 1 })
+                }
+            }).catch(err => {
+                console.log(err)
+            });
+        }
     }
 
     componentDidMount() {
@@ -38,15 +52,15 @@ class ManageProduct extends Component {
             this.loadProduct(page + 1);
             this.setState({ page: page + 1 });
         }
-        else{
+        else {
             return;
         }
     }
 
     onRemoveProduct = (productId) => {
-        const {products} = this.state;
-        for (let product of products){
-            if(product.id === productId){
+        const { products } = this.state;
+        for (let product of products) {
+            if (product.id === productId) {
                 product.active = false;
                 break;
             }
@@ -58,12 +72,12 @@ class ManageProduct extends Component {
 
     onPrevious = () => {
         const { page } = this.state;
-        if ( page > 0) {
+        if (page > 0) {
             this.loadProduct(page);
             this.setState({ page: page - 1 })
         }
-        else{
-            this.setState({shouldNavigatePage: true});
+        else {
+            this.setState({ shouldNavigatePage: true });
             return;
         }
 
