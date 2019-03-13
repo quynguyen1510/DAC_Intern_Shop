@@ -18,4 +18,7 @@ Rails.application.routes.draw do
 
   # search product by product_name
   get 'search/products/:product_name', to: 'products#search_product_by_name'
+
+  #get campaigns by shoper_id
+  get '/campaigns/shop/:user_id', to: 'campaigns#campaign_by_shoper'
 end

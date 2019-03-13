@@ -62,4 +62,8 @@ class Message
     "Campaign update successfully"
   end
 
+  def self.campaign_removed
+    "Campaign has been disable"
+  end
+
 end
