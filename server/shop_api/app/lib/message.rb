@@ -54,4 +54,12 @@ class Message
     "Product update successfully"
   end
 
+  def self.campaign_created
+    "Campaign created successfully"
+  end
+
+  def self.campaign_updated
+    "Campaign update successfully"
+  end
+
 end
