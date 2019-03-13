@@ -65,7 +65,7 @@ class FormCreateProduct extends Component {
 
     handleSubmit = () => {
         const { product_name, product_desc,price , category_id, product_img } = this.state;
-        const shouldSendRequest = this.state.product_name.length > 0 || this.state.product_desc > 0 || this.state.price.length > 0;
+        const shouldSendRequest = this.state.product_name.length > 0 || this.state.product_desc > 0 || this.state.price.length > 0 || product_img !== null;
         if(!shouldSendRequest){
             alert("You must change something");
             return;

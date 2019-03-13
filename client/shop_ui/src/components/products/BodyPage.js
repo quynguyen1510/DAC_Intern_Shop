@@ -15,7 +15,8 @@ class BodyPage extends Component {
     loadProduct = (page, productList) => {
         getListProduct(page).then(res => {
             if(res.data.length > 0){
-              this.setState({ productList: [...productList,...res.data]});
+              const list = res.data.filter(product => product.active === true)
+              this.setState({ productList: [...productList,...list]});
             }
             else{
               this.setState({shouldGetMore: false});

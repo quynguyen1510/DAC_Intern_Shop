@@ -549,6 +549,13 @@ a.back:hover {
 .manage-product .pagination{
     justify-content: space-between;
 }
+
+.table td, .table th{
+    vertical-align: unset;
+}
+.product-active {
+    color: tomato;
+}
 /*=========END PAGE */
 
 /* ===End Form=== */
