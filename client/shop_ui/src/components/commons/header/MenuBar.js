@@ -50,7 +50,7 @@ class Menu extends Component {
                                     }
                                 </li>
                                 <li className="dropdown-item dropdown-custome">
-                                    <a onClick={this.handleLogOut} href="#">Đăng xuất</a>
+                                    <a onClick={this.handleLogOut} href="#none">Đăng xuất</a>
                                 </li>
                             </ul>
                         </div>
