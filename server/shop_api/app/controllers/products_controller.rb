@@ -17,6 +17,7 @@ class ProductsController < ApplicationController
       tmp[:price] = product.price
       tmp[:active] = product.active
       tmp[:category_name]= product.category.catname 
+      tmp[:category_id] = product.category_id
       result.push(tmp)
     end
     json_response(result) 

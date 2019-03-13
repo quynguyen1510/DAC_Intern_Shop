@@ -50,13 +50,15 @@ class ProductTable extends Component {
                             return (
                                 <tr key={index}>
                                     <td>{product.product_name}</td>
-                                    <td><img className="product-row-img" alt={product.product_name} src={product.product_img} /></td>
+                                    <td><img className="product-row-img" alt={product.product_name} 
+                                            src={product.product_img ? product.product_img : "http://saveabandonedbabies.org/wp-content/uploads/2015/08/default.png"} />
+                                    </td>
                                     <td>{product.product_desc}</td>
                                     <td>{product.price}</td>
                                     <td>{product.category_name}</td>
                                     <td className="product-active">{product.active ? "Active" : "Non active"}</td>
                                     <td>
-                                        <Link to={`/products/${product.id}`} className="btn btn-primary btnEditUser">Edit</Link>
+                                        <Link to={{pathname: `/products/${product.id}`, state: {product: product} }} className="btn btn-primary btnEditUser">Edit</Link>
                                         <Button  onClick={() => {this.handleShow(product.id)}} className="btn btn-danger btnDeleteUser">Delete</Button>
                                     </td>
                                 </tr>

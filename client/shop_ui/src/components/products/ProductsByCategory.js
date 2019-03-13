@@ -48,10 +48,10 @@ class ProductsByCategory extends Component {
                 <div className="container col-md-10 col-lg-10" id="body-page">
                     <div className="row" id="item-row">
                     {
-                        productsPerPage.length > 0 && 
+                        productsPerPage.length > 0 ? 
                         ( productsPerPage.map((product, index) => {
                             return <ProductItem key={index} product={product}/>
-                        }))
+                        })) : <span>No product now</span>
                     }
                     </div>
                 </div>

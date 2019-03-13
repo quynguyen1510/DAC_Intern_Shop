@@ -7,18 +7,11 @@ class ProductInfor extends Component {
     constructor(props){
         super(props);
         this.state = {
-            currentProduct: null,
+            currentProduct: this.props.location.state.product,
             categories: []
         }
     }
     componentDidMount(){
-        const productId = this.props.match.params.product_id;
-        getProductById(productId).then(response => {
-            this.setState({currentProduct: response.data});
-        }).catch(err => {
-            console.log(err);
-        });
-
         getCategories().then(res => {
             this.setState({categories: [...res.data]});
         }).catch(err =>{

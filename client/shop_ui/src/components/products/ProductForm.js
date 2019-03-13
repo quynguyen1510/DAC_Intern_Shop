@@ -12,7 +12,7 @@ class FormCreateProduct extends Component {
             product_name: '',
             product_desc: '',
             price: '',
-            category_id: '',
+            category_id: this.props.currentProduct ? this.props.currentProduct.category_id : 1,
             product_img: '',
 
             // error
@@ -62,7 +62,6 @@ class FormCreateProduct extends Component {
             console.log(err)
         })
     }
-
     handleSubmit = () => {
         const { product_name, product_desc,price , category_id, product_img } = this.state;
         const shouldSendRequest = this.state.product_name.length > 0 || this.state.product_desc > 0 || this.state.price.length > 0 || product_img !== null;
@@ -86,7 +85,11 @@ class FormCreateProduct extends Component {
             }).catch(err => {
                 console.log(err)
             });
-            this.setState({shouldRedirect: true});
+
+            // clear text and can redirect
+            this.setState({
+                shouldRedirect: true,
+            });
         }else {
             updateProduct(token,product,this.props.currentProduct.id).then(res => {
                 this.setState({
@@ -105,9 +108,7 @@ class FormCreateProduct extends Component {
 
     render() {
         const {currentProduct, categories} = this.props;
-        if(this.state.message){
-           alert(this.state.message)
-        }
+
         return (
             <div>
                 <form encType="multipart/form-data">
@@ -155,11 +156,11 @@ class FormCreateProduct extends Component {
                             <label className="col-form-label">Category Name</label>
                             <select className="form-control" 
                                     onChange={this.handleCategoryChange}
-                                    defaultValue={currentProduct ? currentProduct.category_name: ""}>
+                                    value={this.state.category_id}>
                                 {
                                     categories.length > 0 && (
                                         categories.map((cate, index) => {
-                                            return (<option key={index} value={cate.id}>{cate.catname}</option>)
+                                            return (<option  key={index} value={cate.id}>{cate.catname}</option>)
                                         })
                                     )
                                 }
@@ -196,8 +197,15 @@ class FormCreateProduct extends Component {
                         {currentProduct ? "Update" : "Create"}
                     </button>
                     <Link className="btn btn-link back" to="/manage/products">Back</Link>
-
                 </div>
+                {
+                    this.state.message && (
+                        <div className="alert-success" role="alert">
+                            <p>{this.state.message }</p>
+                        </div>
+                    )
+                }
+               
             </div>
         );
     }
