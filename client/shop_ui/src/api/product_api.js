@@ -70,6 +70,15 @@ export async function getCategories(){
     }
 }
 
+export async function deleteProduct(productId, token){
+    const url = `${HEROKU_API_URL}/products/${productId}`;
+    const config = configRequest(token);
+    try{
+        await axios.delete(url, {headers: config});
+    }catch(err){
+        console.log(err)
+    }
+}
 function configRequest(token){
     return {
         "Authorization": token,
