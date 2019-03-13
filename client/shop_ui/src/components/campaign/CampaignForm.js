@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router';
-import { Link } from 'react-router-dom';
 
 class FormCreateCampaign extends Component {
 
@@ -14,12 +13,12 @@ class FormCreateCampaign extends Component {
                             <hr />
                             <div className="campaign-content">
                                 <form>
-
+                                    {/* ============================================Detail======================================= */}
                                     <div className="card">
-                                        <div className="card-header custom-card-header">
+                                        <div className="card-header custom-card-header" data-toggle="collapse" data-target="#collapseDetail" aria-expanded="false" aria-controls="collapseDetail">
                                             <h5>Detail</h5>
                                             <div className="pull-right">
-                                                <button type="button" data-toggle="collapse" data-target="#collapseDetail" aria-expanded="false" aria-controls="collapseDetail">
+                                                <button type="button">
                                                     <i className="fa fa-angle-down" />
                                                 </button>
                                             </div>
@@ -44,12 +43,12 @@ class FormCreateCampaign extends Component {
                                             </div>
                                         </div>
                                     </div>
-
+                                    {/* ===========================================Schedule======================================== */}
                                     <div className="card">
-                                        <div className="card-header custom-card-header">
+                                        <div className="card-header custom-card-header" data-toggle="collapse" data-target="#collapseSchedule" aria-expanded="false" aria-controls="collapseSchedule">
                                             <h5>Schedule</h5>
                                             <div className="pull-right">
-                                                <button type="button" data-toggle="collapse" data-target="#collapseSchedule" aria-expanded="false" aria-controls="collapseSchedule">
+                                                <button type="button">
                                                     <i className="fa fa-angle-down" />
                                                 </button>
                                             </div>
@@ -61,10 +60,7 @@ class FormCreateCampaign extends Component {
                                                     <div className="col-8 custom-style">
                                                         <div className="input-left">
                                                             <input type="date" name="name" className="form-control" required />
-                                                        </div>
-                                                        <div className="input-right">
-                                                            <input type="time" name="name" className="form-control" required />
-                                                        </div>
+                                                        </div>                                                   
                                                     </div>
                                                 </div>
                                                 <div className="form-group row custom-form-row">
@@ -73,20 +69,17 @@ class FormCreateCampaign extends Component {
                                                         <div className="input-left">
                                                             <input type="date" name="name" className="form-control" required />
                                                         </div>
-                                                        <div className="input-right">
-                                                            <input type="time" name="name" className="form-control" required />
-                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-
+                                    {/* ===================================================Budget============================================ */}
                                     <div className="card">
-                                        <div className="card-header custom-card-header">
+                                        <div className="card-header custom-card-header"  data-toggle="collapse" data-target="#collapseBudget" aria-expanded="false" aria-controls="collapseBudget">
                                             <h5>Budget</h5>
                                             <div className="pull-right">
-                                                <button type="button" data-toggle="collapse" data-target="#collapseBudget" aria-expanded="false" aria-controls="collapseBudget">
+                                                <button type="button">
                                                     <i className="fa fa-angle-down" />
                                                 </button>
                                             </div>
@@ -109,12 +102,12 @@ class FormCreateCampaign extends Component {
                                             </div>
                                         </div>
                                     </div>
-
+                                    {/* ==============================================Bidding================================================ */}
                                     <div className="card">
-                                        <div className="card-header custom-card-header">
+                                        <div className="card-header custom-card-header" data-toggle="collapse" data-target="#collapseBidding" aria-expanded="false" aria-controls="collapseBidding">
                                             <h5>Bidding</h5>
                                             <div className="pull-right">
-                                                <button type="button" data-toggle="collapse" data-target="#collapseBidding" aria-expanded="false" aria-controls="collapseBidding">
+                                                <button type="button">
                                                     <i className="fa fa-angle-down" />
                                                 </button>
                                             </div>
@@ -137,12 +130,12 @@ class FormCreateCampaign extends Component {
                                             </div>
                                         </div>
                                     </div>
-
+                                    {/* ===================================================Creative============================================ */}
                                     <div className="card">
-                                        <div className="card-header custom-card-header">
+                                        <div className="card-header custom-card-header"  data-toggle="collapse" data-target="#collapseCreative" aria-expanded="false" aria-controls="collapseCreative">
                                             <h5>Creative</h5>
                                             <div className="pull-right">
-                                                <button type="button" data-toggle="collapse" data-target="#collapseCreative" aria-expanded="false" aria-controls="collapseCreative">
+                                                <button type="button">
                                                     <i className="fa fa-angle-down" />
                                                 </button>
                                             </div>
