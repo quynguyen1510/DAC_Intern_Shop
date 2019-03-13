@@ -43,6 +43,19 @@ class ManageProduct extends Component {
         }
     }
 
+    onRemoveProduct = (productId) => {
+        const {products} = this.state;
+        for (let product of products){
+            if(product.id === productId){
+                product.active = false;
+                break;
+            }
+        }
+        this.setState({
+            products: products
+        })
+    }
+
     onPrevious = () => {
         const { page } = this.state;
         if ( page > 0) {
@@ -68,7 +81,7 @@ class ManageProduct extends Component {
                     <div>
                         <span className="btn btn-info">Page: {page > 0 ? page : (page + 1)}</span>
                     </div>
-                    <ProductTable listProducts={this.state.products} />
+                    <ProductTable listProducts={this.state.products} onRemoveProduct={this.onRemoveProduct} />
                     <nav aria-label="...">
                         <ul className="pagination pagination-lg">
                             <li className="page-item"><button onClick={this.onPrevious} className="page-link" href="#none" >Previous</button></li>
