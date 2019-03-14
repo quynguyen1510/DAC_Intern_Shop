@@ -3,7 +3,9 @@ import { addNewProduct, updateProduct } from '../../api/product_api';
 import { uploadImage } from '../../api/imgur_api';
 import {withRouter} from 'react-router';
 import {Link} from 'react-router-dom';
+import ReactLoading from 'react-loading';
 var jwt_decode = require('jwt-decode');
+
 class FormCreateProduct extends Component {
     constructor(props) {
         super(props);
@@ -20,7 +22,8 @@ class FormCreateProduct extends Component {
             descError: '',
             priceError: '',
 
-            message: ''
+            message: '',
+            isLoading: false
         }
     }
 
@@ -54,10 +57,11 @@ class FormCreateProduct extends Component {
     }
 
     uploadImage =(event) =>{
+        this.setState({isLoading: true})
         const imgFile = event.target.files[0];
         uploadImage(imgFile).then(response => {
             const imageUrl = `https://i.imgur.com/${response.data.data.id}.png`;
-            this.setState({product_img: imageUrl})
+            this.setState({product_img: imageUrl, isLoading: false})
         }).catch(err => {
             console.log(err)
         })
@@ -193,6 +197,11 @@ class FormCreateProduct extends Component {
                                 {
                                     this.state.product_img ? <img className="avatar-preview" src={this.state.product_img} alt="preview" /> :
                                     null
+                                }
+                                {
+                                    this.state.isLoading && (
+                                        <ReactLoading color={"black"} height={"1%"} width={"5%"} />
+                                    )
                                 }
                         </div>
                     </div>

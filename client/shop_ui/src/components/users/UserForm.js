@@ -5,7 +5,7 @@ import { bindActionCreators } from 'redux';
 import { addNewUser, updateExistingUser  } from '../../actions/UsersAction';
 import { ADMIN_ROLE } from '../../util/constant';
 import { uploadImage } from '../../api/imgur_api';
-
+import ReactLoading from 'react-loading';
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
@@ -36,7 +36,9 @@ class UserForm extends Component {
             emailDisabled: true,
             passwordDisabled: true,
             passwordConfirmDisabled: true,
-            roleDisabled: true
+            roleDisabled: true,
+
+            isLoading: false
         }
     }
 
@@ -112,10 +114,11 @@ class UserForm extends Component {
     }
 
     handleUploadAvatar = event => {
+        this.setState({isLoading: true})
         const file = event.target.files[0];
         uploadImage(file).then(response => {
             const imageUrl = `https://i.imgur.com/${response.data.data.id}.png`
-            this.setState({ imageUrl: imageUrl, loadImageSuccess: true });
+            this.setState({ imageUrl: imageUrl, loadImageSuccess: true, isLoading: false });
         }).catch(err => {
             console.log(err)
         })
@@ -323,7 +326,11 @@ class UserForm extends Component {
                                 className="form-control-file"
                                 id="uploadImage"
                                 onChange={this.handleUploadAvatar} />
-
+                            {
+                                this.state.isLoading && (
+                                    <ReactLoading color={"black"} height={"1%"} width={"4%"} />
+                                )
+                            }
                         </div>
                     </div>
                 </form>
