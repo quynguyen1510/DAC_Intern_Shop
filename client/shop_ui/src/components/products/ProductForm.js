@@ -64,9 +64,8 @@ class FormCreateProduct extends Component {
     }
     handleSubmit = () => {
         const { product_name, product_desc,price , category_id, product_img } = this.state;
-        const shouldUpdate = this.state.product_name.length > 0 || this.state.product_desc > 0 || this.state.price.length > 0 || product_img.length > 0;
-        const shouldCreate = this.state.product_name.length > 0 && this.state.product_desc > 0 && this.state.price.length > 0;
-          
+        const shouldUpdate = product_name.length > 0 || product_desc.length > 0 || price.length > 0 || product_img.length > 0;
+        const shouldCreate = product_name.length > 0 && product_desc.length > 0 && price.length > 0;
         const token = localStorage.getItem("token");
         const payload = jwt_decode(token);
         const product = {
