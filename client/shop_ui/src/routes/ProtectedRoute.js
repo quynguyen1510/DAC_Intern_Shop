@@ -53,6 +53,7 @@ class ProtectedRoutes extends Component {
                         <Route path="/profile/users/:id" component={Profile} />
                         <Route path="/manage/products" component={ManageProduct} />
                         <Route path="/products/new" component={CreateProduct} />
+                        <Route path="/products/:product_id" component={ProductInfor}/>
                         <Route path="/products/infor" component={ProductInfor} />
                         <Route path="/manage/campaign" component={ManageCampaign} />
                         <Route path="/campaign/new" component={CreateCampaign} />
