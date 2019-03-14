@@ -64,11 +64,9 @@ class FormCreateProduct extends Component {
     }
     handleSubmit = () => {
         const { product_name, product_desc,price , category_id, product_img } = this.state;
-        const shouldSendRequest = this.state.product_name.length > 0 || this.state.product_desc > 0 || this.state.price.length > 0 || product_img !== null;
-        if(!shouldSendRequest){
-            alert("You must change something");
-            return;
-        }
+        const shouldUpdate = this.state.product_name.length > 0 || this.state.product_desc > 0 || this.state.price.length > 0 || product_img.length > 0;
+        const shouldCreate = this.state.product_name.length > 0 && this.state.product_desc > 0 && this.state.price.length > 0;
+          
         const token = localStorage.getItem("token");
         const payload = jwt_decode(token);
         const product = {
@@ -80,6 +78,12 @@ class FormCreateProduct extends Component {
             "user_id": `${payload.user_id}`
         }
         if(this.props.currentProduct === undefined){
+
+            if(!shouldCreate){
+                alert("You must change something");
+                return;
+            }
+
             addNewProduct(token,product).then(res => {
                 this.setState({message: res.data.message})
             }).catch(err => {
@@ -91,6 +95,11 @@ class FormCreateProduct extends Component {
                 shouldRedirect: true,
             });
         }else {
+            if(!shouldUpdate){
+                alert("You must change something");
+                return;
+            }
+
             updateProduct(token,product,this.props.currentProduct.id).then(res => {
                 this.setState({
                     product_name: res.data.product.product_name,
