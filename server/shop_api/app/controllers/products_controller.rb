@@ -2,6 +2,8 @@ class ProductsController < ApplicationController
   before_action :only_admin_and_shop, only: [:create, :destroy, :update]
   before_action :get_product, only: [:show, :destroy, :update]
   before_action :get_category, only: [:get_product_by_category]
+  before_action :get_user, only: [:get_product_by_shop]
+  before_action :check_user, only: [:get_product_by_shop]
   skip_before_action :authorize_request, only: [:index, :show, :get_product_by_category, :search_product_by_name]
 
   # GET '/products'
@@ -18,6 +20,7 @@ class ProductsController < ApplicationController
       tmp[:active] = product.active
       tmp[:category_name]= product.category.catname 
       tmp[:category_id] = product.category_id
+      tmp[:user_id] = product.user_id
       result.push(tmp)
     end
     json_response(result) 
@@ -67,6 +70,9 @@ class ProductsController < ApplicationController
     json_response(@category.products)
   end
 
+  def get_product_by_shop
+    json_response(@user.products)
+  end
   # GET search/products/:product_name
   def search_product_by_name
     @products = Product.where("product_name like ?", "%#{params[:product_name]}%")
@@ -93,11 +99,19 @@ class ProductsController < ApplicationController
     @category = Category.find(params[:category_id])
   end
 
+  def get_user
+    @user = User.find(params[:user_id])
+  end
+
   def get_product
     @product = Product.find(params[:id])
   end
 
   def only_admin_and_shop
     json_response({ message: "Don't have permission"}, :forbidden) unless is_admin?(@current_user) || is_shop?(@current_user)
+  end
+
+  def check_user
+    json_response({ message: "Don't have permission"}, :forbidden) unless correct_user?(@current_user,@user)
   end
 end
