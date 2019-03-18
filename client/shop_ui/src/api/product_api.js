@@ -1,6 +1,5 @@
 import axios from 'axios';
 import {HEROKU_API_URL} from '../util/constant'
-const urlLocalHost = 'http://localhost:3000';
 
 async function getProducts(url){
     try{

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import ProductForm from './ProductForm';
 import Navbar from '../commons/header/Navbar';
-import { getProductById, getCategories } from '../../api/product_api';
+import { getCategories } from '../../api/product_api';
 
 class ProductInfor extends Component {
     constructor(props){
