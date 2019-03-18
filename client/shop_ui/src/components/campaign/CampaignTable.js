@@ -1,37 +1,78 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { getCampaigns } from '../../api/campaign';
+import { getCampaigns, deleteCampaign } from '../../api/campaign';
 import { RECORD_PER_PAGE } from '../../util/constant';
-
+import { Modal, Button } from 'react-bootstrap';
+import {withRouter} from 'react-router';
 class CampaignTable extends Component {
     constructor(props) {
         super(props);
+        const page = this.props.location.state.page;
         this.state = {
             campaigns: [],
-            total: 0
+            total: 0,
+            shouldShow: false,
+            selectedCampId: null,
+            numPages: null,
+            currentPage: page ? page : 1
         }
+    }
+
+    handleClose = () => {
+        this.setState({ shouldShow: false });
+    }
+
+    handleShow = (index) => {
+        this.setState({selectedCampId: index, shouldShow: true });
+    }
+
+    handleDelete = () =>{
+        const camps =  this.state.campaigns;
+        camps[this.state.selectedCampId].status = false;
+        this.setState({campaigns: [...camps]});
+
+        // call api 
+        deleteCampaign( camps[this.state.selectedCampId].id)
+        this.handleClose();
     }
 
     componentDidMount() {
-        getCampaigns().then(res => {
-            this.setState({ campaigns: [...res.data.campaigns], total: res.data.total })
+        if(this.state.campaigns.length === 0){
+        getCampaigns(this.state.currentPage).then(res => {
+            this.setState({ campaigns: [...res.data.campaigns], total: res.data.total });
+            let numPages = 0;
+            if (res.data.total % RECORD_PER_PAGE !== 0) {
+                numPages = Array(Math.floor(res.data.total / RECORD_PER_PAGE) + 1).fill();
+            }
+            else {
+                numPages = Array(Math.floor(res.data.total / RECORD_PER_PAGE)).fill();
+            }
+            this.setState({numPages: numPages})
         }).catch(err => {
-            this.setState({ total: 0 })
+            console.log(err);
         })
+       }
+    }
 
+    getCurrentPage = (event) => {
+        const page = Number(event.target.innerHTML);
+        if(this.state.currentPage !== page){
+            getCampaigns(page).then(res => {
+                this.setState({ campaigns: [...res.data.campaigns]});
+            }).then(err => {
+                
+            })
+            this.setState({currentPage: page})
+        }
     }
 
     render() {
-        const { campaigns, total } = this.state;
-        let numPages = 0;
-        if(total % RECORD_PER_PAGE !== 0){
-            numPages = Array(Math.floor(total/ RECORD_PER_PAGE) + 1).fill();
-        }
-        else{
-            numPages = Array(Math.floor(total/ RECORD_PER_PAGE)).fill()
-        }
+        const {numPages, campaigns} = this.state;
         return (
             <div>
+                <div>
+                    <Link to="/campaigns/new" className="btn btn-default" id="btnCreateUser">Create Campaign</Link>
+                </div>
                 <table className="table table-hover">
                     <thead>
                         <tr>
@@ -60,16 +101,22 @@ class CampaignTable extends Component {
                                         <td>{camp.budget}</td>
                                         <td>{camp.bid}</td>
                                         <td>
-                                            <img className="product-row-img" 
-                                                    alt="creative preview" 
-                                                    src={camp.campaignimg ? camp.campaignimg : "https://thelyst.com/wp-content/uploads/2015/07/campaign-blog-graphic-01-1080x675.jpg"} />
+                                            <img className="product-row-img"
+                                                alt="creative preview"
+                                                src={camp.campaignimg ? camp.campaignimg : "https://thelyst.com/wp-content/uploads/2015/07/campaign-blog-graphic-01-1080x675.jpg"} />
                                         </td>
                                         <td>{camp.title}</td>
                                         <td>{camp.description}</td>
                                         <td>{camp.final_url}</td>
                                         <td>
-                                            <Link to={{pathname: `/campaigns/${camp.id}`, state: {camp: camp}}} className="btn btn-primary btnEditUser">Edit</Link>
-                                            <Link to={`none`} className="btn btn-danger btnDeleteUser">Delete</Link>
+                                            <Link to={{ 
+                                                        pathname: `/campaigns/${camp.id}`, 
+                                                        state: { camp: camp, page: this.state.currentPage } 
+                                                    }} 
+                                                  className="btn btn-primary btnEditUser">
+                                                  Edit
+                                            </Link>
+                                            <Button onClick={() => {this.handleShow(index)}} className="btn btn-danger btnDeleteUser">Delete</Button>
                                         </td>
                                     </tr>
                                 ))
@@ -78,22 +125,40 @@ class CampaignTable extends Component {
                     </tbody>
                 </table>
                 {
-                    (total > 0) && (
+                    (numPages !== null) && (
                         <nav aria-label="...">
                             <ul className="pagination pagination-lg">
                                 {
                                     numPages.map((_, i) => (
-                                        <button key={i} onClick={this.getCurrentPage} className="page-link" >{i + 1}</button>
+                                       <li key={i} className="page-item">
+                                         <button  onClick={this.getCurrentPage} 
+                                            className="page-link" >{i + 1}</button>
+                                       </li>
                                     ))
                                 }
                             </ul>
                         </nav>
                     )
                 }
+
+                <Modal show={this.state.shouldShow} onHide={this.handleClose}>
+                    <Modal.Header closeButton>
+                        <Modal.Title>Delete This Campaign</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>Are you sure?</Modal.Body>
+                    <Modal.Footer>
+                        <Button variant="secondary" onClick={this.handleClose}>
+                            Close
+                        </Button>
+                        <Button variant="primary" onClick={this.handleDelete}>
+                            Delete
+                        </Button>
+                    </Modal.Footer>
+                </Modal>
             </div>
 
         );
     }
 }
 
-export default CampaignTable;
+export default withRouter(CampaignTable);
