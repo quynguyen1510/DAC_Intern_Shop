@@ -22,7 +22,7 @@ class AuthenticateUser
   # verify credentials of user
   def user 
     user = User.find_by(email: email)
-    return user if user && user.authenticate(password)
+    return user if user && user.authenticate(password) && user.active
     #raise custom exception if user is not authenticate
     raise( ExceptionHandler::AuthenticationError, Message.invalid_credentials)
   end

@@ -10,6 +10,7 @@ export default function sessionReducer(initialState = session, action) {
             window.location.reload();
             return !!localStorage.token;
         case LOG_IN_FAIL: {
+            alert("Your account is blocked")
             window.location.reload();
             return false;
         }
