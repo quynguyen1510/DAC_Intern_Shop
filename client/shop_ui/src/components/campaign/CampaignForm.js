@@ -21,7 +21,8 @@ class FormCreateCampaign extends Component {
             campaignimg: currentCampaign ? currentCampaign.campaignimg : '',
             final_url: currentCampaign ? currentCampaign.final_url : '',
 
-            isLoading: false
+            isLoading: false,
+            campPage: this.props.location.state.page
         }
     }
 
@@ -81,7 +82,7 @@ class FormCreateCampaign extends Component {
                 return;
             }
 
-            if(key === "isLoading"){
+            if(key === "isLoading" || key === "campPage"){
                 continue;
             }
 
@@ -94,7 +95,10 @@ class FormCreateCampaign extends Component {
             if(!this.checkObjectEqual(campaign, this.props.currentCampaign)){
                 update(campaign, this.props.currentCampaign.id).then(res => {
                     alert(res.data.message);
-                    this.props.history.push("/manage/campaign");
+                    this.props.history.push({
+                        pathname: "/manage/campaign",
+                        state: { page: this.state.campPage}
+                    });
                 }).catch(err => {
                     console.log(err);
                 })
@@ -131,7 +135,7 @@ class FormCreateCampaign extends Component {
             var propName = aProps[i];
             // If values of same property are not equal,
             // objects are not equivalent
-            if (String(a[propName]) !== String(b[propName])) {
+            if (String(a[propName]) !== String(b[propName]) ) {
                 return false;
             }
         }
