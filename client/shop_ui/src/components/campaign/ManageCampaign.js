@@ -14,16 +14,7 @@ class ManageCampaign extends Component {
                     <div>
                         <Link to="/campaign/new" className="btn btn-default" id="btnCreateUser">Create Campaign</Link>
                     </div>
-                    <div>
-                        <span className="btn btn-info">Page: 1</span>
-                    </div>
                     <CampaignTable />
-                    <nav aria-label="...">
-                        <ul className="pagination pagination-lg">
-                            <li className="page-item"><button className="page-link" href="#none" >Previous</button></li>
-                            <li className="page-item"><button className="page-link" href="#none" >Next</button></li>
-                        </ul>
-                    </nav>
                 </div>
             </div>
         );
