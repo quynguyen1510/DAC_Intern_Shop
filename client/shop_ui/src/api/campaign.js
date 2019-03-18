@@ -7,8 +7,8 @@ export async function create(campaign){
     return await axios.post(url, campaign, {headers: configHeader()});
 }
 
-export async function getCampaigns(){
-    const url = `${HEROKU_API_URL}/campaigns`;
+export async function getCampaigns(page){
+    const url = `${HEROKU_API_URL}/campaigns?page=${page}`;
     const cfHeader = configHeader();
     try{
        return axios.get(url, {headers: cfHeader})
@@ -21,6 +21,11 @@ export async function getCampaigns(){
 export async function update(campaign, id){
     const url = `${HEROKU_API_URL}/campaigns/${id}`;
     return await axios.put(url, campaign, {headers: configHeader()});
+}
+
+export async function deleteCampaign(id){
+    const url = `${HEROKU_API_URL}/campaigns/${id}`;
+    return await axios.delete(url, {headers: configHeader()})
 }
 
 function configHeader(){
