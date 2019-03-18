@@ -254,49 +254,6 @@ class UserForm extends Component {
                         <div className="invalid-feedback">{this.state.emailError}</div>
                     </div>
 
-                    <div className="form-group row">
-                        <label className="col-sm-2 col-form-label">Password</label>
-                        <div className="col-sm-8">
-                            {
-                                updatedUser ?
-                                    <input type="password"
-                                        onBlur={this.validatePassword}
-                                        disabled={this.state.passwordDisabled}
-                                        className="form-control"
-                                        onChange={this.handlePasswordChange} /> :
-                                    <input type="password"
-                                        onBlur={this.validatePassword}
-                                        className="form-control"
-                                        onChange={this.handlePasswordChange} />
-                            }
-                        </div>
-                        {
-                            updatedUser ? <label onClick={this.onActivePassword} className="btn btn-link">Edit</label> : null
-                        }
-                        <div className="invalid-feedback">{this.state.passwordError}</div>
-                    </div>
-
-                    <div className="form-group row">
-                        <label className="col-sm-2 col-form-label">Confirm</label>
-                        <div className="col-sm-8">
-                            {
-                                updatedUser ?
-                                    <input type="password"
-                                        onBlur={this.validatePasswordConfirm}
-                                        onChange={this.handlePasswordConfirmChange}
-                                        disabled={this.state.passwordConfirmDisabled}
-                                        className="form-control" /> :
-                                    <input type="password"
-                                        onBlur={this.validatePasswordConfirm}
-                                        onChange={this.handlePasswordConfirmChange}
-                                        className="form-control" />
-                            }
-                        </div>
-                        {
-                            updatedUser ? <label onClick={this.onActiveConfirmPassword} className="btn btn-link">Edit</label> : null
-                        }
-                        <div className="invalid-feedback">{this.state.passwordConfirmationError}</div>
-                    </div>
                     {updatedUser && this.getUserRole(currentUser.role_id) === "ADMIN" ?
                         <div className="form-group row">
                             <label className="col-sm-2 col-form-label">Role</label>
