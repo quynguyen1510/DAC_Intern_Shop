@@ -1,19 +1,21 @@
 class CampaignsController < ApplicationController
     before_action :get_campaign, only: [:show, :destroy, :update]
-    before_action :only_shop, only: [:index, :create, :update]
-    before_action :only_admin, only: [:index, :create, :destroy]
+    before_action :only_shop_and_admin, only: [:index, :create, :update]
+    before_action :only_admin, only: [:destroy]
     before_action :get_shoper, only: [:campaign_by_shoper]
 
     # GET '/categories'
   def index 
-    @campaigns = Campaign.all
-    json_response(@campaigns) 
+    @campaigns = Campaign.all.order("id DESC").paginate(page: params[:page], per_page: Constants.record_per_page)
+    json_response({
+      campaigns: @campaigns,
+      total: Campaign.count
+    }) 
   end
 
     # POST '/campaigns'
   def create
     data = campaign_params
-    data[:status] = true 
     @campaign = Campaign.create!(data)
     response = {
       product: @campaign,
@@ -51,7 +53,7 @@ class CampaignsController < ApplicationController
   private
 
   def campaign_params
-    params.permit(:startdate, :enddate, :budget, :bid, :campaignimg, :status, :user_id)
+    params.permit(:startdate, :enddate, :budget, :bid, :campaignimg, :status, :user_id, :name, :title, :description, :final_url)
   end
 
   def get_shoper
@@ -62,8 +64,8 @@ class CampaignsController < ApplicationController
     @campaign = Campaign.find(params[:id])
   end
 
-  def only_shop
-    json_response({ message: "Don't have permission"}, :forbidden) unless is_shop?(@current_user)
+  def only_shop_and_admin
+    json_response({ message: "Don't have permission"}, :forbidden) unless is_shop?(@current_user) || is_admin?(@current_user)
   end
 
   def only_admin
