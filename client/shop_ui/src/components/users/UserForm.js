@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { bindActionCreators } from 'redux';
-import { addNewUser, updateExistingUser  } from '../../actions/UsersAction';
+import { addNewUser, updateExistingUser } from '../../actions/UsersAction';
 import { ADMIN_ROLE } from '../../util/constant';
 import { uploadImage } from '../../api/imgur_api';
 import ReactLoading from 'react-loading';
@@ -77,14 +77,19 @@ class UserForm extends Component {
 
     validatePassword = () => {
         const { password } = this.state;
-        this.setState({ passwordError: password.length < 6 ? "Password must be greater than 5" : null })
+        if (password.length === 0) {
+            this.setState({ passwordError: "Password can't be blank" })
+        } else if (password.length < 6) {
+            this.setState({ passwordError: "Password must be greater than 5" })
+        }
     }
     validatePasswordConfirm = () => {
         const { passwordConfirm, password } = this.state;
-        if (passwordConfirm.length < 6) {
+        if (passwordConfirm.length === 0) {
+            this.setState({ passwordConfirmationError: "Password confirm can't be blank" });
+        }else if (passwordConfirm.length < 6) {
             this.setState({ passwordConfirmationError: "Password confirm must be greater than 5" });
-        }
-        if (passwordConfirm !== password) {
+        }else if (passwordConfirm !== password) {
             this.setState({ passwordConfirmationError: "Password confirm don't match password " });
         }
     }
@@ -114,7 +119,7 @@ class UserForm extends Component {
     }
 
     handleUploadAvatar = event => {
-        this.setState({isLoading: true})
+        this.setState({ isLoading: true })
         const file = event.target.files[0];
         uploadImage(file).then(response => {
             const imageUrl = `https://i.imgur.com/${response.data.data.id}.png`
@@ -253,6 +258,53 @@ class UserForm extends Component {
                         </div>
                         <div className="invalid-feedback">{this.state.emailError}</div>
                     </div>
+                    {!updatedUser &&
+                        <div className="form-group row">
+                            <label className="col-sm-2 col-form-label">Password</label>
+                            <div className="col-sm-8">
+                                {
+                                    updatedUser ?
+                                        <input type="password"
+                                            onBlur={this.validatePassword}
+                                            disabled={this.state.passwordDisabled}
+                                            className="form-control"
+                                            onChange={this.handlePasswordChange} /> :
+                                        <input type="password"
+                                            onBlur={this.validatePassword}
+                                            className="form-control"
+                                            onChange={this.handlePasswordChange} />
+                                }
+                            </div>
+                            {
+                                updatedUser ? <label onClick={this.onActivePassword} className="btn btn-link">Edit</label> : null
+                            }
+                            <div className="invalid-feedback">{this.state.passwordError}</div>
+                        </div>
+                    }
+
+                    {!updatedUser &&
+                        <div className="form-group row">
+                            <label className="col-sm-2 col-form-label">Confirm</label>
+                            <div className="col-sm-8">
+                                {
+                                    updatedUser ?
+                                        <input type="password"
+                                            onBlur={this.validatePasswordConfirm}
+                                            onChange={this.handlePasswordConfirmChange}
+                                            disabled={this.state.passwordConfirmDisabled}
+                                            className="form-control" /> :
+                                        <input type="password"
+                                            onBlur={this.validatePasswordConfirm}
+                                            onChange={this.handlePasswordConfirmChange}
+                                            className="form-control" />
+                                }
+                            </div>
+                            {
+                                updatedUser ? <label onClick={this.onActiveConfirmPassword} className="btn btn-link">Edit</label> : null
+                            }
+                            <div className="invalid-feedback">{this.state.passwordConfirmationError}</div>
+                        </div>
+                    }
 
                     {updatedUser && this.getUserRole(currentUser.role_id) === "ADMIN" ?
                         <div className="form-group row">

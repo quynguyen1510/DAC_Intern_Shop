@@ -117,7 +117,6 @@ export function addNewUser(crendentials){
             method: 'POST',
             data: crendentials
         }).then(function(success){
-            //console.log(success.data)
             dispatch(addUser(success.data.message));
         })
         .catch(function(error){
