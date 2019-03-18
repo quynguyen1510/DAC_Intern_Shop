@@ -30,27 +30,30 @@ class FormCreateProduct extends Component {
     }
 
     validateNameProduct = () => {
-        this.setState({ nameError: (this.state.product_name.length === 0 ? "You should input something cool" : "") });
+        this.setState({ nameError: (this.state.product_name.length === 0 ? "Product Name can't be blank" : "") });
     }
 
     validateDescProduct = () => {
-        this.setState({ descError: (this.state.product_desc.length === 0 ? "You should input something cool" : "") })
+        this.setState({ descError: (this.state.product_desc.length === 0 ? "Product Description can't be blank" : "") })
     }
 
     validatePrice = () => {
-        this.setState({ priceError: (Number(this.state.price) === 0 ? "Product description must be greater than 0" : "") })
+        this.setState({ priceError: (Number(this.state.price) === 0 ? "Product price can't be blank" : "") })
     }
 
 
     handleProductNameChange = event => {
+        this.setState({ nameError: ""});
         this.setState({ product_name: event.target.value });
     }
 
     handleProductDescChange = event => {
+        this.setState({descError: ""});
         this.setState({ product_desc: event.target.value });
     }
 
     handlePriceChange = event => {
+        this.setState({priceError: ""});
         this.setState({ price: event.target.value });
     }
 
