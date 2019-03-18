@@ -18,6 +18,11 @@ export async function getCampaigns(){
     }
 }
 
+export async function update(campaign, id){
+    const url = `${HEROKU_API_URL}/campaigns/${id}`;
+    return await axios.put(url, campaign, {headers: configHeader()});
+}
+
 function configHeader(){
     const token = localStorage.getItem("token");
     return {
