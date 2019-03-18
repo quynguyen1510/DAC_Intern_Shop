@@ -16,6 +16,7 @@ import ProductInfor from '../components/products/ProductInfor';
 import ProductsByCategory from '../components/products/ProductsByCategory';
 import ManageCampaign from '../components/campaign/ManageCampaign';
 import CreateCampaign from '../components/campaign/CreateCampaign';
+import CampaignInfor from '../components/campaign/CampaignInfor';
 
 class ProtectedRoutes extends Component {
 
@@ -43,7 +44,8 @@ class ProtectedRoutes extends Component {
                         <Route path="/users/new" component={CreateUser} />
                         <Route path="/delete/users/:id" component={DeleteUser} />
                         <Route path="/manage/campaign" component={ManageCampaign} />
-                        <Route path="/campaign/new" component={CreateCampaign} />
+                        <Route path="/campaigns/new" component={CreateCampaign} />
+                        <Route path="/campaigns/:id" component={CampaignInfor} />
                     </Switch>
                 )
             }
@@ -56,7 +58,8 @@ class ProtectedRoutes extends Component {
                         <Route path="/products/:product_id" component={ProductInfor}/>
                         <Route path="/products/infor" component={ProductInfor} />
                         <Route path="/manage/campaign" component={ManageCampaign} />
-                        <Route path="/campaign/new" component={CreateCampaign} />
+                        <Route path="/campaigns/new" component={CreateCampaign} />
+                        <Route path="/campaigns/:id" component={CampaignInfor} />
                     </Switch>
                 )
             }

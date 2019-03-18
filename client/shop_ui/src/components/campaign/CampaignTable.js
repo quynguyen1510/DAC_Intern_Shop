@@ -68,7 +68,7 @@ class CampaignTable extends Component {
                                         <td>{camp.description}</td>
                                         <td>{camp.final_url}</td>
                                         <td>
-                                            <Link to={`#none`} className="btn btn-primary btnEditUser">Edit</Link>
+                                            <Link to={{pathname: `/campaigns/${camp.id}`, state: {camp: camp}}} className="btn btn-primary btnEditUser">Edit</Link>
                                             <Link to={`none`} className="btn btn-danger btnDeleteUser">Delete</Link>
                                         </td>
                                     </tr>
