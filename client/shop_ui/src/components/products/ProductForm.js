@@ -88,7 +88,7 @@ class FormCreateProduct extends Component {
         if (this.props.currentProduct === undefined) {
 
             if (!shouldCreate) {
-                alert("You must change something");
+                alert("You must input the information");
                 return;
             }
 
