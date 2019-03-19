@@ -3,7 +3,7 @@ import ProductTable from './ProductTable';
 import Navbar from '../commons/header/Navbar';
 import { Link } from 'react-router-dom';
 import { getListProduct, getProductByShop } from '../../api/product_api';
-import { SHOPPER_ROLE } from '../../util/constant';
+import { SHOPPER_ROLE, RECORD_PER_PAGE } from '../../util/constant';
 var jwtDecode = require('jwt-decode');
 
 class ManageProduct extends Component {
@@ -12,8 +12,20 @@ class ManageProduct extends Component {
         super(props)
         this.state = {
             products: [],
-            page: 1,
             shouldNavigatePage: true,
+            total: 0,
+            numPages: null,
+            currentPage: 1
+        }
+    }
+
+    getNumPages(total, RECORD_PER_PAGE) {
+        let numPages = 0;
+        if (total % RECORD_PER_PAGE !== 0) {
+           return numPages = Array(Math.floor(total / RECORD_PER_PAGE) + 1).fill();
+        }
+        else {
+           return numPages = Array(Math.floor(total / RECORD_PER_PAGE)).fill();
         }
     }
 
@@ -21,21 +33,20 @@ class ManageProduct extends Component {
         const token = localStorage.getItem('token');
         const user = jwtDecode(token);
         if (user.role_id === SHOPPER_ROLE) {
-            getProductByShop(token,user.user_id).then(res => {
-                if (res.data.length > 0) {
-                    this.setState({ products: res.data });
+            getProductByShop(token, user.user_id,page).then(res => {
+                if (res.data.products.length > 0) {
+                    this.setState({ products: [...res.data.products], total: res.data.total });
                 }
+                let numPages = this.getNumPages(this.state.total,RECORD_PER_PAGE);
+                this.setState({ numPages: numPages })
             }).catch(err => {
                 console.log(err)
             });
         } else {
             getListProduct(page).then(res => {
-                if (res.data.length > 0) {
-                    this.setState({ products: res.data });
-                }
-                else {
-                    this.setState({ shouldNavigatePage: false, page: this.state.page - 1 })
-                }
+                this.setState({ products: [...res.data.products], total: res.data.total });
+                let numPages = this.getNumPages(this.state.total,RECORD_PER_PAGE);
+                this.setState({ numPages: numPages })
             }).catch(err => {
                 console.log(err)
             });
@@ -43,17 +54,18 @@ class ManageProduct extends Component {
     }
 
     componentDidMount() {
-        this.loadProduct(this.state.page);
+        this.loadProduct(this.state.currentPage);
     }
 
-    onNext = () => {
-        const { page, shouldNavigatePage } = this.state;
-        if (shouldNavigatePage) {
-            this.loadProduct(page + 1);
-            this.setState({ page: page + 1 });
-        }
-        else {
-            return;
+    getCurrentPage = (event) => {
+        const page = Number(event.target.innerHTML);
+        if (this.state.currentPage !== page) {
+            getListProduct(page).then(res => {
+                this.setState({ products: [...res.data.products] });
+            }).then(err => {
+
+            })
+            this.setState({ currentPage: page })
         }
     }
 
@@ -70,38 +82,34 @@ class ManageProduct extends Component {
         })
     }
 
-    onPrevious = () => {
-        const { page } = this.state;
-        if (page > 0) {
-            this.loadProduct(page);
-            this.setState({ page: page - 1 })
-        }
-        else {
-            this.setState({ shouldNavigatePage: true });
-            return;
-        }
 
-    }
 
     render() {
-        const { page } = this.state;
+        const { numPages } = this.state;
         return (
-            <div className="manage-product">
+            <div>
                 <Navbar />
                 <div className="page">
                     <div>
                         <Link to="/products/new" className="btn btn-default" id="btnCreateUser">Create Product</Link>
                     </div>
-                    <div>
-                        <span className="btn btn-info">Page: {page > 0 ? page : (page + 1)}</span>
-                    </div>
                     <ProductTable listProducts={this.state.products} onRemoveProduct={this.onRemoveProduct} />
-                    <nav aria-label="...">
-                        <ul className="pagination pagination-lg">
-                            <li className="page-item"><button onClick={this.onPrevious} className="page-link" href="#none" >Previous</button></li>
-                            <li className="page-item"><button onClick={this.onNext} className="page-link" href="#none" >Next</button></li>
-                        </ul>
-                    </nav>
+                    {
+                        (numPages !== null) && (
+                            <nav aria-label="...">
+                                <ul className="pagination pagination-lg">
+                                    {
+                                        numPages.map((_, i) => (
+                                            <li key={i} className="page-item">
+                                                <button onClick={this.getCurrentPage}
+                                                    className="page-link" >{i + 1}</button>
+                                            </li>
+                                        ))
+                                    }
+                                </ul>
+                            </nav>
+                        )
+                    }
                 </div>
             </div>
         );
