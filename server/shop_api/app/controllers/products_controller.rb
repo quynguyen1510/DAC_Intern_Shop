@@ -23,7 +23,10 @@ class ProductsController < ApplicationController
       tmp[:user_id] = product.user_id
       result.push(tmp)
     end
-    json_response(result) 
+    json_response({
+      products: result,
+      total: Product.count
+    }) 
   end
 
   # POST '/products'
@@ -71,7 +74,25 @@ class ProductsController < ApplicationController
   end
 
   def get_product_by_shop
-    json_response(@user.products)
+    @products = @user.products.paginate(page: params[:page], per_page: Constants.product_per_page)
+    result = Array.new
+    @products.each do |product|
+      tmp = Hash.new
+      tmp[:id] = product.id
+      tmp[:product_name] = product.product_name
+      tmp[:product_img] = product.product_img
+      tmp[:product_desc] = product.product_desc
+      tmp[:price] = product.price
+      tmp[:active] = product.active
+      tmp[:category_name]= product.category.catname 
+      tmp[:category_id] = product.category_id
+      tmp[:user_id] = product.user_id
+      result.push(tmp)
+    end
+    json_response({
+      products: result,
+      total: @user.products.count
+    })
   end
   # GET search/products/:product_name
   def search_product_by_name
