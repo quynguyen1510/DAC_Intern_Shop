@@ -120,10 +120,7 @@ class FormCreateCampaign extends Component {
             if(!this.checkObjectEqual(campaign, this.props.currentCampaign)){
                 update(campaign, this.props.currentCampaign.id).then(res => {
                     alert(res.data.message);
-                    this.props.history.push({
-                        pathname: "/manage/campaign",
-                        state: { page: this.state.campPage}
-                    });
+                    this.backToPreviousPage();
                 }).catch(err => {
                     console.log(err);
                 })
@@ -147,6 +144,13 @@ class FormCreateCampaign extends Component {
             }
         }
 
+    }
+
+    backToPreviousPage = ()=> {
+        this.props.history.push({
+            pathname: "/manage/campaign",
+            state: { page: this.state.campPage}
+        });
     }
 
     checkObjectEqual(a, b) {
@@ -231,6 +235,7 @@ render() {
                                                     <div className="input-left">
                                                         <input type="date"
                                                             name="startDay"
+                                                            disabled={this.state.status}
                                                             className="form-control"
                                                             value={this.state.startdate}
                                                             onChange={this.handleChangeStartDay}
@@ -391,7 +396,7 @@ render() {
                                 </div>
                                 {/*-----------------------------------Button--------------------------------*/}
                                 <div className="form-group form-contain-button">
-                                    <button className="btn btn-link">Back to list</button>
+                                    <button className="btn btn-link" onClick={this.backToPreviousPage}>Back to list</button>
                                     <button type="submit" className="btn btn-info">Save</button>
                                 </div>
                             </form>
