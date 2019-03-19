@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
-import { bindActionCreators } from 'redux';
-import { addNewUser, updateExistingUser } from '../../actions/UsersAction';
-import { ADMIN_ROLE } from '../../util/constant';
 import { uploadImage } from '../../api/imgur_api';
 import ReactLoading from 'react-loading';
+import { update, create } from '../../api/user_api';
+import { ADMIN_ROLE } from '../../util/constant';
+var jwt_decode = require('jwt-decode');
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
@@ -13,84 +12,18 @@ const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 class UserForm extends Component {
     constructor(props) {
         super(props);
+        const updatedUser = this.props.updatedUser;
         this.state = {
             // value 
-            first_name: '',
-            last_name: '',
-            email: '',
-            password: '',
-            passwordConfirm: '',
-            role: '',
-            imageUrl: '',
-
-            // Error 
-            emailError: '',
-            passwordError: '',
-            firstNameError: '',
-            lastNameError: '',
-            passwordConfirmationError: '',
-
-            // disable attribute
-            firstNameDisabled: true,
-            lastNameDisabled: true,
-            emailDisabled: true,
-            passwordDisabled: true,
-            passwordConfirmDisabled: true,
-            roleDisabled: true,
+            first_name: updatedUser ? updatedUser.first_name : '',
+            last_name: updatedUser ? updatedUser.last_name : '',
+            email: updatedUser ? updatedUser.email : '',
+            password: updatedUser ? updatedUser.password : '',
+            passwordConfirm: updatedUser ? updatedUser.passwordConfirm : '',
+            role_id: updatedUser ? updatedUser.role_id : '',
+            imageUrl: updatedUser ? updatedUser.imageUrl : '',
 
             isLoading: false
-        }
-    }
-
-    getUserRole = (role_id) => {
-        switch (role_id) {
-            case 1:
-                return "ADMIN";
-            case 2:
-                return "USER";
-            default:
-                return "SHOPER"
-        }
-    }
-
-    validateFisrtName = () => {
-        const { first_name } = this.state;
-        const valid_name = first_name.length !== 0
-        this.setState({ firstNameError: valid_name ? null : "First name can't be blank" });
-    }
-    validateLastName = () => {
-        const { last_name } = this.state;
-        const valid_name = last_name.length !== 0;
-        this.setState({ lastNameError: valid_name ? null : "Last name can't be blank" });
-    }
-
-    validateEmail = () => {
-        const { email } = this.state;
-
-        if (email.length === 0) {
-            this.setState({ emailError: "Email can't be blank" });
-        }
-        const valid_email = EMAIL_REGEX.test(email)
-        this.setState({ emailError: valid_email ? null : "Please enter a valid email" })
-
-    }
-
-    validatePassword = () => {
-        const { password } = this.state;
-        if (password.length === 0) {
-            this.setState({ passwordError: "Password can't be blank" })
-        } else if (password.length < 6) {
-            this.setState({ passwordError: "Password must be greater than 5" })
-        }
-    }
-    validatePasswordConfirm = () => {
-        const { passwordConfirm, password } = this.state;
-        if (passwordConfirm.length === 0) {
-            this.setState({ passwordConfirmationError: "Password confirm can't be blank" });
-        }else if (passwordConfirm.length < 6) {
-            this.setState({ passwordConfirmationError: "Password confirm must be greater than 5" });
-        }else if (passwordConfirm !== password) {
-            this.setState({ passwordConfirmationError: "Password confirm don't match password " });
         }
     }
 
@@ -111,11 +44,11 @@ class UserForm extends Component {
     }
 
     handlePasswordConfirmChange = event => {
-        this.setState({ passwordConfirm: event.target.value, passwordConfirmationError: '' });
+        this.setState({ passwordConfirm: event.target.value});
     }
 
     handleRoleChange = event => {
-        this.setState({ role: event.target.value })
+        this.setState({ role_id: event.target.value })
     }
 
     handleUploadAvatar = event => {
@@ -123,162 +56,130 @@ class UserForm extends Component {
         const file = event.target.files[0];
         uploadImage(file).then(response => {
             const imageUrl = `https://i.imgur.com/${response.data.data.id}.png`
-            this.setState({ imageUrl: imageUrl, loadImageSuccess: true, isLoading: false });
+            this.setState({ imageUrl: imageUrl, isLoading: false });
         }).catch(err => {
             console.log(err)
         })
     }
 
-    handleSubmit = () => {
-        const { email, password, first_name, last_name, passwordConfirm, role, imageUrl } = this.state;
-        const { updatedUser } = this.props;
-        const { currentUser } = this.props.user.user;
-        const token = localStorage.getItem("token");
-        const credentials = {
-            "first_name": `${first_name}`,
-            "last_name": `${last_name}`,
-            "email": `${email}`,
-            "password": `${password}`,
-            "password_confirmation": `${passwordConfirm}`,
-            "role_id": `${role}`,
-            "avatar_url": `${imageUrl}`
-        }
-        if (this.state.passwordConfirmationError || this.state.passwordConfirm !== this.state.password) {
-            return;
-        }
-        if (updatedUser) {
-            if (currentUser.role_id === ADMIN_ROLE) {
-                this.props.updateExistingUser(credentials, token, updatedUser.id, 1);
-                this.props.history.push("/manage/users/1", { updatedUserId: this.props.match.params.id });
+    handleSubmit = (event) => {
+        event.preventDefault();
+        const userInfo = {};
+        const attributes = Object.keys(this.state);
+
+        for (let index in attributes) {
+            const key = attributes[index];
+            let value = this.state[`${attributes[index]}`];
+            if(!this.props.updatedUser && key === "role_id"){
+                value = 2;
             }
-            else {
-                this.props.updateExistingUser(credentials, token, updatedUser.id);
-                this.props.history.push("/");
+            if (value === "") {
+                alert("You must type full information");
+                return;
+            }
+
+            if(!this.props.updatedUser){
+                if(key === "email" && !EMAIL_REGEX.test(value)){
+                    alert("Your email is invalid");
+                    return;
+                }
+    
+                if((key === "password" || key === "passwordConfirm") && value.length < 6){
+                    alert("Your password must greater than 6");
+                    return;
+                }
+    
+                if(key === "passwordConfirm" && value !== userInfo['password']){
+                    alert("Your password not match");
+                    return;
+                }
+            }
+
+            if (key === "isLoading" || value === undefined) {
+                continue;
+            }
+
+            userInfo[`${key}`] = String(value);
+        }
+        
+        if (this.props.updatedUser ) {
+            if(!this.checkObjectEqual(userInfo, this.props.updatedUser )){
+                update(userInfo, this.props.updatedUser.id).then(res => {
+                    alert(res.data.message);
+                    this.props.history.push("/manage/users")
+                }).then(err => {             
+                })
+            }
+            else{
+                alert("You must type something new");
             }
         }
-        else {
-            this.props.addNewUser(credentials)
-            this.props.history.push("/manage/users/1");
+        else{
+           create(userInfo).then(res => {
+               alert(res.data.message);
+               this.props.history.push("/manage/users");
+           })
         }
     }
-
-    onActiveFirstName = () => {
-        this.setState({ firstNameDisabled: false })
+    checkObjectEqual(a, b) {
+        const aProps = Object.getOwnPropertyNames(a);
+        for (var i = 0; i < aProps.length; i++) {
+            var propName = aProps[i];
+            // If values of same property are not equal,
+            // objects are not equivalent
+            if (String(a[propName]) !== String(b[propName]) ) {
+                return false;
+            }
+        }
+        return true;
     }
 
-    onActiveLastName = () => {
-        this.setState({ lastNameDisabled: false })
-    }
-
-    onActiveEmail = () => {
-        this.setState({ emailDisabled: false })
-    }
-
-    onActivePassword = () => {
-        this.setState({ passwordDisabled: false })
-    }
-    onActiveConfirmPassword = () => {
-        this.setState({ passwordConfirmDisabled: false })
-    }
-
-    onActiveRole = () => {
-        this.setState({ roleDisabled: false })
-    }
 
     render() {
         const { updatedUser } = this.props;
-        const currentUser = this.props.user.user.currentUser;
+        const {role_id} = jwt_decode(localStorage.getItem("token"));
         return (
             <div>
-                <form encType="multipart/form-data">
+                <form encType="multipart/form-data" onSubmit={this.handleSubmit}>
                     <div className="form-group row">
                         <label className="col-sm-2  col-form-label">First Name</label>
                         <div className="col-sm-8">
-                            {
-                                updatedUser ? <input type="text"
-                                    disabled={this.state.firstNameDisabled}
-                                    className="form-control"
-                                    name="first_name"
-                                    onBlur={this.validateFisrtName}
-                                    defaultValue={updatedUser.first_name}
-                                    onChange={this.handleFirstNameChange} /> :
-                                    <input type="text"
-                                        name="first_name"
-                                        className="form-control"
-                                        onBlur={this.validateFisrtName}
-                                        onChange={this.handleFirstNameChange} />
-                            }
+                            <input type="text"
+                                className="form-control"
+                                name="first_name"
+                                value={this.state.first_name}
+                                onChange={this.handleFirstNameChange} />
                         </div>
-                        {
-                            updatedUser ? <label onClick={this.onActiveFirstName} className="btn btn-link">Edit</label> : null
-                        }
-                        <div className="invalid-feedback">{this.state.firstNameError}</div>
                     </div>
                     <div className="form-group row">
                         <label className="col-sm-2 col-form-label">Last Name</label>
                         <div className="col-sm-8">
-                            {
-                                updatedUser ? <input type="text"
-                                    disabled={this.state.lastNameDisabled}
-                                    className="form-control"
-                                    name="last_name"
-                                    onBlur={this.validateLastName}
-                                    defaultValue={updatedUser.last_name}
-                                    onChange={this.handleLastNameChange} /> :
-                                    <input type="text"
-                                        name="last_name"
-                                        className="form-control"
-                                        onBlur={this.validateLastName}
-                                        onChange={this.handleLastNameChange} />
-                            }
+                            <input type="text"
+                                className="form-control"
+                                name="last_name"
+                                value={this.state.last_name}
+                                onChange={this.handleLastNameChange} />
                         </div>
-                        {
-                            updatedUser ? <label onClick={this.onActiveLastName} className="btn btn-link">Edit</label> : null
-                        }
-                        <div className="invalid-feedback">{this.state.lastNameError}</div>
                     </div>
-
                     <div className="form-group row">
                         <label className="col-sm-2 col-form-label">Email</label>
                         <div className="col-sm-8">
-                            {
-                                updatedUser ?
-                                    <input type="email"
-                                        disabled={this.state.emailDisabled}
-                                        className="form-control"
-                                        name="email"
-                                        onBlur={this.validateEmail}
-                                        defaultValue={updatedUser.email}
-                                        onChange={this.handleEmailChange} /> :
-                                    <input type="email" className="form-control"
-                                        onBlur={this.validateEmail}
-                                        name="email"
-                                        onChange={this.handleEmailChange} />
-                            }
+                            <input type="email"
+                                className="form-control"
+                                name="email"
+                                value={this.state.email}
+                                onChange={this.handleEmailChange} />
                         </div>
-                        <div className="invalid-feedback">{this.state.emailError}</div>
                     </div>
                     {!updatedUser &&
                         <div className="form-group row">
                             <label className="col-sm-2 col-form-label">Password</label>
                             <div className="col-sm-8">
-                                {
-                                    updatedUser ?
-                                        <input type="password"
-                                            onBlur={this.validatePassword}
-                                            disabled={this.state.passwordDisabled}
-                                            className="form-control"
-                                            onChange={this.handlePasswordChange} /> :
-                                        <input type="password"
-                                            onBlur={this.validatePassword}
-                                            className="form-control"
-                                            onChange={this.handlePasswordChange} />
-                                }
+                                <input type="password"
+                                    value={this.state.password}
+                                    className="form-control"
+                                    onChange={this.handlePasswordChange} />
                             </div>
-                            {
-                                updatedUser ? <label onClick={this.onActivePassword} className="btn btn-link">Edit</label> : null
-                            }
-                            <div className="invalid-feedback">{this.state.passwordError}</div>
                         </div>
                     }
 
@@ -286,40 +187,26 @@ class UserForm extends Component {
                         <div className="form-group row">
                             <label className="col-sm-2 col-form-label">Confirm</label>
                             <div className="col-sm-8">
-                                {
-                                    updatedUser ?
-                                        <input type="password"
-                                            onBlur={this.validatePasswordConfirm}
-                                            onChange={this.handlePasswordConfirmChange}
-                                            disabled={this.state.passwordConfirmDisabled}
-                                            className="form-control" /> :
-                                        <input type="password"
-                                            onBlur={this.validatePasswordConfirm}
-                                            onChange={this.handlePasswordConfirmChange}
-                                            className="form-control" />
-                                }
+                                <input type="password"
+                                    onChange={this.handlePasswordConfirmChange}
+                                    value={this.state.passwordConfirm}
+                                    className="form-control" />
                             </div>
-                            {
-                                updatedUser ? <label onClick={this.onActiveConfirmPassword} className="btn btn-link">Edit</label> : null
-                            }
-                            <div className="invalid-feedback">{this.state.passwordConfirmationError}</div>
                         </div>
                     }
-
-                    {updatedUser && this.getUserRole(currentUser.role_id) === "ADMIN" ?
+                    {updatedUser && role_id === ADMIN_ROLE ?
                         <div className="form-group row">
                             <label className="col-sm-2 col-form-label">Role</label>
                             <div className="col-sm-8">
-                                <select onChange={this.handleRoleChange}
+                                <select 
+                                    onChange={this.handleRoleChange}
                                     className="form-control"
-                                    disabled={this.state.roleDisabled}
-                                    defaultValue={updatedUser.role_id}>
+                                    value={this.state.role_id}>
                                     <option value="1">Admin</option>
                                     <option value="2">User</option>
                                     <option value="3">Shoper</option>
                                 </select>
                             </div>
-                            <label onClick={this.onActiveRole} className="btn btn-link">Edit</label>
                         </div> : null
                     }
                     <div className="form-group row">
@@ -342,29 +229,14 @@ class UserForm extends Component {
                             }
                         </div>
                     </div>
+                    <div className="submit-profile">
+                        <button className="btn btn-primary update-profile-button">{updatedUser ? "Update" : "Create"}</button>
+                    </div>
                 </form>
-                <div className="submit-profile">
-                    <button onClick={this.handleSubmit}
-                        className="btn btn-primary update-profile-button"
-                        disabled={!this.state.password && !this.state.first_name && !this.state.last_name && !this.state.imageUrl && !this.state.role}
-                    >{updatedUser ? "Update" : "Create"}</button>
-                </div>
+
             </div>
         );
     }
 }
 
-function mapDispatchToProps(dispatch) {
-    return bindActionCreators({
-        addNewUser,
-        updateExistingUser
-    }, dispatch)
-}
-
-function mapStateToProps(state) {
-    return {
-        user: state
-    }
-}
-
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(UserForm));
+export default withRouter(UserForm);
