@@ -1,19 +1,17 @@
-class SessionApi {
-    static login(credentials){
-        const request = new Request("http://localhost:3000/auth/login", {
-            method: 'POST',
-            headers: new Headers({
-                'Content-Type': 'application/json'
-            }),
-            body: JSON.stringify(credentials)
-        });
-        return fetch(request,).then(response => {
-            return response.json();
-        }).catch(err => {
-            return err;
-        });
-        
-    }
+import axios from 'axios';
+import {HEROKU_API_URL} from '../util/constant';
+
+export async function login(credentials){
+    const url = `${HEROKU_API_URL}/auth/login`;
+    return await axios.post(url, credentials);
 }
 
-export default SessionApi;
+export async function logout(credentials){
+    const url = `${HEROKU_API_URL}/auth/logout`;
+    return await axios.put(url, credentials);
+}
+
+export async function signup(credentials){
+    const url = `${HEROKU_API_URL}/users/`;
+    return await axios.post(url, credentials);
+}
