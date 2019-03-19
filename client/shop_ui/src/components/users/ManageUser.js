@@ -6,6 +6,7 @@ import Navbar from '../commons/header/Navbar';
 
 class ManageUser extends Component {
     render() {
+        const previousPage = (this.props.location.state) ? this.props.location.state.page : null
 
         return (
             <div>
@@ -14,7 +15,7 @@ class ManageUser extends Component {
                     <div>
                         <Link to="/users/new" className="btn btn-default" id="btnCreateUser">Create User</Link>
                     </div>
-                    <UserTable />
+                    <UserTable previousPage={previousPage} />
                 </div>
             </div>
         );
