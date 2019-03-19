@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { signup } from '../../../api/SessionApi';
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
 class SignupForm extends Component {
@@ -15,7 +16,15 @@ class SignupForm extends Component {
             firstNameError: '',
             lastNameError: '',
             passwordConfirmationError: '',
+
+            responseMessage:''
         }
+    }
+
+    clearValidationText = () => {
+        this.setState({ 
+            responseMessage:''
+        })
     }
 
     validateFirstName = () => {
@@ -103,7 +112,21 @@ class SignupForm extends Component {
                 "password": `${password}`,
                 "password_confirmation": `${passwordConfirm}`
             }
-            this.props.signup(credentials);
+            signup(credentials).then(res => {
+                if(res.data.auth_token){
+                    localStorage.setItem("token", res.data.auth_token);
+                    this.props.setAuthenticate()
+                }else{
+                    this.setState({
+                        responseMessage: res.data.message,
+                        first_name: '',
+                        last_name: '',
+                        email: '',
+                        password: '',
+                        passwordConfirm: '',})
+                }
+            }).catch(err => {
+            });
         }
     }
 
@@ -134,14 +157,18 @@ class SignupForm extends Component {
                         <input type="text"
                             className="form-control input-custom"
                             placeholder="First name"
+                            value={this.state.first_name}
                             onChange={this.handleFirstNameChange}
                             onBlur={this.validateFirstName}
+                            onFocus={this.clearValidationText}
                         />
                         <input type="text"
                             className="form-control input-custom"
                             placeholder="Last name"
                             onChange={this.handleLastNameChange}
+                            value={this.state.last_name}
                             onBlur={this.validateLastName}
+                            onFocus={this.clearValidationText}
                         />
                         <div className="invalid-feedback">{this.state.firstNameError}</div>
                         <div className="invalid-feedback">{this.state.lastNameError}</div>
@@ -150,15 +177,19 @@ class SignupForm extends Component {
                         <input type="email"
                             className="input-custom form-control"
                             placeholder="Enter email"
+                            value={this.state.email}
                             onBlur={this.validateEmail}
-                            onChange={this.handleEmailChange} />
+                            onChange={this.handleEmailChange}
+                            onFocus={this.clearValidationText} />
                         <div className="invalid-feedback">{this.state.emailError}</div>
                     </div>
                     <div className="input-group">
                         <input type="password"
                             className="form-control input-custom"
                             placeholder="Enter password"
+                            value={this.state.password}
                             onBlur={this.validatePassword}
+                            onFocus={this.clearValidationText}
                             onChange={this.handlePasswordChange} />
                         <div className="invalid-feedback">{this.state.passwordError}</div>
                     </div>
@@ -166,12 +197,15 @@ class SignupForm extends Component {
                         <input type="password"
                             className="form-control input-custom"
                             placeholder="Confirm password"
+                            value={this.state.passwordConfirm}
+                            onFocus={this.clearValidationText}
                             onBlur={this.validatePasswordConfirm}
                             onChange={this.handlePasswordConfirmChange} />
                         <div className="invalid-feedback">{this.state.passwordConfirmationError}</div>
                     </div>
                     <button type="submit" id="btnSubmit" className="btn btn-default">GET STARTED</button>
                 </form>
+                <div className="invalid-feedback">{this.state.responseMessage}</div>
             </div>
         );
     }

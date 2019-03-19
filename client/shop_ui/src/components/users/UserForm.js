@@ -21,7 +21,7 @@ class UserForm extends Component {
             password: updatedUser ? updatedUser.password : '',
             passwordConfirm: updatedUser ? updatedUser.passwordConfirm : '',
             role_id: updatedUser ? updatedUser.role_id : '',
-            imageUrl: updatedUser ? updatedUser.imageUrl : '',
+            avatar_url: updatedUser ? updatedUser.avatar_url : '',
 
             isLoading: false
         }
@@ -56,7 +56,7 @@ class UserForm extends Component {
         const file = event.target.files[0];
         uploadImage(file).then(response => {
             const imageUrl = `https://i.imgur.com/${response.data.data.id}.png`
-            this.setState({ imageUrl: imageUrl, isLoading: false });
+            this.setState({ avatar_url: imageUrl, isLoading: false });
         }).catch(err => {
             console.log(err)
         })
@@ -131,6 +131,7 @@ class UserForm extends Component {
            })
         }
     }
+
     checkObjectEqual(a, b) {
         const aProps = Object.getOwnPropertyNames(a);
         for (var i = 0; i < aProps.length; i++) {
@@ -224,7 +225,7 @@ class UserForm extends Component {
                         <div className="col-sm-8">
                             <div className="col-sm-12">
                                 {
-                                    this.state.imageUrl ? <label htmlFor="uploadImage" className="custom-file-label">{this.state.imageUrl}</label> :
+                                    this.state.avatar_url !== "null" ? <label htmlFor="uploadImage" className="custom-file-label">{this.state.avatar_url}</label> :
                                         <label htmlFor="uploadImage" className="custom-file-label">Choose File</label>
                                 }
                             </div>

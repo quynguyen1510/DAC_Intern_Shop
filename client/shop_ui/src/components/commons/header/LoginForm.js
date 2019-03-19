@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { login } from '../../../api/SessionApi';
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
 class LoginForm extends Component {
@@ -8,8 +9,15 @@ class LoginForm extends Component {
             email: '',
             password: '',
             emailError: '',
-            passwordError: ''
+            passwordError: '',
+            response_message: ''
         }
+    }
+    
+    clearValidationText = () => {
+        this.setState({ 
+            response_message: '',
+        })
     }
 
     handleEmailChange = event => {
@@ -30,10 +38,25 @@ class LoginForm extends Component {
         } else if (this.state.passwordError !== null || this.state.emailError !== null) {
             return
         } else {
-            this.props.login({
+            login({
                 "email": `${email}`,
                 "password": `${password}`
-            });
+            }).then(res => {
+                if(res.data.auth_token){
+                    localStorage.setItem("token", res.data.auth_token);
+                    this.props.setAuthenticate();
+                }
+                else{
+                    this.setState({
+                        response_message: res.data.message,
+                        email: '',
+                        password: '',
+                    })
+                }
+
+            }).catch(err => {
+                
+            })
         }
     }
 
@@ -66,6 +89,8 @@ class LoginForm extends Component {
                         <input type="email"
                             className="input-custom form-control"
                             placeholder="Enter email"
+                            value={this.state.email}
+                            onFocus={this.clearValidationText}
                             onChange={this.handleEmailChange}
                             onBlur={this.validateEmail} />
                         <div className="invalid-feedback">{this.state.emailError}</div>
@@ -74,12 +99,15 @@ class LoginForm extends Component {
                         <input type="password"
                             className="form-control input-custom"
                             placeholder="Enter password"
+                            value={this.state.password}
+                            onFocus={this.clearValidationText}
                             onChange={this.handlePasswordChange}
                             onBlur={this.validatePassword} />
                         <div className="invalid-feedback">{this.state.passwordError}</div>
                     </div>
                     <button type="submit" id="btnSubmit" className="btn btn-default" onClick={this.handleSubmit}>GET STARTED</button>
                 </form>
+                <div className="text-center invalid-feedback"> { this.state.response_message }</div>
             </div>
         );
     }

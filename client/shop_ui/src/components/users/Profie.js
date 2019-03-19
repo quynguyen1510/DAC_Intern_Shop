@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import defaultAvatarUrl from '../default_avatar.png'
-import { bindActionCreators } from 'redux';
-import { getUserById } from '../../actions/UsersAction';
 import UserForm from './UserForm';
 import Navbar from '../commons/header/Navbar';
 
@@ -24,7 +21,7 @@ class Profile extends Component {
                     <h2> {user.email}</h2>
                     <div className="avatar">
                         {
-                            user.avatar_url !== null ? <img className="avatar-default" src={`${user.avatar_url}`} alt="" /> :
+                            user.avatar_url !== "null" ? <img className="avatar-default" src={`${user.avatar_url}`} alt="" /> :
                                 <img className="avatar-default" src={defaultAvatarUrl} alt="" />
                         }
                     </div>
@@ -37,17 +34,6 @@ class Profile extends Component {
     }
 }
 
-function mapStateToProps(state) {
-    return {
-        user: state.user
-    }
-}
 
-function mapDispatchToProps(dispatch) {
-    return bindActionCreators({
-        getUserById
-    }, dispatch)
-}
 
-const ProfileContainer = withRouter(connect(mapStateToProps, mapDispatchToProps)(Profile));
-export default ProfileContainer;
+export default withRouter(Profile);
