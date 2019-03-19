@@ -3,7 +3,7 @@ import { withRouter } from 'react-router';
 import { BID_AMOUNT, CAMPAIGN_ACTIVE, CAMPAIGN_UN_ACTIVED } from '../../util/constant';
 import { uploadImage } from '../../api/imgur_api';
 import ReactLoading from 'react-loading';
-import { create, update } from '../../api/campaign';
+import { create, update } from '../../api/campaign_api';
 var jwt_decode = require('jwt-decode');
 
 class FormCreateCampaign extends Component {
@@ -151,11 +151,6 @@ class FormCreateCampaign extends Component {
 
     checkObjectEqual(a, b) {
         const aProps = Object.getOwnPropertyNames(a);
-        const bProps = Object.getOwnPropertyNames(a);
-        if (aProps.length !== bProps.length) {
-            return false;
-        }
-
         for (var i = 0; i < aProps.length; i++) {
             var propName = aProps[i];
             // If values of same property are not equal,

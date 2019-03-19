@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { getCampaigns, deleteCampaign } from '../../api/campaign';
+import { getCampaigns, deleteCampaign } from '../../api/campaign_api';
 import { RECORD_PER_PAGE } from '../../util/constant';
 import { Modal, Button } from 'react-bootstrap';
 import {withRouter} from 'react-router';
@@ -31,25 +31,29 @@ class CampaignTable extends Component {
         this.setState({campaigns: [...camps]});
 
         // call api 
-        deleteCampaign( camps[this.state.selectedCampId].id)
+        deleteCampaign( camps[this.state.selectedCampId].id).then( res => {
+            alert(res.data.message);
+        }).catch(err => {
+            
+        })
         this.handleClose();
     }
 
     componentDidMount() {
         if(this.state.campaigns.length === 0){
-        getCampaigns(this.state.currentPage).then(res => {
-            this.setState({ campaigns: [...res.data.campaigns], total: res.data.total });
-            let numPages = 0;
-            if (res.data.total % RECORD_PER_PAGE !== 0) {
-                numPages = Array(Math.floor(res.data.total / RECORD_PER_PAGE) + 1).fill();
-            }
-            else {
-                numPages = Array(Math.floor(res.data.total / RECORD_PER_PAGE)).fill();
-            }
-            this.setState({numPages: numPages})
-        }).catch(err => {
-            console.log(err);
-        })
+            getCampaigns(this.state.currentPage).then(res => {
+                this.setState({ campaigns: [...res.data.campaigns], total: res.data.total });
+                let numPages = 0;
+                if (res.data.total % RECORD_PER_PAGE !== 0) {
+                    numPages = Array(Math.floor(res.data.total / RECORD_PER_PAGE) + 1).fill();
+                }
+                else {
+                    numPages = Array(Math.floor(res.data.total / RECORD_PER_PAGE)).fill();
+                }
+                this.setState({numPages: numPages})
+            }).catch(err => {
+                console.log(err);
+            })
        }
     }
 
