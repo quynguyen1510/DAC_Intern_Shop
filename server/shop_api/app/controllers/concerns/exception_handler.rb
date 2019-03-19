@@ -14,17 +14,17 @@ module ExceptionHandler
     rescue_from InvalidToken, with: :four_twenty_two
 
     rescue_from ActiveRecord::RecordNotFound do |e|
-      json_response({ message: e.message }, :not_found)
+      json_response({ message: e.message })
     end
   end
 
   private
 
   def four_twenty_two(e)
-    json_response({ message: e.message}, :unprocessable_entity)
+    json_response({ message: e.message})
   end
 
   def unauthorized_request(e)
-    json_response({ message: e.message}, :unauthorized)
+    json_response({ message: e.message})
   end
 end
