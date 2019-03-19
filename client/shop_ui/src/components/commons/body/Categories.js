@@ -1,47 +1,46 @@
 import React, { Component } from 'react';
-import { bindActionCreators } from 'redux';
-import { getListCategories } from '../../../actions/CategoriesAction';
-import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { Link } from 'react-router-dom';
+import { getCategories } from '../../../api/product_api';
 
 class Categories extends Component {
-
+    constructor(props) {
+        super(props);
+        this.state = {
+            categories: [],
+        }
+    }
     componentDidMount() {
-        if(this.props.categories.categories.length === 0){
-            this.props.getListCategories();
+        if (this.state.categories.length === 0) {
+            getCategories().then(res => {
+                this.setState({ categories: res.data })
+            });
         }
     }
 
     render() {
-        const {categories} = this.props.categories;
+        const { categories } = this.state;
         return (
             <div id="categories">
                 <ul>
-                  {
-                      categories.map((category, index) => {
-                        return <li key={index}>
-                           <Link onClick={this.navigateToProductsOfCategoryPage} 
-                                to={`/categories/${category.id}`}>
-                                {category.catname}
-                            </Link>
-                         </li>
-                      })
-                  }
-                   
+                    {
+                        categories.length > 0 && (
+                            categories.map((category, index) => {
+                                return <li key={index}>
+                                    <Link onClick={this.navigateToProductsOfCategoryPage}
+                                        to={`/categories/${category.id}`}>
+                                        {category.catname}
+                                    </Link>
+                                </li>
+                            })
+                        )
+                    }
+
                 </ul>
             </div>
         );
     }
 }
-function mapStateToProps(state) {
-    return { categories: state.categories }
-}
 
-function mapDispatchToProps(dispatch) {
-    return bindActionCreators({
-        getListCategories
-    }, dispatch)
-}
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Categories));
+export default withRouter(Categories);
