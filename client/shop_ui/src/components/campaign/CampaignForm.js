@@ -22,9 +22,23 @@ class FormCreateCampaign extends Component {
             final_url: currentCampaign ? currentCampaign.final_url : '',
 
             isLoading: false,
-            campPage: this.props.location.state.page
+            campPage: this.props.location.state ? this.props.location.state.page : null
         }
     }
+    
+    checkToDateGreaterThanStartDay(date){
+        const today = new Date();
+        var dd = String(today.getDate()).padStart(2, '0');
+        var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+        var yyyy = today.getFullYear().toString();
+        // current date greater startdate then return false, otherwise
+        return !(yyyy > date[0] || mm > date[1] || dd > date[2])
+        
+    }
+    checkEndDateGreaterThanStartDay(end, start){
+        return( end[0] > start[0] || end[1] > start[1] || end[2] > start[2]);
+    }
+
 
     handleChangeName = event => {
         this.setState({ name: event.target.value });
@@ -35,10 +49,21 @@ class FormCreateCampaign extends Component {
     }
 
     handleChangeStartDay = event => {
+        const dateArr = event.target.value.split(/-/);
+        if(!this.checkToDateGreaterThanStartDay(dateArr)){
+            alert("Start date must greater or equal than current day");
+            return;
+        }
         this.setState({ startdate: event.target.value });
     }
 
-    handleChangeEndDay = event => {
+    handleChangeEndDay = event => {     
+        const end = event.target.value.split(/-/);
+        const start = this.state.startdate.split(/-/);
+        if(!this.checkEndDateGreaterThanStartDay(end, start)){
+            alert("End date must greater or equal than start day");
+            return;
+        }
         this.setState({ enddate: event.target.value });
     }
 
@@ -114,7 +139,7 @@ class FormCreateCampaign extends Component {
                     alert(res.data.message);
                     this.props.history.push("/manage/campaign");
                 }).then(err => {
-                    console.log(err);
+                    
                 })
             }
             catch (err) {
