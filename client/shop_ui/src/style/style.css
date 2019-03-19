@@ -169,8 +169,21 @@
 /* ===End MenuBar=== */
 
 /* ===Nav Bar=== */
+#nav-cus {
+    color: #ededed;
+}
 #nav-cus:hover {
     color: #f57224;
+}
+.nav-cus-menu {
+    background: #6c757d;
+}
+.nav-cus-menu .dropdown-item a {
+    color: white;
+}
+.nav-cus-menu .dropdown-item a:hover {
+    text-decoration: none;
+    color: #6c757d;
 }
 /* ===End nav bar=== */
 
@@ -412,7 +425,7 @@
     margin-right: 0;
 }
 .pi-img-wrapper  img {
-    width: 80%;
+    width: 60%;
     height: 8rem;
 }
 

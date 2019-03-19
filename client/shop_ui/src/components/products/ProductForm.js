@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { addNewProduct, updateProduct } from '../../api/product_api';
 import { uploadImage } from '../../api/imgur_api';
-import {withRouter} from 'react-router';
-import {Link} from 'react-router-dom';
+import { withRouter } from 'react-router';
+import { Link } from 'react-router-dom';
 import ReactLoading from 'react-loading';
+import { Modal, Button } from 'react-bootstrap';
 var jwt_decode = require('jwt-decode');
 
 class FormCreateProduct extends Component {
@@ -23,32 +24,36 @@ class FormCreateProduct extends Component {
             priceError: '',
 
             message: '',
-            isLoading: false
+            isLoading: false,
+            shouldShow: false
         }
     }
 
-    validateNameProduct = () =>{
-        this.setState({nameError: (this.state.product_name.length === 0 ? "You should input something cool" :"") });
+    validateNameProduct = () => {
+        this.setState({ nameError: (this.state.product_name.length === 0 ? "Product Name can't be blank" : "") });
     }
 
-    validateDescProduct = () =>{
-        this.setState({descError: (this.state.product_desc.length === 0 ? "You should input something cool" :"") })
+    validateDescProduct = () => {
+        this.setState({ descError: (this.state.product_desc.length === 0 ? "Product Description can't be blank" : "") })
     }
 
-    validatePrice = () =>{
-        this.setState({priceError: (Number(this.state.price) === 0 ? "Product description must be greater than 0" :"") })
+    validatePrice = () => {
+        this.setState({ priceError: (Number(this.state.price) === 0 ? "Product price can't be blank" : "") })
     }
 
 
     handleProductNameChange = event => {
+        this.setState({ nameError: ""});
         this.setState({ product_name: event.target.value });
     }
 
     handleProductDescChange = event => {
+        this.setState({descError: ""});
         this.setState({ product_desc: event.target.value });
     }
 
     handlePriceChange = event => {
+        this.setState({priceError: ""});
         this.setState({ price: event.target.value });
     }
 
@@ -56,39 +61,39 @@ class FormCreateProduct extends Component {
         this.setState({ category_id: event.target.value })
     }
 
-    uploadImage =(event) =>{
-        this.setState({isLoading: true})
+    uploadImage = (event) => {
+        this.setState({ isLoading: true })
         const imgFile = event.target.files[0];
         uploadImage(imgFile).then(response => {
             const imageUrl = `https://i.imgur.com/${response.data.data.id}.png`;
-            this.setState({product_img: imageUrl, isLoading: false})
+            this.setState({ product_img: imageUrl, isLoading: false })
         }).catch(err => {
             console.log(err)
         })
     }
     handleSubmit = () => {
-        const { product_name, product_desc,price , category_id, product_img } = this.state;
+        const { product_name, product_desc, price, category_id, product_img } = this.state;
         const shouldUpdate = product_name.length > 0 || product_desc.length > 0 || price.length > 0 || product_img.length > 0;
         const shouldCreate = product_name.length > 0 && product_desc.length > 0 && price.length > 0;
         const token = localStorage.getItem("token");
         const payload = jwt_decode(token);
         const product = {
-            "product_name" : `${product_name}`,
-            "product_desc" : `${product_desc}`,
-            "price" : `${price}`,
-            "product_img" : `${product_img}`,
+            "product_name": `${product_name}`,
+            "product_desc": `${product_desc}`,
+            "price": `${price}`,
+            "product_img": `${product_img}`,
             "category_id": `${category_id ? category_id : 1}`,
             "user_id": `${payload.user_id}`
         }
-        if(this.props.currentProduct === undefined){
+        if (this.props.currentProduct === undefined) {
 
-            if(!shouldCreate){
-                alert("You must change something");
+            if (!shouldCreate) {
+                alert("You must input the information");
                 return;
             }
 
-            addNewProduct(token,product).then(res => {
-                this.setState({message: res.data.message})
+            addNewProduct(token, product).then(res => {
+                this.setState({ message: res.data.message, shouldShow: true })
             }).catch(err => {
                 console.log(err)
             });
@@ -97,13 +102,13 @@ class FormCreateProduct extends Component {
             this.setState({
                 shouldRedirect: true,
             });
-        }else {
-            if(!shouldUpdate){
+        } else {
+            if (!shouldUpdate) {
                 alert("You must change something");
                 return;
             }
 
-            updateProduct(token,product,this.props.currentProduct.id).then(res => {
+            updateProduct(token, product, this.props.currentProduct.id).then(res => {
                 this.setState({
                     product_name: res.data.product.product_name,
                     product_desc: res.data.product.product_desc,
@@ -119,7 +124,7 @@ class FormCreateProduct extends Component {
     }
 
     render() {
-        const {currentProduct, categories} = this.props;
+        const { currentProduct, categories } = this.props;
 
         return (
             <div>
@@ -129,7 +134,7 @@ class FormCreateProduct extends Component {
                             <label className="col-form-label">Product Name</label>
                             <input type="text"
                                 name="product_name"
-                                defaultValue={currentProduct ? currentProduct.product_name: this.state.product_name}
+                                defaultValue={currentProduct ? currentProduct.product_name : this.state.product_name}
                                 className="form-control"
                                 onChange={this.handleProductNameChange}
                                 onBlur={this.validateNameProduct}
@@ -142,23 +147,23 @@ class FormCreateProduct extends Component {
                         <div className="col-sm-6">
                             <label className="col-form-label">Product Description</label>
                             <input onChange={this.handleProductDescChange}
-                                    type="text"
-                                    name="product_desc" 
-                                    defaultValue={currentProduct ? currentProduct.product_desc: this.state.product_desc}
-                                    className="form-control"
-                                    onBlur={this.validateDescProduct} />
+                                type="text"
+                                name="product_desc"
+                                defaultValue={currentProduct ? currentProduct.product_desc : this.state.product_desc}
+                                className="form-control"
+                                onBlur={this.validateDescProduct} />
                             <div className="invalid-feedback">{this.state.descError}</div>
                         </div>
                     </div>
                     <div className="form-group row justify-content-center">
                         <div className="col-sm-6">
                             <label className="col-form-label">Product Price</label>
-                            <input onChange={this.handlePriceChange} 
-                                    type="number" 
-                                    className="form-control" 
-                                    name="price"
-                                    onBlur={this.validatePrice}
-                                    defaultValue={currentProduct ? currentProduct.price: this.state.price} />
+                            <input onChange={this.handlePriceChange}
+                                type="number"
+                                className="form-control"
+                                name="price"
+                                onBlur={this.validatePrice}
+                                defaultValue={currentProduct ? currentProduct.price : this.state.price} />
                         </div>
                         <div className="invalid-feedback">{this.state.priceError}</div>
                     </div>
@@ -166,13 +171,13 @@ class FormCreateProduct extends Component {
                     <div className="form-group row justify-content-center">
                         <div className="col-sm-6">
                             <label className="col-form-label">Category Name</label>
-                            <select className="form-control" 
-                                    onChange={this.handleCategoryChange}
-                                    value={this.state.category_id}>
+                            <select className="form-control"
+                                onChange={this.handleCategoryChange}
+                                value={this.state.category_id}>
                                 {
                                     categories.length > 0 && (
                                         categories.map((cate, index) => {
-                                            return (<option  key={index} value={cate.id}>{cate.catname}</option>)
+                                            return (<option key={index} value={cate.id}>{cate.catname}</option>)
                                         })
                                     )
                                 }
@@ -185,44 +190,50 @@ class FormCreateProduct extends Component {
                         <div className="col-sm-6">
                             <label className="col-form-label">Product Image</label>
                             <div className="col-sm-12">
-                                <input type="file" 
-                                        onChange={this.uploadImage}
-                                        className="custom-file-input" 
-                                        id="uploadImage" />
+                                <input type="file"
+                                    onChange={this.uploadImage}
+                                    className="custom-file-input"
+                                    id="uploadImage" />
                                 {
                                     this.state.product_img ? <label htmlFor="uploadImage" className="custom-file-label">{this.state.product_img}</label> :
-                                    <label htmlFor="uploadImage" className="custom-file-label">Choose File</label>
+                                        <label htmlFor="uploadImage" className="custom-file-label">Choose File</label>
                                 }
                             </div>
-                                {
-                                    this.state.product_img ? <img className="avatar-preview" src={this.state.product_img} alt="preview" /> :
+                            {
+                                this.state.product_img ? <img className="avatar-preview" src={this.state.product_img} alt="preview" /> :
                                     null
-                                }
-                                {
-                                    this.state.isLoading && (
-                                        <ReactLoading color={"black"} height={"1%"} width={"5%"} />
-                                    )
-                                }
+                            }
+                            {
+                                this.state.isLoading && (
+                                    <ReactLoading color={"black"} height={"1%"} width={"5%"} />
+                                )
+                            }
                         </div>
                     </div>
 
                 </form>
                 <div className="submit-profile justify-content-center">
                     <button onClick=
-                        {this.handleSubmit} 
+                        {this.handleSubmit}
                         className="btn btn-primary update-profile-button">
                         {currentProduct ? "Update" : "Create"}
                     </button>
-                    <Link className="btn btn-link back" to="/manage/products">Back</Link>
+
                 </div>
                 {
                     this.state.message && (
-                        <div className="alert-success" role="alert">
-                            <p>{this.state.message }</p>
-                        </div>
+                        <Modal show={this.state.shouldShow} >
+                            <Modal.Header >
+                                <Modal.Title>Create Product</Modal.Title>
+                            </Modal.Header>
+                            <Modal.Body>Create Successfully</Modal.Body>
+                            <Modal.Footer>
+                                <Link className="btn btn-link back" to="/manage/products">OK</Link>
+                            </Modal.Footer>
+                        </Modal>
                     )
                 }
-               
+
             </div>
         );
     }
