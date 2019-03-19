@@ -1,15 +1,12 @@
 import React, { Component } from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
-import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import HomePage from '../components/Homepage';
 import Profile from '../components/users/Profie';
 import ManageUser from '../components/users/ManageUser';
 import CreateUser from '../components/users/CreateUser';
 import DeleteUser from '../components/users/DeleteUser';
-import { ADMIN_ROLE, USER_ROLE, SHOPPER_ROLE, GUEST_ROLE } from '../util/constant';
-import { getAuthenticatedUser } from '../actions/UsersAction';
-import { bindActionCreators } from 'redux';
+import { ADMIN_ROLE, USER_ROLE, SHOPPER_ROLE } from '../util/constant';
 import ManageProduct from '../components/products/ManageProduct';
 import CreateProduct from '../components/products/CreateProduct';
 import ProductInfor from '../components/products/ProductInfor';
@@ -17,23 +14,15 @@ import ProductsByCategory from '../components/products/ProductsByCategory';
 import ManageCampaign from '../components/campaign/ManageCampaign';
 import CreateCampaign from '../components/campaign/CreateCampaign';
 import CampaignInfor from '../components/campaign/CampaignInfor';
+var jwt_decode = require('jwt-decode');
 
 class ProtectedRoutes extends Component {
-
-    componentDidMount() {
-        const token = localStorage.getItem('token')
-        if (token && !this.props.session.user.currentUser) {
-            this.props.getAuthenticatedUser(token);
-        }
-    }
-
-
+    
     getRoute = () => {
-        const user = this.props.session.user.currentUser;
-        const roleUser = user ? user.role_id : GUEST_ROLE;
         const isProtected = localStorage.getItem('token') != null;
         if (isProtected) {
-            if (roleUser === ADMIN_ROLE) {
+            const {role_id} = jwt_decode(localStorage.getItem("token"));
+            if (role_id === ADMIN_ROLE) {
                 return (
                     <Switch>
                         <Route path="/profile/users/:id" component={Profile} />
@@ -49,7 +38,7 @@ class ProtectedRoutes extends Component {
                     </Switch>
                 )
             }
-            if (roleUser === SHOPPER_ROLE) {
+            if (role_id === SHOPPER_ROLE) {
                 return (
                     <Switch>
                         <Route path="/profile/users/:id" component={Profile} />
@@ -63,7 +52,7 @@ class ProtectedRoutes extends Component {
                     </Switch>
                 )
             }
-            if (roleUser === USER_ROLE) {
+            if (role_id === USER_ROLE) {
                 return (
                     <Switch>
                         <Route path="/profile/users/:id" component={Profile} />
@@ -82,23 +71,12 @@ class ProtectedRoutes extends Component {
                 <Route path="/" exact component={() => <HomePage />} />
                 <Route path="/categories/:id" component={ProductsByCategory}/>
                 {this.getRoute()}
-               
             </Switch>
 
         )
     }
 }
 
-function mapDispatchToProps(dispatch) {
-    return bindActionCreators({
-        getAuthenticatedUser
-    }, dispatch)
-}
 
-function mapStateToProps(state) {
-    return {
-        session: state
-    }
-}
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(ProtectedRoutes));
+export default withRouter(ProtectedRoutes);
