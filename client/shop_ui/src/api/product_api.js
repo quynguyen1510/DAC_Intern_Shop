@@ -49,9 +49,9 @@ export async function updateProduct(token,product,product_id){
     }
  }
 
- export async function getProductByShop(token,user_id){
+ export async function getProductByShop(token,user_id,page){
     const config = configRequest(token);
-    const url = `${HEROKU_API_URL}/shop/products/${user_id}`;
+    const url = `${HEROKU_API_URL}/shop/products/${user_id}/?page=${page}`;
     try{
         return await axios.get(url , {headers: config});
     } 
