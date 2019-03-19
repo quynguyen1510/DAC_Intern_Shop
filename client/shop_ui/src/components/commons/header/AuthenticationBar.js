@@ -2,29 +2,26 @@ import React, { Component } from 'react';
 import SignupForm from './SignupForm.js';
 import LoginForm from './LoginForm.js';
 import Menu from './MenuBar';
-import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
-import { bindActionCreators } from 'redux';
-import { login, signup, logout } from '../../../actions/SessionAction';
-import { getAuthenticatedUser } from '../../../actions/UsersAction';
+import { Modal } from 'react-bootstrap';
 
 class AuthenticationBar extends Component {
     constructor(props) {
         super(props);
         this.state = {
             isShowLogin: false,
-            isAuthenticated: false
+            isAuthenticated: false,
+            shouldShow: false,
         };
     }
 
     componentDidMount() {
         const token = localStorage.getItem("token");
-       if (token){
-           this.setState({isAuthenticated: true});
-           
-       }
+        if (token) {
+            this.setState({ isAuthenticated: true });
+        }
     }
-    
+
     handleShowLogin() {
         this.setState({
             isShowLogin: true
@@ -36,37 +33,47 @@ class AuthenticationBar extends Component {
         })
     }
 
+    handleClose = () => {
+        this.setState({ shouldShow: false });
+    }
+
+    handleShow = () => {
+        this.setState({ shouldShow: true });
+    }
+
+    setAuthenticate = () => {
+        this.setState({ isAuthenticated: true});
+        this.handleClose();
+    }
 
     render() {
         let elmForm = null;
         if (this.state.isShowLogin) {
-            elmForm = <LoginForm {...this.props} />
+            elmForm = <LoginForm setAuthenticate={this.setAuthenticate} />
         } else {
-            elmForm = <SignupForm {...this.props} />
+            elmForm = <SignupForm setAuthenticate={this.setAuthenticate} />
         }
 
         const authenticated = this.state.isAuthenticated;
         return (
             <div>
                 {
-                    authenticated ? <Menu {...this.props}/> : (
+                    authenticated ? <Menu userName={this.state.user_name} /> : (
                         <div>
                             <div className="login-bar container-fluid">
-                                <a href="#top" data-toggle="modal" data-target="#myModal">ĐĂNG NHẬP / ĐĂNG KÝ</a>
+                                <a onClick={this.handleShow} href="#top" data-toggle="modal">ĐĂNG NHẬP / ĐĂNG KÝ</a>
                             </div>
-                            <div id="myModal" className="modal fade" role="dialog">
-                                <div className="modal-dialog">
-                                    {/* <!-- Popup content--> */}
-                                    <div className="modal-content" id="modalContent">
-                                        <div className="mx-auto btnLoginBar">
-                                            <button className={this.state.isShowLogin === false ? 'active' : ''} onClick={this.handleShowSignup.bind(this)}>Sign Up</button>
-                                            <button className={this.state.isShowLogin === true ? 'active' : ''} onClick={this.handleShowLogin.bind(this)}>Login</button>
-                                        </div>
-                                        {elmForm}
+                            {/* <!-- Popup content--> */}
+                            <Modal show={this.state.shouldShow} onHide={this.handleClose}>
+                                <Modal.Body>
+                                    <div className="mx-auto btnLoginBar">
+                                        <button className={this.state.isShowLogin === false ? 'active' : ''} onClick={this.handleShowSignup.bind(this)}>Sign Up</button>
+                                        <button className={this.state.isShowLogin === true ? 'active' : ''} onClick={this.handleShowLogin.bind(this)}>Login</button>
                                     </div>
-                                    {/* <!-- End popup --> */}
-                                </div>
-                            </div>
+                                    {elmForm}
+                                </Modal.Body>
+                            </Modal>
+                            {/* <!-- End popup --> */}
                         </div>
                     )
                 }
@@ -75,18 +82,4 @@ class AuthenticationBar extends Component {
     }
 }
 
-function mapDispatchToProps(dispatch) {
-    return bindActionCreators({
-      login,
-      signup,
-      logout,
-      getAuthenticatedUser
-    }, dispatch)
-}
-
-function mapStateToProps(state) {
-    return {
-      session: state
-    }
-}
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(AuthenticationBar));
+export default withRouter(AuthenticationBar);
