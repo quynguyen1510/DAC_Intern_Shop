@@ -257,14 +257,15 @@
 
 /* ===Login Bar Form=== */
 .btnLoginBar {
-    margin-top: 2em;
+    margin: 0;
+    padding: 0;
 }
 
 .btnLoginBar button {
     background-color:grey;
     border: none;
     color: white;
-    width: 230px;
+    width: 50%;
     height: 50px;
     margin-left: -3px;
     letter-spacing: 3px;
@@ -279,10 +280,6 @@
     color: white;
 }
 
-.inputForm {
-    margin-left: 1em;
-    margin-right: 1em;
-}
 
 #btnSubmit {
     margin-top: 2em;
@@ -309,7 +306,7 @@
     background: none;
 }
 
-#modalContent {
+.modal-content {
     background-color: #212C37;
 }
 /* validation*/

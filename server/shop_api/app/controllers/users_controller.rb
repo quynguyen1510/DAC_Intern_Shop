@@ -30,9 +30,7 @@ class UsersController < ApplicationController
     @user = User.create!(data)
     auth_token = AuthenticateUser.new(data[:email], data[:password]).call
     response = { 
-      authenticated_user: @user,
       auth_token: auth_token,  
-      message: Message.account_created 
     }
     json_response(response, :created)
   end
