@@ -7,14 +7,13 @@ import {withRouter} from 'react-router';
 class CampaignTable extends Component {
     constructor(props) {
         super(props);
-        const page = this.props.location.state.page;
         this.state = {
             campaigns: [],
             total: 0,
             shouldShow: false,
             selectedCampId: null,
             numPages: null,
-            currentPage: page ? page : 1
+            currentPage: this.props.location.state ? this.props.location.state.page : 1
         }
     }
 
