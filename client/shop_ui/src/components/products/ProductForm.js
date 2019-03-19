@@ -109,18 +109,26 @@ class FormCreateProduct extends Component {
             }
 
             updateProduct(token, product, this.props.currentProduct.id).then(res => {
+                console.log(res.data.message)
                 this.setState({
                     product_name: res.data.product.product_name,
                     product_desc: res.data.product.product_desc,
                     product_img: res.data.product.product_img,
                     price: res.data.product.price,
                     category_id: res.data.product.category_id,
-                    message: res.data.message
+                    message: res.data.message,
+                    shouldShow: true
                 })
             }).catch(err => {
                 console.log(err)
             })
         }
+    }
+
+    backToPreviousPage = ()=> {
+        this.props.history.push({
+            pathname: "/manage/products",
+        });
     }
 
     render() {
@@ -215,18 +223,18 @@ class FormCreateProduct extends Component {
                 <div className="submit-profile justify-content-center">
                     <button onClick=
                         {this.handleSubmit}
-                        className="btn btn-primary update-profile-button">
+                          className="btn btn-primary update-profile-button">
                         {currentProduct ? "Update" : "Create"}
                     </button>
-
+                    <button className="btn btn-link update-profile-button" onClick={this.backToPreviousPage}>Back to list</button>
                 </div>
                 {
                     this.state.message && (
                         <Modal show={this.state.shouldShow} >
                             <Modal.Header >
-                                <Modal.Title>Create Product</Modal.Title>
+                                <Modal.Title>{currentProduct ? "Update Product" : "Create Product"}</Modal.Title>
                             </Modal.Header>
-                            <Modal.Body>Create Successfully</Modal.Body>
+                            <Modal.Body>{this.state.message}</Modal.Body>
                             <Modal.Footer>
                                 <Link className="btn btn-link back" to="/manage/products">OK</Link>
                             </Modal.Footer>
