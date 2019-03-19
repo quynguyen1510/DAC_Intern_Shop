@@ -4,7 +4,7 @@ import { Button } from 'react-bootstrap';
 import { Modal } from 'react-bootstrap';
 import { getUsers, deleteUser } from '../../api/user_api';
 import { RECORD_PER_PAGE } from '../../util/constant';
-
+import {withRouter} from 'react-router';
 class UserTable extends Component {
 
     constructor(props) {
@@ -14,7 +14,7 @@ class UserTable extends Component {
             shouldShow: false,
             selectedInd: null,
             numPages: null,
-            currentPage: 1
+            currentPage:  this.props.previousPage ? this.props.previousPage : 1,
         }
     }
 
@@ -104,7 +104,8 @@ class UserTable extends Component {
                                                     <Link to={{
                                                         pathname: `/profile/users/${user.id}`,
                                                         state: {
-                                                            user: user
+                                                            user: user,
+                                                            page: this.state.currentPage
                                                         }
                                                     }} className="btn btn-primary btnEditUser">Edit</Link>
                                                 }
@@ -151,4 +152,4 @@ class UserTable extends Component {
 }
 
 
-export default UserTable;
+export default withRouter(UserTable);
