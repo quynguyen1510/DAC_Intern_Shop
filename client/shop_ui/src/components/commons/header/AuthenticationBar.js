@@ -64,7 +64,7 @@ class AuthenticationBar extends Component {
                                 <a onClick={this.handleShow} href="#top" data-toggle="modal">ĐĂNG NHẬP / ĐĂNG KÝ</a>
                             </div>
                             {/* <!-- Popup content--> */}
-                            <Modal show={this.state.shouldShow} onHide={this.handleClose}>
+                            <Modal className="authen-form" show={this.state.shouldShow} onHide={this.handleClose}>
                                 <Modal.Body>
                                     <div className="mx-auto btnLoginBar">
                                         <button className={this.state.isShowLogin === false ? 'active' : ''} onClick={this.handleShowSignup.bind(this)}>Sign Up</button>
