@@ -32,7 +32,7 @@ class Menu extends Component {
                                 </li>
                                 <li className="dropdown-item dropdown-custome">
                                     {
-                                        currentUser ? (currentUser.role_id === ADMIN_ROLE ? <Link to="/manage/users/1" >Quản lý tài khoản</Link> : null) : null
+                                        currentUser ? (currentUser.role_id === ADMIN_ROLE ? <Link to="/manage/users" >Quản lý tài khoản</Link> : null) : null
                                     }
                                 </li>
                                 <li className="dropdown-item dropdown-custome">

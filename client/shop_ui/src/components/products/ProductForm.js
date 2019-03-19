@@ -4,7 +4,7 @@ import { uploadImage } from '../../api/imgur_api';
 import { withRouter } from 'react-router';
 import { Link } from 'react-router-dom';
 import ReactLoading from 'react-loading';
-import { Modal, Button } from 'react-bootstrap';
+import { Modal } from 'react-bootstrap';
 var jwt_decode = require('jwt-decode');
 
 class FormCreateProduct extends Component {
