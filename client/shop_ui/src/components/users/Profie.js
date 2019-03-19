@@ -11,11 +11,12 @@ class Profile extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            user: this.props.location.state.user
+            user: this.props.location.state.user,
+            page: this.props.location.state.page
         }
     }
     render() {
-        const { user } = this.state;
+        const { user, page } = this.state;
         return (
             <div>
                 <Navbar />
@@ -28,7 +29,7 @@ class Profile extends Component {
                         }
                     </div>
                     <div className="inputForm">
-                        <UserForm updatedUser={user} />
+                        <UserForm updatedUser={user} page={page} />
                     </div>
                 </div>
             </div>
