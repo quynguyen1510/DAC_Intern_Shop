@@ -74,16 +74,17 @@ class UserForm extends Component {
                 value = 2;
             }
             if (value === "") {
-                alert("You must type full information");
+                alert("You must type " + key);
                 return;
             }
 
-            if(!this.props.updatedUser){
-                if(key === "email" && !EMAIL_REGEX.test(value)){
-                    alert("Your email is invalid");
-                    return;
-                }
-    
+            if(key === "email" && !EMAIL_REGEX.test(value)){
+                console.log(EMAIL_REGEX.test(value))
+                alert("Your email is invalid");
+                return;
+            }
+
+            if(!this.props.updatedUser) {
                 if((key === "password" || key === "passwordConfirm") && value.length < 6){
                     alert("Your password must greater than 6");
                     return;
@@ -101,13 +102,19 @@ class UserForm extends Component {
 
             userInfo[`${key}`] = String(value);
         }
-        
         if (this.props.updatedUser ) {
             if(!this.checkObjectEqual(userInfo, this.props.updatedUser )){
                 update(userInfo, this.props.updatedUser.id).then(res => {
                     alert(res.data.message);
-                    this.props.history.push("/manage/users")
-                }).then(err => {             
+                    this.props.history.push({
+                        pathname: "/manage/users",
+                        state: {
+                            page: this.props.page
+                        }
+                    })
+                }).catch(err => { 
+                    alert("Can not update user") ;
+                    return;          
                 })
             }
             else{
@@ -118,6 +125,9 @@ class UserForm extends Component {
            create(userInfo).then(res => {
                alert(res.data.message);
                this.props.history.push("/manage/users");
+           }).catch(err => {
+                alert("Can not create " + userInfo.first_name);
+                return;
            })
         }
     }
