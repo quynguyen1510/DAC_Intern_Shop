@@ -21,6 +21,10 @@ export async function deleteUser(id){
     return await axios.delete(url, {headers: configHeader()})
 }
 
+export async function getUserById(id){
+    const url = `${HEROKU_API_URL}/users/${id}`;
+    return await axios.get(url, {headers: configHeader()})
+}
 
 function configHeader(){
     const token = localStorage.getItem("token");
