@@ -25,4 +25,6 @@ Rails.application.routes.draw do
   #get campaigns by shoper_id
   get '/campaigns/shop/:user_id', to: 'campaigns#campaign_by_shoper'
 
+  #get banner
+  get '/banners', to: 'campaigns#get_banner'
 end
