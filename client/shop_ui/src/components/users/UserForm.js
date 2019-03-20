@@ -44,7 +44,7 @@ class UserForm extends Component {
     }
 
     handlePasswordConfirmChange = event => {
-        this.setState({ passwordConfirm: event.target.value});
+        this.setState({ passwordConfirm: event.target.value });
     }
 
     handleRoleChange = event => {
@@ -66,11 +66,12 @@ class UserForm extends Component {
         event.preventDefault();
         const userInfo = {};
         const attributes = Object.keys(this.state);
+        const { role_id } = jwt_decode(localStorage.getItem("token"));
 
         for (let index in attributes) {
             const key = attributes[index];
             let value = this.state[`${attributes[index]}`];
-            if(!this.props.updatedUser && key === "role_id"){
+            if (!this.props.updatedUser && key === "role_id") {
                 value = 2;
             }
             if (value === "") {
@@ -78,19 +79,18 @@ class UserForm extends Component {
                 return;
             }
 
-            if(key === "email" && !EMAIL_REGEX.test(value)){
-                console.log(EMAIL_REGEX.test(value))
+            if (key === "email" && !EMAIL_REGEX.test(value)) {
                 alert("Your email is invalid");
                 return;
             }
 
-            if(!this.props.updatedUser) {
-                if((key === "password" || key === "passwordConfirm") && value.length < 6){
+            if (!this.props.updatedUser) {
+                if ((key === "password" || key === "passwordConfirm") && value.length < 6) {
                     alert("Your password must greater than 6");
                     return;
                 }
-    
-                if(key === "passwordConfirm" && value !== userInfo['password']){
+
+                if (key === "passwordConfirm" && value !== userInfo['password']) {
                     alert("Your password not match");
                     return;
                 }
@@ -102,33 +102,42 @@ class UserForm extends Component {
 
             userInfo[`${key}`] = String(value);
         }
-        if (this.props.updatedUser ) {
-            if(!this.checkObjectEqual(userInfo, this.props.updatedUser )){
+        if (this.props.updatedUser) {
+            if (!this.checkObjectEqual(userInfo, this.props.updatedUser)) {
                 update(userInfo, this.props.updatedUser.id).then(res => {
                     alert(res.data.message);
-                    this.props.history.push({
-                        pathname: "/manage/users",
-                        state: {
-                            page: this.props.page
-                        }
-                    })
-                }).catch(err => { 
-                    alert("Can not update user") ;
-                    return;          
+                    if (role_id === ADMIN_ROLE) {
+                        this.props.history.push({
+                            pathname: "/manage/users",
+                            state: {
+                                page: this.props.page
+                            }
+                        })
+                    } else {
+                        this.props.history.push({
+                            pathname: "/",
+                            state: {
+                                page: this.props.page
+                            }
+                        })
+                    }
+                }).catch(err => {
+                    alert("Can not update user");
+                    return;
                 })
             }
-            else{
+            else {
                 alert("You must type something new");
             }
         }
-        else{
-           create(userInfo).then(res => {
-               alert(res.data.message);
-               this.props.history.push("/manage/users");
-           }).catch(err => {
+        else {
+            create(userInfo).then(res => {
+                alert(res.data.message);
+                this.props.history.push("/manage/users");
+            }).catch(err => {
                 alert("Can not create " + userInfo.first_name);
                 return;
-           })
+            })
         }
     }
 
@@ -138,7 +147,7 @@ class UserForm extends Component {
             var propName = aProps[i];
             // If values of same property are not equal,
             // objects are not equivalent
-            if (String(a[propName]) !== String(b[propName]) ) {
+            if (String(a[propName]) !== String(b[propName])) {
                 return false;
             }
         }
@@ -148,7 +157,7 @@ class UserForm extends Component {
 
     render() {
         const { updatedUser } = this.props;
-        const {role_id} = jwt_decode(localStorage.getItem("token"));
+        const { role_id } = jwt_decode(localStorage.getItem("token"));
         return (
             <div>
                 <form encType="multipart/form-data" onSubmit={this.handleSubmit}>
@@ -209,7 +218,7 @@ class UserForm extends Component {
                         <div className="form-group row">
                             <label className="col-sm-2 col-form-label">Role</label>
                             <div className="col-sm-8">
-                                <select 
+                                <select
                                     onChange={this.handleRoleChange}
                                     className="form-control"
                                     value={this.state.role_id}>
