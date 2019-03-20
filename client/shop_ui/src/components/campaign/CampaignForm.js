@@ -15,6 +15,7 @@ class FormCreateCampaign extends Component {
             status: currentCampaign ? currentCampaign.status : CAMPAIGN_ACTIVE,
             startdate: currentCampaign ? currentCampaign.startdate : '',
             enddate: currentCampaign ? currentCampaign.enddate : '',
+            bid: currentCampaign ? currentCampaign.bid : '',
             budget: currentCampaign ? currentCampaign.budget : '',
             title: currentCampaign ? currentCampaign.title : '',
             description: currentCampaign ? currentCampaign.description : '',
@@ -71,6 +72,10 @@ class FormCreateCampaign extends Component {
         this.setState({ budget: event.target.value });
     }
 
+    handleChangeBid = event => {
+        this.setState({ bid: event.target.value });
+    }
+
     handleChangeTitle = event => {
         this.setState({ title: event.target.value });
     }
@@ -113,7 +118,7 @@ class FormCreateCampaign extends Component {
 
             campaign[`${key}`] = String(value);
         }
-        campaign["bid"] = String(BID_AMOUNT);
+        // campaign["bid"] = String(BID_AMOUNT);
         campaign['user_id'] = String(user_id);
         //send request
         if (this.props.currentCampaign) {
@@ -182,7 +187,7 @@ render() {
                             <form onSubmit={this.handleSubmit} >
                                 {/* ============================================Detail======================================= */}
                                 <div className="card">
-                                    <div className="card-header custom-card-header" data-toggle="collapse" data-target="#collapseDetail" aria-expanded="false" aria-controls="collapseDetail">
+                                    <div className="card-header custom-card-header" data-toggle="collapse" data-target="#collapseDetail" aria-expanded="true" aria-controls="collapseDetail">
                                         <h5>Detail</h5>
                                         <div className="pull-right">
                                             <button type="button">
@@ -190,7 +195,7 @@ render() {
                                             </button>
                                         </div>
                                     </div>
-                                    <div className="collapse" id="collapseDetail">
+                                    <div className="collapse show" id="collapseDetail">
                                         <div className="card-body">
                                             <div className="form-group row custom-form-row">
                                                 <label className="col-4 col-form-label">Name :</label>
@@ -219,7 +224,7 @@ render() {
                                 </div>
                                 {/* ===========================================Schedule======================================== */}
                                 <div className="card">
-                                    <div className="card-header custom-card-header" data-toggle="collapse" data-target="#collapseSchedule" aria-expanded="false" aria-controls="collapseSchedule">
+                                    <div className="card-header custom-card-header" data-toggle="collapse" data-target="#collapseSchedule" aria-expanded="true" aria-controls="collapseSchedule">
                                         <h5>Schedule</h5>
                                         <div className="pull-right">
                                             <button type="button">
@@ -227,7 +232,7 @@ render() {
                                             </button>
                                         </div>
                                     </div>
-                                    <div className="collapse" id="collapseSchedule">
+                                    <div className="collapse show" id="collapseSchedule">
                                         <div className="card-body">
                                             <div className="form-group row custom-form-row">
                                                 <label className="col-4 col-form-label">Start date: </label>
@@ -235,7 +240,7 @@ render() {
                                                     <div className="input-left">
                                                         <input type="date"
                                                             name="startDay"
-                                                            disabled={this.state.status}
+                                                            // disabled={this.state.status}
                                                             className="form-control"
                                                             value={this.state.startdate}
                                                             onChange={this.handleChangeStartDay}
@@ -261,7 +266,7 @@ render() {
                                 </div>
                                 {/* ===================================================Budget============================================ */}
                                 <div className="card">
-                                    <div className="card-header custom-card-header" data-toggle="collapse" data-target="#collapseBudget" aria-expanded="false" aria-controls="collapseBudget">
+                                    <div className="card-header custom-card-header" data-toggle="collapse" data-target="#collapseBudget" aria-expanded="true" aria-controls="collapseBudget">
                                         <h5>Budget</h5>
                                         <div className="pull-right">
                                             <button type="button">
@@ -269,7 +274,7 @@ render() {
                                             </button>
                                         </div>
                                     </div>
-                                    <div className="collapse" id="collapseBudget">
+                                    <div className="collapse show" id="collapseBudget">
                                         <div className="card-body">
                                             <div className="form-group row custom-form-row">
                                                 <label className="col-4 col-form-label">Budget :</label>
@@ -296,7 +301,7 @@ render() {
                                 </div>
                                 {/* ==============================================Bidding================================================ */}
                                 <div className="card">
-                                    <div className="card-header custom-card-header" data-toggle="collapse" data-target="#collapseBidding" aria-expanded="false" aria-controls="collapseBidding">
+                                    <div className="card-header custom-card-header" data-toggle="collapse" data-target="#collapseBidding" aria-expanded="true" aria-controls="collapseBidding">
                                         <h5>Bidding</h5>
                                         <div className="pull-right">
                                             <button type="button">
@@ -304,7 +309,7 @@ render() {
                                             </button>
                                         </div>
                                     </div>
-                                    <div className="collapse" id="collapseBidding">
+                                    <div className="collapse show" id="collapseBidding">
                                         <div className="card-body">
                                             <div className="form-group row custom-form-row">
                                                 <label className="col-4 col-form-label">Bid Amount :</label>
@@ -314,13 +319,15 @@ render() {
                                                             <span className="input-group-text">
                                                                 <i className="fa fa-dollar-sign" />
                                                             </span>
-                                                        </div>
-                                                        <input type="number"
+                                                        </div>                                       
+                                                        <input 
+                                                            disabled={this.props.currentCampaign ? true : false}
+                                                            type="number"
                                                             name="bid"
                                                             placeholder="Bidding Amount"
-                                                            min={1}
-                                                            value={10}
-                                                            readOnly
+                                                            min={10}
+                                                            defaultValue={10}
+                                                            onChange={this.handleChangeBid}
                                                             className="form-control" />
                                                     </div>
                                                 </div>
@@ -330,7 +337,7 @@ render() {
                                 </div>
                                 {/* ===================================================Creative============================================ */}
                                 <div className="card">
-                                    <div className="card-header custom-card-header" data-toggle="collapse" data-target="#collapseCreative" aria-expanded="false" aria-controls="collapseCreative">
+                                    <div className="card-header custom-card-header" data-toggle="collapse" data-target="#collapseCreative" aria-expanded="true" aria-controls="collapseCreative">
                                         <h5>Creative</h5>
                                         <div className="pull-right">
                                             <button type="button">
@@ -338,7 +345,7 @@ render() {
                                             </button>
                                         </div>
                                     </div>
-                                    <div className="collapse" id="collapseCreative">
+                                    <div className="collapse show" id="collapseCreative">
                                         <div className="card-body">
                                             <div className="form-group row custom-form-row">
                                                 <label className="col-4 col-form-label">Title :</label>
