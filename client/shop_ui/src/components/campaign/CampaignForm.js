@@ -49,21 +49,10 @@ class FormCreateCampaign extends Component {
     }
 
     handleChangeStartDay = event => {
-        const dateArr = event.target.value.split(/-/);
-        if(!this.checkToDateGreaterThanStartDay(dateArr)){
-            alert("Start date must greater or equal than current day");
-            return;
-        }
         this.setState({ startdate: event.target.value });
     }
 
     handleChangeEndDay = event => {     
-        const end = event.target.value.split(/-/);
-        const start = this.state.startdate.split(/-/);
-        if(!this.checkEndDateGreaterThanStartDay(end, start)){
-            alert("End date must greater or equal than start day");
-            return;
-        }
         this.setState({ enddate: event.target.value });
     }
 
@@ -105,6 +94,23 @@ class FormCreateCampaign extends Component {
             if (value === "") {
                 alert("You must type full information");
                 return;
+            }
+
+            if(key === "startdate"){
+                const dateArr = value.split(/-/);
+                if(!this.checkToDateGreaterThanStartDay(dateArr)){
+                    alert("Start date must greater or equal than current day");
+                    return;
+                }
+            }
+
+            if(key === "enddate"){
+                const end = value.split(/-/);
+                const start = campaign['startdate'].split(/-/);
+                if(!this.checkEndDateGreaterThanStartDay(end, start)){
+                    alert("End date must greater or equal than start day");
+                    return;
+                }
             }
 
             if(key === "isLoading" || key === "campPage"){
@@ -235,7 +241,6 @@ render() {
                                                     <div className="input-left">
                                                         <input type="date"
                                                             name="startDay"
-                                                            disabled={this.state.status}
                                                             className="form-control"
                                                             value={this.state.startdate}
                                                             onChange={this.handleChangeStartDay}
