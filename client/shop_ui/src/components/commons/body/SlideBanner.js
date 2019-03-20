@@ -1,7 +1,27 @@
 import React, { Component } from 'react';
-
+import { getBanners } from '../../../api/banner_api';
 class Banner extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            banners: []
+        }
+    }
+
+    componentDidMount() {
+        getBanners().then(res => {
+            this.setState({ banners: [...res.data.banners] });
+        }).catch(err => {
+            console.log(err);
+        })
+    }
+
     render() {
+        let nextBanners;
+        const {banners} = this.state;
+        if (banners.length > 0) {
+            nextBanners = this.state.banners.slice(1, banners.length);
+        }
         return (
             <div className="col-8" id="banner">
                 <div id="carouselExampleIndicators" className="carousel slide" data-ride="carousel">
@@ -11,15 +31,24 @@ class Banner extends Component {
                         <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
                     </ol>
                     <div className="carousel-inner">
-                        <div className="carousel-item active">
-                            <img className="d-block w-100" src="./images/banner-1.jpg" alt="First slide" />
-                        </div>
-                        <div className="carousel-item">
-                            <img className="d-block w-100" src="./images/banner-2.jpg" alt="Second slide" />
-                        </div>
-                        <div className="carousel-item">
-                            <img className="d-block w-100" src="./images/banner-3.jpg" alt="Third slide" />
-                        </div>
+                        {
+                            banners[0] && (
+                                <div className="carousel-item active">
+                                    <img className="d-block w-100" src={ banners[0].campaignimg} alt="Third slide" />
+                                </div>
+                            )
+                        }
+                        {
+                            nextBanners  && (
+                             nextBanners.map((banner, index) => (
+                                    <div key={index} className="carousel-item">
+                                        <img className="d-block w-100" src={banner.campaignimg} alt="Third slide" />
+                                    </div>
+                            ))
+
+                            )
+                        }
+
                     </div>
                     <a className="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
                         <span className="carousel-control-prev-icon" aria-hidden="true"></span>

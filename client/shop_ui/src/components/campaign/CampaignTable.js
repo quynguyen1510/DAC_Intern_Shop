@@ -90,7 +90,7 @@ class CampaignTable extends Component {
                             <th>Title</th>
                             <th>Description</th>
                             <th>URL</th>
-                            <th>Shop</th>
+                            <th>Owner</th>
                             <th>Action</th>
                         </tr>
                     </thead>
