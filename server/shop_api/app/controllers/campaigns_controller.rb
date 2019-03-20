@@ -7,8 +7,26 @@ class CampaignsController < ApplicationController
     # GET '/categories'
   def index 
     @campaigns = Campaign.all.order("id DESC").paginate(page: params[:page], per_page: Constants.record_per_page)
+    result = Array.new
+    @campaigns.each do |campaign|
+      tmp = Hash.new
+      tmp[:id] = campaign.id
+      tmp[:startdate] = campaign.startdate
+      tmp[:enddate] = campaign.enddate
+      tmp[:budget] = campaign.budget
+      tmp[:bid] = campaign.bid
+      tmp[:campaignimg] = campaign.campaignimg
+      tmp[:status] = campaign.status
+      tmp[:name] = campaign.name
+      tmp[:title] = campaign.title
+      tmp[:description] = campaign.description
+      tmp[:final_url] = campaign.final_url
+      tmp[:spend] = campaign.spend 
+      tmp[:shop_email] = campaign.user.email
+      result.push(tmp)
+    end
     json_response({
-      campaigns: @campaigns,
+      campaigns: result,
       total: Campaign.count
     }) 
   end
