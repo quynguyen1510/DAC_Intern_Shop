@@ -97,7 +97,7 @@ class CampaignTable extends Component {
                             campaigns ? (
                                 campaigns.map((camp, index) => (
                                     <tr key={index}>
-                                        <td>{camp.name}</td>
+                                        <td className="pretty-text">{camp.name}</td>
                                         <td>{camp.status ? "Active" : "Non Active"}</td>
                                         <td>{camp.startdate}</td>
                                         <td>{camp.enddate}</td>
@@ -108,8 +108,8 @@ class CampaignTable extends Component {
                                                 alt="creative preview"
                                                 src={camp.campaignimg ? camp.campaignimg : "https://thelyst.com/wp-content/uploads/2015/07/campaign-blog-graphic-01-1080x675.jpg"} />
                                         </td>
-                                        <td>{camp.title}</td>
-                                        <td>{camp.description}</td>
+                                        <td className="pretty-text">{camp.title}</td>
+                                        <td className="pretty-text">{camp.description}</td>
                                         <td>{camp.final_url}</td>
                                         <td>
                                             <Link to={{ 

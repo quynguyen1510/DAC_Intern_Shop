@@ -49,11 +49,11 @@ class ProductTable extends Component {
                         {this.props.listProducts.map((product, index) => {
                             return (
                                 <tr key={index}>
-                                    <td>{product.product_name}</td>
+                                    <td className="pretty-text">{product.product_name}</td>
                                     <td><img className="product-row-img" alt={product.product_name} 
                                             src={product.product_img ? product.product_img : "http://saveabandonedbabies.org/wp-content/uploads/2015/08/default.png"} />
                                     </td>
-                                    <td>{product.product_desc}</td>
+                                    <td className="pretty-text">{product.product_desc}</td>
                                     <td>{product.price}</td>
                                     <td>{product.category_name}</td>
                                     <td className="product-active">{product.active ? "Active" : "Non active"}</td>
