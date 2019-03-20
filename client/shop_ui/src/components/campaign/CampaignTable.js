@@ -85,10 +85,12 @@ class CampaignTable extends Component {
                             <th>End date</th>
                             <th>Budget</th>
                             <th>Bid amount</th>
+                            <th>Spend</th>
                             <th>Creative Preview</th>
                             <th>Title</th>
                             <th>Description</th>
                             <th>URL</th>
+                            <th>Owner</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -103,6 +105,7 @@ class CampaignTable extends Component {
                                         <td>{camp.enddate}</td>
                                         <td>{camp.budget}</td>
                                         <td>{camp.bid}</td>
+                                        <td>{camp.spend ? camp.spend : 0}</td>
                                         <td>
                                             <img className="product-row-img"
                                                 alt="creative preview"
@@ -111,6 +114,7 @@ class CampaignTable extends Component {
                                         <td className="pretty-text">{camp.title}</td>
                                         <td className="pretty-text">{camp.description}</td>
                                         <td>{camp.final_url}</td>
+                                        <td>{camp.shop_email}</td>
                                         <td>
                                             <Link to={{ 
                                                         pathname: `/campaigns/${camp.id}`, 

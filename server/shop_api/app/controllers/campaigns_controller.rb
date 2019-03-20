@@ -3,12 +3,31 @@ class CampaignsController < ApplicationController
     before_action :only_shop_and_admin, only: [:index, :create, :update]
     before_action :only_admin, only: [:destroy]
     before_action :get_shoper, only: [:campaign_by_shoper]
+    skip_before_action :authorize_request, only: [:get_banner]
 
     # GET '/categories'
   def index 
     @campaigns = Campaign.all.order("id DESC").paginate(page: params[:page], per_page: Constants.record_per_page)
+    result = Array.new
+    @campaigns.each do |campaign|
+      tmp = Hash.new
+      tmp[:id] = campaign.id
+      tmp[:startdate] = campaign.startdate
+      tmp[:enddate] = campaign.enddate
+      tmp[:budget] = campaign.budget
+      tmp[:bid] = campaign.bid
+      tmp[:campaignimg] = campaign.campaignimg
+      tmp[:status] = campaign.status
+      tmp[:name] = campaign.name
+      tmp[:title] = campaign.title
+      tmp[:description] = campaign.description
+      tmp[:final_url] = campaign.final_url
+      tmp[:spend] = campaign.spend 
+      tmp[:shop_email] = campaign.user.email
+      result.push(tmp)
+    end
     json_response({
-      campaigns: @campaigns,
+      campaigns: result,
       total: Campaign.count
     }) 
   end
@@ -49,6 +68,46 @@ class CampaignsController < ApplicationController
     json_response(@user.campaigns)
   end
 
+
+  # GET banner
+  def get_banner
+    today = DateTime.now.strftime("%Y-%m-%d")
+    @campaigns = Campaign.all
+    tmpArr = Array.new
+    # get valid campaigns
+    @campaigns.each do |record|
+      if (record.startdate.strftime >= today && 
+          today <= record.enddate.strftime && 
+          record.status && record.budget >= record.bid)
+        tmpArr.push(record)
+      end                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
+    end
+
+    # sort valid campaigns by bid
+    sort_by_budget = tmpArr.sort do |x, y|
+      x[:bid] <=> y[:bid]
+    end
+    sort_by_budget = sort_by_budget.reverse!
+    # get 
+    banners = Array.new
+    sort_by_budget.first(3).each do |element|
+       # account money and save in db
+       new_budget = element.budget - element.bid 
+       if(new_budget >= element.bid)
+         Campaign.find_by(id: element.id).update(budget: new_budget)
+       else
+         Campaign.find_by(id: element.id).update(status: false)
+       end
+       banner = Hash.new 
+       banner[:title] = element.title
+       banner[:campaignimg] = element.campaignimg
+       banner[:final_url] = element.final_url
+       banners.push(banner)
+    end
+    json_response({
+      banners: banners,
+    })
+  end
 
   private
 

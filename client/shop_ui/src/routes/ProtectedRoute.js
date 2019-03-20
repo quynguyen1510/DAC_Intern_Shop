@@ -5,7 +5,6 @@ import HomePage from '../components/Homepage';
 import Profile from '../components/users/Profie';
 import ManageUser from '../components/users/ManageUser';
 import CreateUser from '../components/users/CreateUser';
-// import DeleteUser from '../components/users/DeleteUser';
 import { ADMIN_ROLE, USER_ROLE, SHOPPER_ROLE } from '../util/constant';
 import ManageProduct from '../components/products/ManageProduct';
 import CreateProduct from '../components/products/CreateProduct';
@@ -31,7 +30,6 @@ class ProtectedRoutes extends Component {
                         <Route path="/products/new" component={CreateProduct} />
                         <Route path="/products/:product_id" component={ProductInfor} />
                         <Route path="/users/new" component={CreateUser} />
-                        {/* <Route path="/delete/users/:id" component={DeleteUser} /> */}
                         <Route path="/manage/campaign" component={ManageCampaign} />
                         <Route path="/campaigns/new" component={CreateCampaign} />
                         <Route path="/campaigns/:id" component={CampaignInfor} />
