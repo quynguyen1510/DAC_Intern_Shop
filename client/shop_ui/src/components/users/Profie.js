@@ -21,7 +21,7 @@ class Profile extends Component {
                     <h2> {user.email}</h2>
                     <div className="avatar">
                         {
-                            user.avatar_url !== "null" ? <img className="avatar-default" src={`${user.avatar_url}`} alt="" /> :
+                            user.avatar_url !== null ? <img className="avatar-default" src={`${user.avatar_url}`} alt="" /> :
                                 <img className="avatar-default" src={defaultAvatarUrl} alt="" />
                         }
                     </div>
