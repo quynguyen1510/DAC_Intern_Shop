@@ -187,6 +187,7 @@ class UserForm extends Component {
                             <input type="email"
                                 className="form-control"
                                 name="email"
+                                disabled={updatedUser ? true : false}
                                 value={this.state.email}
                                 onChange={this.handleEmailChange} />
                         </div>
