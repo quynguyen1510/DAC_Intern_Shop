@@ -3,8 +3,10 @@ import { Link } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
 import { Modal } from 'react-bootstrap';
 import { getUsers, deleteUser } from '../../api/user_api';
-import { RECORD_PER_PAGE } from '../../util/constant';
+import { RECORD_PER_PAGE, ADMIN_ROLE } from '../../util/constant';
 import {withRouter} from 'react-router';
+var jwt_decode = require('jwt-decode');
+
 class UserTable extends Component {
 
     constructor(props) {
@@ -75,7 +77,7 @@ class UserTable extends Component {
 
     render() {
         const { numPages, users } = this.state;
-        
+        const current_user_id = jwt_decode(localStorage.getItem("token")).user_id
         return (
             <div>
                 <table className="table table-hover">
@@ -101,13 +103,17 @@ class UserTable extends Component {
                                             <td>{user.active ? "Active" : "Non active"}</td>
                                             <td>
                                                 {
+                                                    ((current_user_id !== user.id && user.role_id !== ADMIN_ROLE) 
+                                                        || current_user_id === user.id) && 
                                                     <Link to={{
                                                         pathname: `/profile/users/${user.id}`,
                                                         state: {
                                                             user: user,
                                                             page: this.state.currentPage
                                                         }
-                                                    }} className="btn btn-primary btnEditUser">Edit</Link>
+                                                    }} className="btn btn-primary btnEditUser">
+                                                    Edit
+                                                    </Link>
                                                 }
                                                 {
                                                     this.getUserRole(user.role_id) !== "ADMIN" ? <Button onClick={() => { this.handleShow(index) }} className="btn btn-danger btnDeleteUser">Delete</Button> : null
