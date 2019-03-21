@@ -76,7 +76,7 @@ class CampaignsController < ApplicationController
     tmpArr = Array.new
     # get valid campaigns
     @campaigns.each do |record|
-      if (record.startdate.strftime >= today && 
+      if (record.startdate.strftime <= today &&
           today <= record.enddate.strftime && 
           record.status && record.budget >= record.bid)
         tmpArr.push(record)
@@ -93,8 +93,14 @@ class CampaignsController < ApplicationController
     sort_by_budget.first(3).each do |element|
        # account money and save in db
        new_budget = element.budget - element.bid 
+       # account spend
+       if(element.spend.nil?)
+         new_spend = element.bid
+       else
+         new_spend = element.spend + element.bid
+       end
        if(new_budget >= element.bid)
-         Campaign.find_by(id: element.id).update(budget: new_budget)
+         Campaign.find_by(id: element.id).update(budget: new_budget, spend: new_spend) 
        else
          Campaign.find_by(id: element.id).update(status: false)
        end
