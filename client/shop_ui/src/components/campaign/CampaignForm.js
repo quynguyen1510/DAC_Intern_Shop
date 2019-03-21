@@ -124,7 +124,7 @@ class FormCreateCampaign extends Component {
 
             campaign[`${key}`] = String(value);
         }
-        // campaign["bid"] = String(BID_AMOUNT);
+        campaign["bid"] = this.state.bid;
         campaign['user_id'] = String(user_id);
         //send request
         if (this.props.currentCampaign) {
