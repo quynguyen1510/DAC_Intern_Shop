@@ -37,7 +37,7 @@ class CampaignsController < ApplicationController
     data = campaign_params
     @campaign = Campaign.create!(data)
     response = {
-      product: @campaign,
+      campaign: @campaign,
       message: Message.campaign_created 
     }
     json_response(response, :created)

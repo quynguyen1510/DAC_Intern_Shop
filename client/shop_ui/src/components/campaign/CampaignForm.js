@@ -15,7 +15,7 @@ class FormCreateCampaign extends Component {
             status: currentCampaign ? currentCampaign.status : CAMPAIGN_ACTIVE,
             startdate: currentCampaign ? currentCampaign.startdate : '',
             enddate: currentCampaign ? currentCampaign.enddate : '',
-            bid: currentCampaign ? currentCampaign.bid : '',
+            bid: currentCampaign ? currentCampaign.bid : BID_AMOUNT,
             budget: currentCampaign ? currentCampaign.budget : '',
             title: currentCampaign ? currentCampaign.title : '',
             description: currentCampaign ? currentCampaign.description : '',
@@ -247,6 +247,7 @@ render() {
                                                         <input type="date"
                                                             name="startDay"
                                                             className="form-control"
+                                                            disabled={this.props.currentCampaign ? true : false}
                                                             value={this.state.startdate}
                                                             onChange={this.handleChangeStartDay}
                                                         />
@@ -331,7 +332,7 @@ render() {
                                                             name="bid"
                                                             placeholder="Bidding Amount"
                                                             min={10}
-                                                            defaultValue={10}
+                                                            value={this.state.bid}
                                                             onChange={this.handleChangeBid}
                                                             className="form-control" />
                                                     </div>
