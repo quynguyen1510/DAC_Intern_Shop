@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { getCampaigns, deleteCampaign } from '../../api/campaign_api';
-import { RECORD_PER_PAGE } from '../../util/constant';
+import { getCampaigns, deleteCampaign, getCampaignsByShop } from '../../api/campaign_api';
+import { RECORD_PER_PAGE, ADMIN_ROLE, SHOPPER_ROLE } from '../../util/constant';
 import { Modal, Button } from 'react-bootstrap';
 import {withRouter} from 'react-router';
+var jwt_decode = require('jwt-decode');
+
 class CampaignTable extends Component {
     constructor(props) {
         super(props);
@@ -40,20 +42,38 @@ class CampaignTable extends Component {
     }
 
     componentDidMount() {
+        const {role_id, user_id} = jwt_decode(localStorage.getItem("token"));
         if(this.state.campaigns.length === 0){
-            getCampaigns(this.state.currentPage).then(res => {
-                this.setState({ campaigns: [...res.data.campaigns], total: res.data.total });
-                let numPages = 0;
-                if (res.data.total % RECORD_PER_PAGE !== 0) {
-                    numPages = Array(Math.floor(res.data.total / RECORD_PER_PAGE) + 1).fill();
-                }
-                else {
-                    numPages = Array(Math.floor(res.data.total / RECORD_PER_PAGE)).fill();
-                }
-                this.setState({numPages: numPages})
-            }).catch(err => {
-                console.log(err);
-            })
+            if(role_id === ADMIN_ROLE){
+                getCampaigns(this.state.currentPage).then(res => {
+                    this.setState({ campaigns: [...res.data.campaigns], total: res.data.total });
+                    let numPages = 0;
+                    if (res.data.total % RECORD_PER_PAGE !== 0) {
+                        numPages = Array(Math.floor(res.data.total / RECORD_PER_PAGE) + 1).fill();
+                    }
+                    else {
+                        numPages = Array(Math.floor(res.data.total / RECORD_PER_PAGE)).fill();
+                    }
+                    this.setState({numPages: numPages})
+                }).catch(err => {
+                    console.log(err);
+                })
+            }
+            else if(role_id === SHOPPER_ROLE){
+                getCampaignsByShop(this.state.currentPage, user_id).then(res => {
+                    this.setState({ campaigns: [...res.data.campaigns], total: res.data.total });
+                    let numPages = 0;
+                    if (res.data.total % RECORD_PER_PAGE !== 0) {
+                        numPages = Array(Math.floor(res.data.total / RECORD_PER_PAGE) + 1).fill();
+                    }
+                    else {
+                        numPages = Array(Math.floor(res.data.total / RECORD_PER_PAGE)).fill();
+                    }
+                    this.setState({numPages: numPages})
+                }).catch(err => {
+                    console.log(err);
+                })
+            }
        }
     }
 

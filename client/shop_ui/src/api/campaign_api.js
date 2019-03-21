@@ -18,6 +18,18 @@ export async function getCampaigns(page){
     }
 }
 
+export async function getCampaignsByShop(page, shop_id){
+    const url = `${HEROKU_API_URL}/campaigns/shop/${shop_id}?page=${page}`;
+    const cfHeader = configHeader();
+    try{
+       return axios.get(url, {headers: cfHeader})
+    }
+    catch(err){
+        console.log(err)
+    }
+}
+
+
 export async function update(campaign, id){
     const url = `${HEROKU_API_URL}/campaigns/${id}`;
     return await axios.put(url, campaign, {headers: configHeader()});
