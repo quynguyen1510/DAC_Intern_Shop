@@ -63,7 +63,7 @@ class CampaignsController < ApplicationController
     json_response({ message: Message.campaign_removed})
   end
   
-   #GET /campaigns/shop/:user_id
+   #GET /shop/campaigns/:user_id
   def campaign_by_shoper
     @campaigns = @user.campaigns.order("id DESC").paginate(page: params[:page], per_page: Constants.record_per_page)
     result = Array.new
@@ -86,7 +86,7 @@ class CampaignsController < ApplicationController
     end
     json_response({
       campaigns: result,
-      total: Campaign.count
+      total: @user.campaigns.count
     }) 
   end
 
