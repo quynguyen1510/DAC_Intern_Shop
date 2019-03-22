@@ -59,7 +59,7 @@ class ProductTable extends Component {
                                     <td className="product-active">{product.active ? "Active" : "Non active"}</td>
                                     <td>
                                         <Link to={{pathname: `/products/${product.id}`, state: {product: product} }} className="btn btn-primary btnEditUser">Edit</Link>
-                                        <Button  onClick={() => {this.handleShow(product.id)}} className="btn btn-danger btnDeleteUser">Delete</Button>
+                                        <Button  onClick={() => {this.handleShow(product.id)}} disabled={product.active ? false : true} className="btn btn-danger btnDeleteUser">Delete</Button>
                                     </td>
                                 </tr>
                             )
