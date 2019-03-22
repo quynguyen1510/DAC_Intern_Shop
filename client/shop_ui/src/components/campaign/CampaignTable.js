@@ -143,7 +143,7 @@ class CampaignTable extends Component {
                                                   className="btn btn-primary btnEditUser">
                                                   Edit
                                             </Link>
-                                            <Button onClick={() => {this.handleShow(index)}} className="btn btn-danger btnDeleteUser">Delete</Button>
+                                            <Button onClick={() => {this.handleShow(index)}} disabled={camp.status ? false : true} className="btn btn-danger btnDeleteUser">Delete</Button>
                                         </td>
                                     </tr>
                                 ))
