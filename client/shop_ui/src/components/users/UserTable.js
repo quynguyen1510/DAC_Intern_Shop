@@ -116,9 +116,8 @@ class UserTable extends Component {
                                                     </Link>
                                                 }
                                                 {
-                                                    this.getUserRole(user.role_id) !== "ADMIN" ? <Button onClick={() => { this.handleShow(index) }} className="btn btn-danger btnDeleteUser">Delete</Button> : null
+                                                    this.getUserRole(user.role_id) !== "ADMIN" ? <Button onClick={() => { this.handleShow(index) }} disabled={user.active ? false : true} className="btn btn-danger btnDeleteUser">Delete</Button> : null
                                                 }
-                                              
                                             </td>
                                         </tr> 
                                     ))
