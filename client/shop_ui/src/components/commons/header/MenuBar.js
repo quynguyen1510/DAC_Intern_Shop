@@ -9,7 +9,7 @@ class Menu extends Component {
     constructor(props) {
         super(props);
         this.state = {
-           currentUser: null
+            currentUser: null
         };
     }
 
@@ -21,9 +21,9 @@ class Menu extends Component {
     componentDidMount = () => {
         const { user_id } = jwt_decode(localStorage.getItem("token"));
 
-        if(!this.state.currentUser){
+        if (!this.state.currentUser) {
             getUserById(user_id).then(res => {
-                this.setState({currentUser: res.data});
+                this.setState({ currentUser: res.data });
             }).catch(err => {
                 console.log(err);
             })
@@ -31,7 +31,7 @@ class Menu extends Component {
     }
 
     render() {
-        const { currentUser} = this.state;
+        const { currentUser } = this.state;
         return (
             <div>
                 <div className="menu-bar container-fluid clearfix">
@@ -40,6 +40,11 @@ class Menu extends Component {
                         <div className="dropdown" id="dropMenu">
                             <a href="#none" data-toggle="dropdown">{currentUser ? (currentUser.first_name + currentUser.last_name) : ""}</a>
                             <ul className="dropdown-menu">
+                                <li className="dropdown-item dropdown-custome">
+                                    <Link to={{
+                                        pathname: `/`,
+                                    }} >Trang Chủ</Link>
+                                </li>
                                 <li className="dropdown-item dropdown-custome">
                                     {
                                         currentUser ? <Link to={{
@@ -58,15 +63,15 @@ class Menu extends Component {
                                 <li className="dropdown-item dropdown-custome">
                                     {
                                         currentUser &&
-                                        ((currentUser.role_id === ADMIN_ROLE || currentUser.role_id === SHOPPER_ROLE) ? 
-                                        <Link to="/manage/products" >Quản lý sản phẩm</Link> : null) 
+                                        ((currentUser.role_id === ADMIN_ROLE || currentUser.role_id === SHOPPER_ROLE) ?
+                                            <Link to="/manage/products" >Quản lý sản phẩm</Link> : null)
                                     }
                                 </li>
                                 <li className="dropdown-item dropdown-custome">
                                     {
                                         currentUser &&
-                                        ((currentUser.role_id === ADMIN_ROLE || currentUser.role_id === SHOPPER_ROLE) ? 
-                                        <Link to="/manage/campaign" >Quản lý chiến dịch</Link> : null) 
+                                        ((currentUser.role_id === ADMIN_ROLE || currentUser.role_id === SHOPPER_ROLE) ?
+                                            <Link to="/manage/campaign" >Quản lý chiến dịch</Link> : null)
                                     }
                                 </li>
                                 <li className="dropdown-item dropdown-custome">
