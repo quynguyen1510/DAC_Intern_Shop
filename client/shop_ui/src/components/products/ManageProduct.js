@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import ProductTable from './ProductTable';
-import Navbar from '../commons/header/Navbar';
+import MenuBar from '../commons/header/MenuBar';
 import { Link } from 'react-router-dom';
 import { getListProduct, getProductByShop } from '../../api/product_api';
 import { SHOPPER_ROLE, RECORD_PER_PAGE } from '../../util/constant';
@@ -88,7 +88,7 @@ class ManageProduct extends Component {
         const { numPages } = this.state;
         return (
             <div>
-                <Navbar />
+                <MenuBar />
                 <div className="page">
                     <div>
                         <Link to="/products/new" className="btn btn-default" id="btnCreateUser">Create Product</Link>
