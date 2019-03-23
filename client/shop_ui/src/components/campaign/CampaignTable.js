@@ -120,7 +120,12 @@ class CampaignTable extends Component {
                                 campaigns.map((camp, index) => (
                                     <tr key={index}>
                                         <td className="pretty-text">{camp.name}</td>
-                                        <td>{camp.status ? "Active" : "Non Active"}</td>
+                                        <td>
+                                            {camp.status ? 
+                                                <img className="banner-campaign" src="https://i.imgur.com/JuPGxJR.png" alt="active"/> :
+                                                <img className="banner-campaign" src="https://imgur.com/qEK8sFP.png" alt="non active"/>
+                                            }
+                                        </td>
                                         <td>{camp.startdate}</td>
                                         <td>{camp.enddate}</td>
                                         <td>{camp.budget}</td>
@@ -143,7 +148,12 @@ class CampaignTable extends Component {
                                                   className="btn btn-primary btnEditUser">
                                                   Edit
                                             </Link>
-                                            <Button onClick={() => {this.handleShow(index)}} className="btn btn-danger btnDeleteUser">Delete</Button>
+                                            {
+                                                camp.status && 
+                                                <Button onClick={() => {this.handleShow(index)}} 
+                                                    className="btn btn-danger btnDeleteUser">
+                                                Delete</Button>
+                                            }
                                         </td>
                                     </tr>
                                 ))

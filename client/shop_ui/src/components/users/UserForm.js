@@ -132,7 +132,7 @@ class UserForm extends Component {
         }
         else {
             create(userInfo).then(res => {
-                alert(res.data.message);
+                alert("Create successfully");
                 this.props.history.push("/manage/users");
             }).catch(err => {
                 alert("Can not create " + userInfo.first_name);
@@ -224,8 +224,8 @@ class UserForm extends Component {
                                     className="form-control"
                                     value={this.state.role_id}>
                                     <option value="1">Admin</option>
-                                    <option value="2">User</option>
-                                    <option value="3">Shoper</option>
+                                    <option value="2">Shoper</option>
+                                    <option value="3">User</option>
                                 </select>
                             </div>
                         </div> : null

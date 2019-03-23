@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router';
 import defaultAvatarUrl from '../default_avatar.png'
 import UserForm from './UserForm';
-import Navbar from '../commons/header/Navbar';
+import Header from '../commons/header/Header';
 
 class Profile extends Component {
     constructor(props) {
@@ -16,7 +16,7 @@ class Profile extends Component {
         const { user, page } = this.state;
         return (
             <div>
-                <Navbar />
+                <Header />
                 <div className="profile">
                     <h2> {user.email}</h2>
                     <div className="avatar">

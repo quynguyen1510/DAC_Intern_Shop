@@ -34,7 +34,9 @@ class Banner extends Component {
                         {
                             banners[0] && (
                                 <div className="carousel-item active">
+                                    <a href={banners[0].final_url} target="_blank" alt="banner link">
                                     <img className="d-block w-100" src={ banners[0].campaignimg} alt="Third slide" />
+                                    </a>
                                 </div>
                             )
                         }
@@ -42,7 +44,9 @@ class Banner extends Component {
                             nextBanners  && (
                              nextBanners.map((banner, index) => (
                                     <div key={index} className="carousel-item">
-                                        <img className="d-block w-100" src={banner.campaignimg} alt="Third slide" />
+                                        <a href={banner.final_url} alt="banner link" target="_blank">
+                                            <img className="d-block w-100" src={banner.campaignimg} alt="Third slide" />
+                                        </a>
                                     </div>
                             ))
 

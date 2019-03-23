@@ -50,7 +50,7 @@ class ProductsController < ApplicationController
   def update 
     protected_params = Hash.new
     product_params.each do |attr_name, attr_value|
-      protected_params[attr_name.to_sym] = attr_value unless attr_value.empty?
+      protected_params[attr_name.to_sym] = attr_value unless attr_value.nil?
     end
     @product.update(protected_params)
     response = {

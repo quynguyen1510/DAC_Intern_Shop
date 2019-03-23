@@ -147,7 +147,7 @@ class FormCreateCampaign extends Component {
                     alert(res.data.message);
                     this.props.history.push("/manage/campaign");
                 }).then(err => {
-                    
+                    console.log(err)
                 })
             }
             catch (err) {

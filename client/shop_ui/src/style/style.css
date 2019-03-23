@@ -503,6 +503,12 @@ a.back:hover {
     color: white;
     background: #083B4C;
 }
+
+.banner-campaign {
+    width: 32px;
+    height:  32px;
+}
+
 /* ===End campaign=== */
 
 /* ===Manage User=== */

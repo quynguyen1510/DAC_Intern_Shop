@@ -12,48 +12,26 @@ class FormCreateProduct extends Component {
         super(props);
         this.state = {
             // value 
-            product_name: '',
-            product_desc: '',
-            price: '',
+            product_name: this.props.currentProduct ? this.props.currentProduct.product_name : '',
+            product_desc: this.props.currentProduct ? this.props.currentProduct.product_desc : '',
+            price: this.props.currentProduct ? this.props.currentProduct.price : '',
             category_id: this.props.currentProduct ? this.props.currentProduct.category_id : 1,
-            product_img: '',
+            product_img: this.props.currentProduct ? this.props.currentProduct.product_img : '',
 
-            // error
-            nameError: '',
-            descError: '',
-            priceError: '',
-
-            message: '',
             isLoading: false,
             shouldShow: false
         }
     }
 
-    validateNameProduct = () => {
-        this.setState({ nameError: (this.state.product_name.length === 0 ? "Product Name can't be blank" : "") });
-    }
-
-    validateDescProduct = () => {
-        this.setState({ descError: (this.state.product_desc.length === 0 ? "Product Description can't be blank" : "") })
-    }
-
-    validatePrice = () => {
-        this.setState({ priceError: (Number(this.state.price) === 0 ? "Product price can't be blank" : "") })
-    }
-
-
     handleProductNameChange = event => {
-        this.setState({ nameError: ""});
         this.setState({ product_name: event.target.value });
     }
 
     handleProductDescChange = event => {
-        this.setState({descError: ""});
         this.setState({ product_desc: event.target.value });
     }
 
     handlePriceChange = event => {
-        this.setState({priceError: ""});
         this.setState({ price: event.target.value });
     }
 
@@ -71,58 +49,69 @@ class FormCreateProduct extends Component {
             console.log(err)
         })
     }
-    handleSubmit = () => {
-        const { product_name, product_desc, price, category_id, product_img } = this.state;
-        const shouldUpdate = product_name.length > 0 || product_desc.length > 0 || price.length > 0 || product_img.length > 0;
-        const shouldCreate = product_name.length > 0 && product_desc.length > 0 && price.length > 0;
-        const token = localStorage.getItem("token");
-        const payload = jwt_decode(token);
-        const product = {
-            "product_name": `${product_name}`,
-            "product_desc": `${product_desc}`,
-            "price": `${price}`,
-            "product_img": `${product_img}`,
-            "category_id": `${category_id ? category_id : 1}`,
-            "user_id": `${payload.user_id}`
+    handleSubmit = (event) => {
+        event.preventDefault();
+        const product = {};
+        const attributes = Object.keys(this.state);
+
+        for(let index in attributes){
+            const key = attributes[index];
+            let value = this.state[`${attributes[index]}`];
+            if(key === "isLoading" || key === "shouldShow"){
+                continue;
+            }
+
+            if(key === "price" && Number(value) <= 0){
+                alert("Invalid price. It must be greater than 0");
+                return;
+            }
+
+            if (value === "" && key !== "product_img") {
+                alert("You must type " + key);
+                return;
+            }
+
+            product[`${key}`] = value;
         }
-        if (this.props.currentProduct === undefined) {
-
-            if (!shouldCreate) {
-                alert("You must input the information");
-                return;
-            }
-
+        const token = localStorage.getItem("token");
+        if(this.props.currentProduct){
+           if(!this.checkObjectEqual( product, this.props.currentProduct)){
+               updateProduct(token, product,this.props.currentProduct.id).then(res => {
+                   alert(res.data.message);
+                   this.backToPreviousPage();
+               }).catch(err => {
+                    alert("Can not update " + product.product_name);
+                    return;
+               })
+               //this.backToPreviousPage();
+           }
+           else{
+              alert("You must update something new");
+           }
+        }
+        else{
+            product[`user_id`] = jwt_decode(token).user_id
             addNewProduct(token, product).then(res => {
-                this.setState({ message: res.data.message, shouldShow: true })
+                alert(res.data.message);
+                this.backToPreviousPage();
             }).catch(err => {
-                console.log(err)
-            });
-
-            // clear text and can redirect
-            this.setState({
-                shouldRedirect: true,
-            });
-        } else {
-            if (!shouldUpdate) {
-                alert("You must change something");
+                alert("Can not create " + product.product_name);
                 return;
-            }
-
-            updateProduct(token, product, this.props.currentProduct.id).then(res => {
-                console.log(res.data.message)
-                this.setState({
-                    product_name: res.data.product.product_name,
-                    product_desc: res.data.product.product_desc,
-                    product_img: res.data.product.product_img,
-                    price: res.data.product.price,
-                    category_id: res.data.product.category_id,
-                    message: res.data.message,
-                    shouldShow: true
-                })
-            }).catch(err => {
-                console.log(err)
             })
         }
+    }
+
+    checkObjectEqual(a, b) {
+        const aProps = Object.getOwnPropertyNames(a);
+        for (var i = 0; i < aProps.length; i++) {
+            var propName = aProps[i];
+            // If values of same property are not equal,
+            // objects are not equivalent
+            if (String(a[propName]) !== String(b[propName])) {
+                return false;
+            }
+        }
+        return true;
     }
 
     backToPreviousPage = ()=> {
@@ -136,19 +125,16 @@ class FormCreateProduct extends Component {
 
         return (
             <div>
-                <form encType="multipart/form-data">
+                <form encType="multipart/form-data" onSubmit={this.handleSubmit} >
                     <div className="form-group row justify-content-center">
                         <div className="col-sm-6">
                             <label className="col-form-label">Product Name</label>
                             <input type="text"
                                 name="product_name"
-                                defaultValue={currentProduct ? currentProduct.product_name : this.state.product_name}
+                                value={this.state.product_name}
                                 className="form-control"
-                                onChange={this.handleProductNameChange}
-                                onBlur={this.validateNameProduct}
-                            />
+                                onChange={this.handleProductNameChange}/>
                         </div>
-                        <div className="invalid-feedback">{this.state.nameError}</div>
                     </div>
 
                     <div className="form-group row justify-content-center">
@@ -157,12 +143,11 @@ class FormCreateProduct extends Component {
                             <input onChange={this.handleProductDescChange}
                                 type="text"
                                 name="product_desc"
-                                defaultValue={currentProduct ? currentProduct.product_desc : this.state.product_desc}
-                                className="form-control"
-                                onBlur={this.validateDescProduct} />
-                            <div className="invalid-feedback">{this.state.descError}</div>
+                                value={this.state.product_desc}
+                                className="form-control"/>
                         </div>
                     </div>
+
                     <div className="form-group row justify-content-center">
                         <div className="col-sm-6">
                             <label className="col-form-label">Product Price</label>
@@ -170,10 +155,8 @@ class FormCreateProduct extends Component {
                                 type="number"
                                 className="form-control"
                                 name="price"
-                                onBlur={this.validatePrice}
-                                defaultValue={currentProduct ? currentProduct.price : this.state.price} />
+                                value={this.state.price} />
                         </div>
-                        <div className="invalid-feedback">{this.state.priceError}</div>
                     </div>
 
                     <div className="form-group row justify-content-center">
@@ -226,7 +209,7 @@ class FormCreateProduct extends Component {
                           className="btn btn-primary update-profile-button">
                         {currentProduct ? "Update" : "Create"}
                     </button>
-                    <button className="btn btn-link update-profile-button" onClick={this.backToPreviousPage}>Back to list</button>
+                    <button className="btn btn-link update-profile-button">Back to list</button>
                 </div>
                 {
                     this.state.message && (

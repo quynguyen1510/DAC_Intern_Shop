@@ -25,9 +25,9 @@ class UserTable extends Component {
             case 1:
                 return "ADMIN";
             case 2:
-                return "USER";
+                return "SHOPER";
             default:
-                return "SHOPER"
+                return "USER"
         }
     }
 
@@ -100,7 +100,11 @@ class UserTable extends Component {
                                             <td>{user.last_name}</td>
                                             <td>{user.email}</td>
                                             <td>{this.getUserRole(user.role_id)}</td>
-                                            <td>{user.active ? "Active" : "Non active"}</td>
+                                            <td>
+                                            {user.active ? 
+                                                <img className="banner-campaign" src="https://i.imgur.com/JuPGxJR.png" alt="active"/> :
+                                                 <img className="banner-campaign" src="https://imgur.com/qEK8sFP.png" alt="non active"/>}
+                                            </td>
                                             <td>
                                                 {
                                                     ((current_user_id !== user.id && user.role_id !== ADMIN_ROLE) 
@@ -116,7 +120,11 @@ class UserTable extends Component {
                                                     </Link>
                                                 }
                                                 {
-                                                    this.getUserRole(user.role_id) !== "ADMIN" ? <Button onClick={() => { this.handleShow(index) }} className="btn btn-danger btnDeleteUser">Delete</Button> : null
+                                                    (this.getUserRole(user.role_id) !== "ADMIN" &&
+                                                    user.active) &&
+                                                    <Button onClick={() => { this.handleShow(index) }}
+                                                     className="btn btn-danger btnDeleteUser">
+                                                     Delete</Button>
                                                 }
                                               
                                             </td>

@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import CampaignTable from './CampaignTable';
-import Navbar from '../commons/header/Navbar';
+import Header from '../commons/header/Header';
 
 class ManageCampaign extends Component {
 
     render() {
         return (
             <div>
-                <Navbar />
+                <Header />
                 <div className="page">
                     <CampaignTable />
                 </div>

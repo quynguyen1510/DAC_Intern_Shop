@@ -56,10 +56,19 @@ class ProductTable extends Component {
                                     <td className="pretty-text">{product.product_desc}</td>
                                     <td>{product.price}</td>
                                     <td>{product.category_name}</td>
-                                    <td className="product-active">{product.active ? "Active" : "Non active"}</td>
+                                    <td className="product-active">
+                                        {product.active ?   
+                                        <img className="banner-campaign" src="https://i.imgur.com/JuPGxJR.png" alt="active"/> :
+                                        <img className="banner-campaign" src="https://imgur.com/qEK8sFP.png" alt="non active"/>}
+                                    </td>
                                     <td>
                                         <Link to={{pathname: `/products/${product.id}`, state: {product: product} }} className="btn btn-primary btnEditUser">Edit</Link>
-                                        <Button  onClick={() => {this.handleShow(product.id)}} className="btn btn-danger btnDeleteUser">Delete</Button>
+                                        {
+                                            product.active && 
+                                            <Button  onClick={() => {this.handleShow(product.id)}} 
+                                                    className="btn btn-danger btnDeleteUser">
+                                            Delete</Button>
+                                        }
                                     </td>
                                 </tr>
                             )
