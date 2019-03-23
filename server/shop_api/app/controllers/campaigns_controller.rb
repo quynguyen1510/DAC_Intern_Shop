@@ -113,24 +113,22 @@ class CampaignsController < ApplicationController
     # get 
     banners = Array.new
     sort_by_budget.first(3).each do |element|
-       # account money and save in db
-       new_budget = element.budget - element.bid 
        # account spend
        if(element.spend.nil?)
          new_spend = element.bid
        else
          new_spend = element.spend + element.bid
        end
-       if(new_budget >= element.bid)
-         Campaign.find_by(id: element.id).update(budget: new_budget, spend: new_spend) 
+       if(new_spend <= element.budget)
+         Campaign.find_by(id: element.id).update(spend: new_spend) 
+         banner = Hash.new 
+         banner[:title] = element.title
+         banner[:campaignimg] = element.campaignimg
+         banner[:final_url] = element.final_url
+         banners.push(banner)
        else
          Campaign.find_by(id: element.id).update(status: false)
        end
-       banner = Hash.new 
-       banner[:title] = element.title
-       banner[:campaignimg] = element.campaignimg
-       banner[:final_url] = element.final_url
-       banners.push(banner)
     end
     json_response({
       banners: banners,
