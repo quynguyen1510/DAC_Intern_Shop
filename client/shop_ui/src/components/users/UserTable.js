@@ -25,9 +25,9 @@ class UserTable extends Component {
             case 1:
                 return "ADMIN";
             case 2:
-                return "SHOPER";
+                return "USER";
             default:
-                return "USER"
+                return "SHOPER"
         }
     }
 

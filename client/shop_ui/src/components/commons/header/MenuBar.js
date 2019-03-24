@@ -36,7 +36,7 @@ class Menu extends Component {
             <div>
                 <div className="menu-bar container-fluid clearfix">
                     <div className="nav-avatar float-right">
-                        <img src={currentUser ? currentUser.avatar_url : "https://img.icons8.com/dusk/64/000000/gender-neutral-user.png"} alt="Avatar" id="avatar" />
+                        <img src={currentUser && currentUser.avatar_url ? currentUser.avatar_url : "https://img.icons8.com/dusk/64/000000/gender-neutral-user.png"} alt="Avatar" id="avatar" />
                         <div className="dropdown" id="dropMenu">
                             <a href="#none" data-toggle="dropdown">{currentUser ? (currentUser.first_name + currentUser.last_name) : ""}</a>
                             <ul className="dropdown-menu">

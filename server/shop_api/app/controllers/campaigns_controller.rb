@@ -150,7 +150,6 @@ class CampaignsController < ApplicationController
   end
 
   def only_shop_and_admin
-    puts "======#{is_shop?(@current_user)}"
     json_response({ message: "Don't have permission"}, :forbidden) unless is_shop?(@current_user) || is_admin?(@current_user)
   end
 
