@@ -66,4 +66,12 @@ class Message
     "Campaign has been disable"
   end
 
+  def self.order_created
+    "Order created successfully"
+  end
+
+  def self.order_updated
+    "Order update successfully"
+  end
+
 end

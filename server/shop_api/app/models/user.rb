@@ -5,6 +5,7 @@ class User < ApplicationRecord
   belongs_to :role
   has_many :products
   has_many :campaigns
+  has_many :orders
   # validations
   validates_presence_of :first_name, :last_name, :email, :password_digest
   validates_uniqueness_of :email
