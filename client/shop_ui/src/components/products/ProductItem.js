@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import { Link } from 'react-router-dom';
 class ProductItem extends Component {
     render() {
         const {product} = this.props;
@@ -7,16 +7,15 @@ class ProductItem extends Component {
             <div className="col-md-3 col-sm-12 col-xs-12 mb-2 col-cus">
                 <div className="product-item">
                     <div className="pi-img-wrapper">
-                        <a href="#none">
+                        <Link to={{pathname: `/products/${product.id}`, state: { product: product}}}>
                             <img src={product.product_img} className="img-responsive" alt="Berry Lace Dress" />
-                        </a>
+                        </Link>
                     </div>
-                    <a href="#none" className="item-name">
+                    <Link to={{pathname: `/products/${product.id}`, state: { product: product}}} className="item-name">
                         <h3 className="text-center">{product.product_name}</h3>
-                    </a>
+                    </Link>
                     <div className="inforItem">
                         <p className="item-price">{product.price}</p>
-                        <a href="#none" className="btn add-cart">Add to cart</a>
                     </div>
                 </div>
             </div>
