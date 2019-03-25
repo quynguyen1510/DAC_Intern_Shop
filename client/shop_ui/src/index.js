@@ -6,6 +6,7 @@ import { BrowserRouter } from 'react-router-dom';
 import ProtectedRoutesContainer from './routes/ProtectedRoute';
 
 
+
 ReactDOM.render(
     <BrowserRouter >
         <ProtectedRoutesContainer />
