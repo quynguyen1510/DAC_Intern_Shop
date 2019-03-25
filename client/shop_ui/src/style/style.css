@@ -754,6 +754,28 @@ ul.nav-tabs li.active {
 }
 /*======== END========*/
 
+/*========= CART PAGE==========*/
+.button-cart {
+    float: right;
+    margin-right: 10rem;
+}
+
+.total-price p{
+    color: tomato;
+    margin-left: 0.5rem;
+}
+
+.total-price {
+    float: right;
+    text-align: center;
+    font-size: 1.2rem;
+
+}
+
+.clear {
+    clear: both;
+}
+/*======== END========*/
 
 /* ===End Form=== */
 /* ========================== */

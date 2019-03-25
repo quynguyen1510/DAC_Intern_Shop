@@ -14,6 +14,7 @@ import ManageCampaign from '../components/campaign/ManageCampaign';
 import CreateCampaign from '../components/campaign/CreateCampaign';
 import CampaignInfor from '../components/campaign/CampaignInfor';
 import ProductDetail from '../components/products/ProductDetail';
+import CartDetail from '../components/cart/CartDetail';
 var jwt_decode = require('jwt-decode');
 
 class ProtectedRoutes extends Component {
@@ -70,6 +71,7 @@ class ProtectedRoutes extends Component {
                 <Route path="/" exact component={() => <HomePage />} />
                 <Route path="/categories/:id" component={ProductsByCategory}/>
                 <Route path="/products/:id" component={ProductDetail} />
+                <Route path="/carts" component={CartDetail} />
                 {this.getRoute()}
             </Switch>
 

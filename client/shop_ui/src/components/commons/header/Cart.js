@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+
 class Cart extends Component {
     constructor(props){
         super(props);
@@ -22,9 +24,9 @@ class Cart extends Component {
     render() {
         return (
             <div className="col-md-1 nav-cart">
-                <a href="#">
+                <Link to="/carts">
                     <img src="https://img.icons8.com/ios/50/000000/add-shopping-cart.png" alt="Giỏ hàng" />
-                </a>
+                </Link>
                 <p className="cart-number">                     
                     {
                         `(${this.state.numberItems})`
