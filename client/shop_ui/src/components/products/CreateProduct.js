@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import ProductForm from './ProductForm';
-import Navbar from '../commons/header/Navbar';
+import Header from '../commons/header/Header';
 import { getCategories } from '../../api/product_api';
 
 class FormCreateProduct extends Component {
@@ -21,7 +21,7 @@ class FormCreateProduct extends Component {
     render() {
         return (
             <div className="detail">
-              <Navbar /> 
+              <Header /> 
             <h2 className="text-center"> Create New Product</h2>
             <div className="inputForm">
                 <ProductForm categories={this.state.categories}/>

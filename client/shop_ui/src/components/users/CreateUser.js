@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import UserForm from './UserForm';
-import Navbar from '../commons/header/Navbar';
+import Header from '../commons/header/Header';
 
 class FormCreateUser extends Component {
     render() {
         return (
             <div className="profile">
-                <Navbar />
+                <Header />
                 <h2> Create New User</h2>
                 <div className="inputForm">
                     < UserForm />
