@@ -13,10 +13,13 @@ class OrdersController < ApplicationController
   def create
     data = order_params
     @order = Order.create!(data)
-    @order_details = @order.order_detail.create!(quantity: 1, product_id: 128)
+    detail_list = []
+    params[:products_list].each do |product_params|
+      detail_list << @order.order_detail.create!(select_permited(product_params))
+    end
     response = {
       order: @order,
-      order_details: @order_details,
+      order_details: detail_list,
       message: Message.order_created 
     }
     json_response(response, :created)
@@ -34,7 +37,7 @@ class OrdersController < ApplicationController
     private
 
     def order_params
-      params.permit(:user_id, :status, :total)
+      params.permit(:user_id, :status, :total, :products_list)
     end 
 
     def update_params
@@ -43,5 +46,9 @@ class OrdersController < ApplicationController
 
     def get_order
       @order = Order.find(params[:id])
+    end
+
+    def select_permited(product_params)
+      product_params.permit(:quantity, :product_id, :order_id)
     end
 end
